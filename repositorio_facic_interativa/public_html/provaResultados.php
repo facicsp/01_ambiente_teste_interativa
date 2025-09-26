@@ -61,7 +61,8 @@
                         LEFT JOIN questao ON questao.idQuestao = respostas.idQuestao 
                         LEFT JOIN usuario ON usuario.idUsuario = respostas.idAluno 
                         WHERE idProva = '$idProva' 
-                        GROUP BY idAluno");
+                        GROUP BY idAluno
+                        ORDER BY nome ASC");
                 $linhas = mysql_num_rows($result);
                 
                 echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0' width='950px' align='center'>

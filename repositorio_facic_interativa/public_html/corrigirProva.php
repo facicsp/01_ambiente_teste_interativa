@@ -48,7 +48,7 @@
             $result = mysql_query("SELECT idlistaresposta, resposta, correcao, descricao, peso, nome, ra FROM lista_resposta 
               LEFT JOIN questao2 ON questao2.idQuestao = lista_resposta.idQuestao 
               LEFT JOIN usuario ON usuario.idUsuario = lista_resposta.idaluno 
-              WHERE questao2.tipo = 'dissertativa' AND lista_resposta.idprova = '$idProva' ORDER BY correcao, descricao");
+              WHERE questao2.tipo = 'dissertativa' AND lista_resposta.idprova = '$idProva' ORDER BY nome ASC, descricao ASC");
 
             $linhas = mysql_num_rows($result);
             

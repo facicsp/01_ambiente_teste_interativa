@@ -1,0 +1,1 @@
+<?php$result = mysqli_query($conexao,"SELECT * FROM docconfig ORDER BY id DESC LIMIT 1");while($dados=  mysqli_fetch_array($result)){$__header_img = '/' . $dados["header"];$__footer_img = '/' . $dados["footer"];}

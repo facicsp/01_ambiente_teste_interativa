@@ -1,0 +1,1 @@
+INSERT INTO aula VALUES(null,'Sjshhxhsishd','Kdjdjdjdjdj','2019-06-23','0000-00-00','11','9', '0')INSERT INTO aula VALUES(null,'Sjshhxhsishd','Kdjdjdjdjdj','2019-06-23','2019-06-30','56','9', '1')

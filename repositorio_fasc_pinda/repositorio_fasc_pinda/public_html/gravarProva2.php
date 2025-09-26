@@ -1,0 +1,55 @@
+<?php
+
+session_start();
+
+if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "professor") {
+
+  $data = json_decode(file_get_contents("php://input"), true);
+  
+  include 'conexao.php';
+
+  $seguranca    = new Seguranca();
+  $idProfessor  = $_SESSION["id"];
+  $titulo       = $seguranca->antisql($data["titulo"]);
+  $descricao    = $seguranca->antisql($data["descricao"]);
+  $correta      = $seguranca->antisql($data["correta"]);
+  $idProva      = $seguranca->antisql($data["idProva"]);
+  $tipo         = $seguranca->antisql($data["tipo"]);
+  $peso         = str_replace(",", ".", $seguranca->antisql($data["peso"]));
+
+  if (isset($_SESSION['idProva']) && $idProva) {
+    $idProva = $_SESSION['idProva'];
+  } else {
+    mysql_query("INSERT INTO prova VALUES (NULL, '$titulo', '$idProfessor')");
+    $result  = mysql_query("SELECT idProva FROM prova WHERE titulo = '$titulo' AND idProfessor = '$idProfessor' ORDER BY idProva DESC LIMIT 1");
+    $idProva = mysql_result($result, 0, 'idProva');
+    $_SESSION['idProva'] = $idProva;
+  }
+
+  $a = $data["0"] ? $seguranca->antisql($data["0"]) : false;
+  $b = $data["1"] ? $seguranca->antisql($data["1"]) : false;
+  $c = $data["2"] ? $seguranca->antisql($data["2"]) : false;
+  $d = $data["3"] ? $seguranca->antisql($data["3"]) : false;
+  $e = $data["4"] ? $seguranca->antisql($data["4"]) : false;
+  $f = $data["5"] ? $seguranca->antisql($data["5"]) : false;
+  $g = $data["6"] ? $seguranca->antisql($data["6"]) : false;
+  $h = $data["7"] ? $seguranca->antisql($data["7"]) : false;
+
+  mysql_query("INSERT INTO questao2 VALUES (NULL, '$descricao', '$tipo', '$peso', '$idProva')");
+  $result = mysql_query("SELECT idQuestao FROM questao2 WHERE descricao = '$descricao' AND tipo = '$tipo' AND idProva = '$idProva' ORDER BY idQuestao DESC LIMIT 1");
+  $idQuestao = mysql_result($result, 0, 'idQuestao');
+
+  if ($tipo == "objetiva") {
+    for ($i=0; $i<=7; $i++) { 
+      if (isset($data[$i])) {
+        $alternativa = $seguranca->antisql($data[$i]);
+        $altCorreta = $correta == $i ? "sim" : "nao";
+        mysql_query("INSERT INTO alternativa VALUES (NULL, '$alternativa', '$altCorreta', '$idQuestao')");
+      }
+    }
+  }
+  
+  echo json_encode($idProva);
+} else {  
+  echo json_encode(false);
+} 

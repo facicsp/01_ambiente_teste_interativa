@@ -1,0 +1,16 @@
+# Documentos e apresentações
+*.pdf
+*.ppt
+*.pptx
+*.doc
+*.docx
+
+# Arquivos de banco de dados
+*.sql
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Logs
+*.log

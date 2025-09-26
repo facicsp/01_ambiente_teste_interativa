@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="css/cadastro.css">
+                <style>
+                    .grupocomentario{
+                        min-height:100px;
+                        
+                        margin-bottom:5px;
+                    }
+                    .grupocomentario div{
+                        float:left;
+                    }
+                    .grupocomentario img{
+                        width:20%;
+                    }
+                </style>
+        <!--<style>
+            body{
+                margin:0;
+            }
+            div{
+                float:left;
+            }
+            .topicos{
+                width:25%;
+                background-color: #e6e6e6;
+                height: 1000px;
+                
+            }
+            .conteudos{
+                width:75%;
+                height: 1000px;
+                background-color: #5f8dab;
+                
+            }
+            .conteudos h1{
+                background-color: #FFFFFF;
+                width:100%;
+                color:#069;
+            }
+            .conteudos p{
+                color:#FFF;
+                margin-left: 5%;
+            }
+            .conteudos span{
+                text-decoration: none;
+                font-size: 20px;
+                text-align: justify;
+                color:#FFF;
+                margin-left: 5%;
+            }
+        </style>-->
+    </head>
+    <body>
+
+        <div class='topicos'>
+            <a href='exibirAula.php?idDisciplina=0' style='text-decoration:none;'>
+                <div class='lista' style='background-color:#069;'><p>Educação Cultura e Meio Ambiente - <span>Docente: Érica Andréia Cortez Monteiro</span></p></div></a><a href='exibirAula.php?idDisciplina=1' style='text-decoration:none;'><div class='lista' style='background-color:#cc0033;'><p>Teste - <span>Docente: Érica Andréia Cortez Monteiro</span></p></div></a>
+        </div>
+        <div class='conteudos'>
+            <h1>Debate sobre Desenvolvimento Android</h1>
+            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum mauris nec aliquet suscipit. Donec ullamcorper consequat justo ut semper. Aliquam cursus laoreet fringilla. Sed quis lectus sed velit mollis rutrum.</span>
+            <hr>
+            
+        
+        <div class="grupocomentario">
+            <div style='width:20%;text-align: right;'><img src='imagens/aluno.png'><p>Leonardo</p></div>
+            <div id='comentario' class='comentario'><p>Gostei muito do teste.</p></div>
+            <div style="width:20%;"><input type='button' value='Responder'></div>
+            <!--<div class='botaoresponder'></div>-->
+            
+        </div>        
+            <div class='subresposta' id='subresposta0'>Teste</div>
+            
+            
+         
+        <div style='min-height:100px;background-color:red;'>
+            <div id='comentario' class='comentario'><p>Outro teste de comentário.</p></div>
+            <div class='botaoresponder'><input type='button' value='Responder'></div>
+        <div class='subresposta' id='subresposta1'>Teste dsdsd</div>         </div>
+
+        
+    </body>
+</html>

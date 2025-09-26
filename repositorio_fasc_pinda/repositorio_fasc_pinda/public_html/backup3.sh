@@ -1,0 +1,1 @@
+mysqldump -uinterativa -pbd@Academico01 interativa>db_banco/facicinterativa"`date +%d%m%Y%H%M`".sql;

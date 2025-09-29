@@ -1,0 +1,31 @@
+🧪 TESTE DE CONEXÃO FTP - TODOS OS AMBIENTES
+==============================================
+
+Data/Hora: 2025-09-29 - Sistema de Deploy Automatizado
+Servidor: D:\SERVIDOR
+
+Este arquivo foi criado para testar a conectividade FTP em todos os ambientes:
+
+🧪 AMBIENTES DE TESTE:
+- FACIC (AVA24 + INTERATIVA) - Connection Key: 1758664599173
+- FASC (AVA24 + INTERATIVA) - Connection Key: 1758664366488
+
+🚀 AMBIENTES DE PRODUÇÃO:
+- AVA24 PRODUÇÃO (FACIC + FASC) - Connection Key: 1758635489631
+- FACIC INTERATIVA PRODUÇÃO - Connection Key: 1758635544788
+- FASC INTERATIVA PRODUÇÃO - Connection Key: 1758635607711
+
+✅ Se você está vendo este arquivo, significa que:
+1. As credenciais FTP estão corretas
+2. Os paths de upload estão funcionando
+3. Os scripts de deploy estão operacionais
+4. O sistema de connection keys está integrado
+
+🔒 SEGURANÇA VERIFICADA:
+- Arquivos conexao*.php NUNCA são enviados
+- Confirmação obrigatória para produção
+- Ignore patterns funcionando corretamente
+
+---
+Gerado automaticamente pelo sistema de deploy
+D:\SERVIDOR\03.ambiente\scripts_deploy\

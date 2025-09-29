@@ -51,6 +51,11 @@
 
       <div class="addAlternativa" title="Adicionar alternativa" v-if="!pergunta.tipo" v-on:click="add">Adicionar mais
         alternativas</div>
+
+      <div style="margin: 10px 0;">
+        <label for="anexo">Anexar arquivo (opcional):</label><br>
+        <input type="file" id="anexo" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" style="margin-top: 5px;">
+      </div>
       <p class="sucesso" v-if="sucesso">✔ Questão salva com sucesso!</p>
       <p class="erro" v-if="titulo.trim().length == 0 && pergunta.enviado">Ops! Preencha o campo título.</p>
       <p class="erro" v-if="pergunta.descricao.value.trim().length == 0 && pergunta.enviado">Ops! Preencha o campo
@@ -66,6 +71,7 @@
 
 
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
   <script src="js/criarProva.js"></script>

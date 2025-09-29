@@ -104,7 +104,7 @@ new Vue({
                     form.append(i, alt);
                 });
 
-                if ($('#anexo').get(0).files.length > 0) {
+                if ($('#anexo').length > 0 && $('#anexo').get(0).files && $('#anexo').get(0).files.length > 0) {
                     form.append('anexo', $('#anexo').get(0).files[0]);
                 }
 

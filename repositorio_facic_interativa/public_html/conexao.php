@@ -22,10 +22,11 @@
     //mysql_select_db("ava",$conexao) or die("Banco inexistente!");
     
 
-    $conexao = mysql_connect("interativa.vpshost0360.mysql.dbaas.com.br","interativa","Q!w2E#r4110452") or die("Não foi possivel conectar!");
-    mysql_select_db("interativa",$conexao) or die("Banco inexistente!");
-    
-    
+    // INTERATIVA - SERVIDOR DE TESTE
+    $conexao = mysql_connect("193.203.175.84","u854047410_interativatest","Q!w2E#r4110452") or die("Não foi possivel conectar!");
+    mysql_select_db("u854047410_interativatest",$conexao) or die("Banco inexistente!");
+
+
     // BLOQUEIA ALTERACOES DE COORDENADORES EM PERFIL DE PROFESSORES
     if (isset($_SESSION["coordenando"]) && $_SESSION["coordenando"] == true) {
       $__arquivo = basename($_SERVER['SCRIPT_FILENAME']);

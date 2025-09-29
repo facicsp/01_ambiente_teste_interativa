@@ -8,7 +8,7 @@
 
     define('DB_HOSTNAME', 'interativa.vpshost0360.mysql.dbaas.com.br');
     define('DB_USERNAME', 'interativa');
-    define('DB_PASSWORD', 'bd@Academico01');
+    define('DB_PASSWORD', 'Q!w2E#r4110452');
     define('DB_DATABASE', 'interativa');
     define('DB_PREFIX', '');
     define('DB_CHARSET', 'utf8');

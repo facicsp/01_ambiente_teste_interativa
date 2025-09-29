@@ -18,9 +18,9 @@
     
   }
     
-
-    $conexao = mysql_connect("interativafasc.vpshost0360.mysql.dbaas.com.br","interativafasc","Q!w2E#r4110452") or die("Não foi possivel conectar!");
-    mysql_select_db("interativafasc",$conexao) or die("Banco inexistente!");
+  //FASC - SERVIDOR DE TESTE
+    $conexao = mysql_connect("193.203.175.84","u854047410_inte_fasc_test","Q!w2E#r4110452") or die("Não foi possivel conectar!");
+    mysql_select_db("u854047410_inte_fasc_test",$conexao) or die("Banco inexistente!");
     
 
     // BLOQUEIA ALTERACOES DE COORDENADORES EM PERFIL DE PROFESSORES

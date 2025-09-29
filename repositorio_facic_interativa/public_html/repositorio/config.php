@@ -6,10 +6,10 @@
     //define('DB_PREFIX', '');
     //define('DB_CHARSET', 'utf8');
 
-    define('DB_HOSTNAME', 'interativa.vpshost0360.mysql.dbaas.com.br');
-    define('DB_USERNAME', 'interativa');
+    define('DB_HOSTNAME', '193.203.175.84');
+    define('DB_USERNAME', 'u854047410_interativatest');
     define('DB_PASSWORD', 'Q!w2E#r4110452');
-    define('DB_DATABASE', 'interativa');
+    define('DB_DATABASE', 'u854047410_interativatest');
     define('DB_PREFIX', '');
     define('DB_CHARSET', 'utf8');
 ?>

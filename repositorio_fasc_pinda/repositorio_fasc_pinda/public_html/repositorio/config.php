@@ -13,10 +13,10 @@
     define('DB_PREFIX', '');
     define('DB_CHARSET', 'utf8');
     */
-    define('DB_HOSTNAME', 'interativafasc.vpshost0360.mysql.dbaas.com.br');
-    define('DB_USERNAME', 'interativafasc');
-    define('DB_PASSWORD', 'bd@Academico01');
-    define('DB_DATABASE', 'interativafasc');
+    define('DB_HOSTNAME', '193.203.175.84');
+    define('DB_USERNAME', 'u854047410_inte_fasc_test');
+    define('DB_PASSWORD', 'Q!w2E#r4110452');
+    define('DB_DATABASE', 'u854047410_inte_fasc_test');
     define('DB_PREFIX', '');
     define('DB_CHARSET', 'utf8');
 ?>

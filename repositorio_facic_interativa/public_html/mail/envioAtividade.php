@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 session_start();
 
@@ -13,12 +13,12 @@ unset($_SESSION["idAtividade"]);
 
 include '../conexao.php';
 
-$result = mysql_query("SELECT nome, ra, email FROM usuario WHERE idUsuario = '$idUsuario'");
+$result = mysqli_query($conexao, "SELECT nome, ra, email FROM usuario WHERE idUsuario = '$idUsuario'");
 $ra     = mysql_result($result, 0, "ra");
 $nome   = mysql_result($result, 0, "nome");
 $email  = mysql_result($result, 0, "email");
 
-$result  = mysql_query("SELECT * FROM atividade WHERE idAtividade = '$idAtividade'");
+$result  = mysqli_query($conexao, "SELECT * FROM atividade WHERE idAtividade = '$idAtividade'");
 $titulo   = mysql_result($result, 0, "titulo");
 $idAula   = mysql_result($result, 0, "idAula");
 $idAluno  = mysql_result($result, 0, "idAluno");
@@ -26,11 +26,11 @@ $data     = mysql_result($result, 0, "data");
 $hora     = mysql_result($result, 0, "hora");
 $idDisciplina = mysql_result($result, 0, "idDisciplina");
 
-$result = mysql_query("SELECT disciplina FROM disciplina WHERE idDisciplina = '$idDisciplina'");
+$result = mysqli_query($conexao, "SELECT disciplina FROM disciplina WHERE idDisciplina = '$idDisciplina'");
 $disciplina = mysql_result($result, 0, "disciplina");
 
-mysql_query("INSERT INTO protocolo VALUES(NULL, '$idAtividade', DEFAULT)");
-$result = mysql_query("SELECT * FROM protocolo WHERE idAtividade = '$idAtividade'");
+mysqli_query($conexao, "INSERT INTO protocolo VALUES(NULL, '$idAtividade', DEFAULT)");
+$result = mysqli_query($conexao, "SELECT * FROM protocolo WHERE idAtividade = '$idAtividade'");
 $protocolo = mysql_result($result, 0, "idProtocolo");
 
 $msg = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">

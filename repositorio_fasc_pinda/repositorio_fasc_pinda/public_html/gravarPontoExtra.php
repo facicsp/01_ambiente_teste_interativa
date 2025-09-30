@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -17,12 +17,12 @@ session_start();
                 
                 if(isset($_POST["idExtra"])){
                     include "topo.php";
-                include "conexao.php";
+                include "LoginRestrito/conexao.php";
                 $seguranca = new Seguranca();
                 $idExtra = $seguranca->antisql($_POST["idExtra"]);
                 $pontos = $seguranca->antisql($_POST["txtPontos"]);
                 $sql = "UPDATE extra SET pontos = '$pontos' WHERE idExtra = '$idExtra'";
-                mysql_query($sql);
+                mysqli_query($conexao, $sql);
                 
                 
                 echo "<script>

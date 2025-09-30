@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -29,7 +29,7 @@ session_start();
         if (isset($_SESSION["usuario"])) {
             if ($_SESSION["tipo"] == "professor" || $_SESSION["tipo"] == "aluno") {
                 include "topo.php";
-                include './conexao.php';
+                include 'LoginRestrito/conexao.php';
                 $seguranca = new Seguranca();
                 
                 echo "<form method='get' action='visualizarvideo.php'>"
@@ -47,8 +47,8 @@ session_start();
 where idturma in(select idturma from matricula where idaluno = '$idAluno') 
 AND disciplina.idProfessor = professor.idProfessor";
             //echo $sql;
-            $result = mysql_query($sql);
-            $linhas = mysql_num_rows($result);
+            $result = mysqli_query($conexao, $sql);
+            $linhas = mysqli_num_rows($result);
             $listaDisciplinas = "";
             if ($linhas > 0) {
                 for ($i = 0; $i < $linhas; $i++) {
@@ -72,8 +72,8 @@ AND disciplina.idProfessor = professor.idProfessor";
                     $sql = "SELECT * FROM video WHERE iddisciplina IN ($listaDisciplinas) ORDER BY idVideo DESC";
                 }
               
-                $result = mysql_query($sql);
-                $linhas = mysql_num_rows($result);
+                $result = mysqli_query($conexao, $sql);
+                $linhas = mysqli_num_rows($result);
                 if($linhas > 0){
                     echo "<div class='grid-70 prefix-15 suffix-15'>";
                     for($i=0;$i<$linhas;$i++){

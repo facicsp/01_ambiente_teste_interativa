@@ -1,6 +1,6 @@
-<?php
+﻿<?php
   session_start();
-  include './conexao.php';
+  include 'LoginRestrito/conexao.php';
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -79,11 +79,11 @@
 
             $idProva = $seguranca->antisql($_GET['id']);
 
-            $result = mysql_query("SELECT * FROM questao2 WHERE idProva = '$idProva'");
+            $result = mysqli_query($conexao, "SELECT * FROM questao2 WHERE idProva = '$idProva'");
 
-            if (mysql_num_rows($result) == 0) exit("<script>window.location = 'visualizarProvas2.php?';</script>");
+            if (mysqli_num_rows($result) == 0) exit("<script>window.location = 'visualizarProvas2.php?';</script>");
 
-            for ($i=0; $i<mysql_num_rows($result); $i++) {
+            for ($i=0; $i<mysqli_num_rows($result); $i++) {
                 $descricao = htmlspecialchars(mysql_result($result, $i, 'descricao'));
                 $idQuestao = mysql_result($result, $i, 'idQuestao');
                 $tipo = mysql_result($result, $i, 'tipo');
@@ -94,8 +94,8 @@
                 echo "<p><b>".($i+1).") <span style='color: red'>#$idQuestao</span></b> &nbsp; $descricao</p>";
 
                 if ($tipo == 'objetiva') {
-                    $resultAlt = mysql_query("SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
-                    for ($ialt=0; $ialt < mysql_num_rows($resultAlt); $ialt++) {
+                    $resultAlt = mysqli_query($conexao, "SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
+                    for ($ialt=0; $ialt < mysqli_num_rows($resultAlt); $ialt++) {
                         $alternativa = htmlspecialchars(mysql_result($resultAlt, $ialt, 'alternativa'));
                         $correta = mysql_result($resultAlt, $ialt, 'correta');
 
@@ -113,9 +113,9 @@
             if ($_SESSION["tipo"] == "professor") $where = "WHERE prova.idProfessor = " . $_SESSION["id"];
             else $where = "";
 
-            $result = mysql_query("SELECT prova.idProva, prova.titulo, aplicarprova.idAplicarProva FROM prova
+            $result = mysqli_query($conexao, "SELECT prova.idProva, prova.titulo, aplicarprova.idAplicarProva FROM prova
               LEFT JOIN aplicarprova ON aplicarprova.idProva = prova.idProva $where");
-            $linhas = mysql_num_rows($result);
+            $linhas = mysqli_num_rows($result);
 
             echo '<table border="0" align="center" id="consulta" cellpadding="5" cellspacing="0"><tr><td>Código</td><td>Título</td><td colspan="3">Operações</td></tr>';
 
@@ -125,7 +125,7 @@
                 $aplicado = mysql_result($result, $i, "idAplicarProva");
                 $titulo   = $titulo != "" ? $titulo : "Sem título";
 
-                $resultQuestoes = mysql_query("SELECT COUNT(*) AS questoes FROM questao2 WHERE idProva = $idProva");
+                $resultQuestoes = mysqli_query($conexao, "SELECT COUNT(*) AS questoes FROM questao2 WHERE idProva = $idProva");
                 if (mysql_result($resultQuestoes, 0, "questoes") > 0) {
 
                   $excluir = "<td>--</td>";

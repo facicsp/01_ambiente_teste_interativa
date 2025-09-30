@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 include 'hasAccess.php';
 
@@ -10,7 +10,7 @@ for ($i=0; $i<sizeof($respostas); $i++) {
   $idQuestao = $respostas[$i]["idQuestao"];
   $resposta  = $respostas[$i]["resposta"];
 
-  mysql_query("INSERT INTO respostas VALUES (NULL, '$idQuestao', '$resposta', '$idAluno')");
+  mysqli_query($conexao, "INSERT INTO respostas VALUES (NULL, '$idQuestao', '$resposta', '$idAluno')");
 }
 
 echo json_encode(true);

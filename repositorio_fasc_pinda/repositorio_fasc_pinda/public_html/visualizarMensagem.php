@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,7 +22,7 @@ session_start();
         <div class="dados">
             <div class="barratitulo"><h1>Visualizar Mensagens</h1></div>
             <?php
-            include "conexao.php";
+            include "LoginRestrito/conexao.php";
             $seguranca = new Seguranca();
             $idContato = $seguranca->antisql($_GET["id"]);
             $idContato = $_SESSION["idContato"][$idContato];
@@ -32,8 +32,8 @@ session_start();
             . "<input type='submit' value='Responder'>";
             $sql = "select *,date_format(data,'%d/%m/%Y')as dataMensagem from mensagem where idcontato = '$idContato' order by idMensagem desc";
             //echo $sql;
-            $result = mysql_query($sql);
-            $linhas = mysql_num_rows($result);
+            $result = mysqli_query($conexao, $sql);
+            $linhas = mysqli_num_rows($result);
             if ($linhas > 0) {
 
             for ($i = 0;$i < $linhas;$i++) {
@@ -46,7 +46,7 @@ session_start();
             
             if($tipo != ucwords($_SESSION["tipo"]) && $status == "nao"){
                 $sqlMensagem = "UPDATE mensagem SET status = 'sim' WHERE idMensagem = '$idMensagem'";
-                mysql_query($sqlMensagem);
+                mysqli_query($conexao, $sqlMensagem);
             }
             
             if($status == "sim"){

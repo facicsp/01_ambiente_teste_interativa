@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -43,7 +43,7 @@ session_start();
     <?php
         if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "administrador") {
             include "topo.php";
-            include "conexao.php";
+            include "LoginRestrito/conexao.php";
             include "funcaoNotas.php";
             $seguranca = new Seguranca();
             $idAluno = $seguranca->antisql($_GET["id"]);
@@ -51,7 +51,7 @@ session_start();
             exit("<script>alert('É necessário fazer o login!'); window.location='login.html'; </script>");
         }
 
-        $resultAluno = mysql_query("SELECT nome, ra FROM usuario WHERE idUsuario = '$idAluno'");
+        $resultAluno = mysqli_query($conexao, "SELECT nome, ra FROM usuario WHERE idUsuario = '$idAluno'");
         $aluno = mysql_result($resultAluno, 0, "nome");
         $ra = mysql_result($resultAluno, 0, "ra");
     ?>
@@ -83,8 +83,8 @@ session_start();
                     }
                     
                     $sqlDisciplina = "SELECT disciplina.disciplina, disciplina.semestre, disciplina.idDisciplina, boletim.* FROM boletim INNER JOIN disciplina ON disciplina.idDisciplina = boletim.idDisciplina WHERE boletim.idaluno = '$idAluno' ORDER BY disciplina.semestre DESC";
-                    $resultDisciplina = mysql_query($sqlDisciplina);
-                    $linhasDisciplina = mysql_num_rows($resultDisciplina);
+                    $resultDisciplina = mysqli_query($conexao, $sqlDisciplina);
+                    $linhasDisciplina = mysqli_num_rows($resultDisciplina);
                     // echo $linhasDisciplina;
                     if ($linhasDisciplina > 0) {
 

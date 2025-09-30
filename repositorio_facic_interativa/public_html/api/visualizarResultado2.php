@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 include 'hasAccess.php';
 
@@ -7,24 +7,24 @@ $idAluno = $seguranca->antisql($_REQUEST["id"]);
 $idAplicar = $seguranca->antisql($_REQUEST["idAplicar"]);
 
 $sql = "SELECT * FROM aplicarProva WHERE idAplicarProva = '$idAplicar'";
-$resultados = mysql_query($sql);
-$linhas = mysql_num_rows($resultados);
+$resultados = mysqli_query($conexao, $sql);
+$linhas = mysqli_num_rows($resultados);
 
-if (mysql_num_rows($resultados) == 1) {
+if (mysqli_num_rows($resultados) == 1) {
   $data = mysql_result($resultados, 0, 'data');
   $idProva = mysql_result($resultados, 0, 'idProva');
 
-  $result = mysql_query("SELECT * FROM lista_resposta 
+  $result = mysqli_query($conexao, "SELECT * FROM lista_resposta 
     LEFT JOIN questao2 ON questao2.idQuestao = lista_resposta.idQuestao 
     WHERE lista_resposta.idprova = '$idProva' AND idaluno = '$idAluno'");
 
 
-  if (mysql_num_rows($result) == 0) exit(json_encode(false));
+  if (mysqli_num_rows($result) == 0) exit(json_encode(false));
 
   $dados = [];
   $nota  = 0;
 
-  for ($i=0; $i<mysql_num_rows($result); $i++) {
+  for ($i=0; $i<mysqli_num_rows($result); $i++) {
     $descricao = mysql_result($result, $i, 'descricao');
     $resposta  = mysql_result($result, $i, 'resposta' );
     $correcao  = mysql_result($result, $i, 'correcao');
@@ -46,9 +46,9 @@ if (mysql_num_rows($resultados) == 1) {
         $dados[$i]["tipo"] = "objetiva";
         $dados[$i]["alternativas"] = [];
 
-        $resultAlt = mysql_query("SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
+        $resultAlt = mysqli_query($conexao, "SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
         
-        for ($j=0; $j<mysql_num_rows($resultAlt); $j++) { 
+        for ($j=0; $j<mysqli_num_rows($resultAlt); $j++) { 
             $idalternativa = mysql_result($resultAlt, $j, 'idalternativa');
             $alternativa   = mysql_result($resultAlt, $j, 'alternativa');
             $correta       = mysql_result($resultAlt, $j, 'correta');

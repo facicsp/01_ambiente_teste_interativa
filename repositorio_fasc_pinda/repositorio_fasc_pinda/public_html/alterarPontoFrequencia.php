@@ -1,4 +1,4 @@
-      <?php
+﻿      <?php
         session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -15,13 +15,13 @@ if (isset($_SESSION["usuario"])) {
       //conteudo do site
 include "topo.php";
 
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
 $seguranca = new Seguranca();
 $idFrequencia = $seguranca->antisql($_POST["idFrequencia"]);
 $frequencia = $seguranca->antisql($_POST["txtFrequencia"]);
 $sql="UPDATE pontosfrequencia SET frequencia = '$frequencia' WHERE idFrequencia = '$idFrequencia'";
 //echo $sql;
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 $idDisciplina = $_SESSION["idDisciplina"];
 echo "<script>
     window.location='registrarPontoFrequencia.php?idDisciplina=$idDisciplina';

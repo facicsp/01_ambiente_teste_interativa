@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -101,11 +101,11 @@ session_start();
 
                 <div id="periodicos" style="padding-bottom: 100px">
                     <?php
-                    include './conexao.php';
+                    include 'LoginRestrito/conexao.php';
 
                     $sql = "SELECT p.*,a.area from periodico p,area a WHERE p.idarea = a.idarea ORDER BY a.area,p.titulo";
-                    $result = mysql_query($sql);
-                    $linhas = mysql_num_rows($result);
+                    $result = mysqli_query($conexao, $sql);
+                    $linhas = mysqli_num_rows($result);
 
                     if ($linhas > 0) {
 
@@ -137,16 +137,16 @@ session_start();
 
                     echo "<div id='repositorio' style='display:none;float:left;width:100%; padding-bottom: 100px'>";
                     //Exibir os repositórios
-                    mysql_query("SET NAMES 'utf8'");
-                    mysql_query('SET character_set_connection=utf8');
-                    mysql_query('SET character_set_client=utf8');
-                    mysql_query('SET character_set_results=utf8');
+                    mysqli_query($conexao, "SET NAMES 'utf8'");
+                    mysqli_query($conexao, 'SET character_set_connection=utf8');
+                    mysqli_query($conexao, 'SET character_set_client=utf8');
+                    mysqli_query($conexao, 'SET character_set_results=utf8');
                     $sql = "SELECT f.id, titulo, subtitulo, autor, arquivo, classificacao, i.nome AS instituicao from formulario f
 LEFT JOIN classificacao c ON c.id = f.id_classificacao 
 LEFT JOIN instituicoes i ON i.id = f.instituicao 
 ORDER BY titulo";
-                    $result = mysql_query($sql);
-                    $linhas = mysql_num_rows($result);
+                    $result = mysqli_query($conexao, $sql);
+                    $linhas = mysqli_num_rows($result);
                     $areaauxiliar = "";
                     if ($linhas > 0) {
 

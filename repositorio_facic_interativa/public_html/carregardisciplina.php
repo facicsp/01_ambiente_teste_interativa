@@ -1,9 +1,9 @@
-<?php
+﻿<?php
 session_start();
 if (isset($_SESSION["usuario"])) {
     if ($_SESSION["tipo"] == "professor" || $_SESSION["tipo"] == "administrador") {
 
-        include './conexao.php';
+        include 'LoginRestrito/conexao.php';
         $seguranca = new Seguranca();
         $idTurma = $seguranca->antisql($_POST["idTurma"]);
         $idProfessor = $seguranca->antisql($_POST["idProfessor"]);
@@ -13,8 +13,8 @@ if (isset($_SESSION["usuario"])) {
         } else {
             $sql = "SELECT d.*,t.turma FROM disciplina d,turma t where d.idTurma = t.idTurma and d.idProfessor = '$idProfessor' and d.idTurma = '$idTurma' ORDER BY d.disciplina";
         }
-        $resultados = mysql_query($sql);
-        $linhas = mysql_num_rows($resultados);
+        $resultados = mysqli_query($conexao, $sql);
+        $linhas = mysqli_num_rows($resultados);
         if ($linhas > 0) {
             $retorno = "<option>Escolha a disciplina</option>";
             for ($i = 0; $i < $linhas; $i++) {

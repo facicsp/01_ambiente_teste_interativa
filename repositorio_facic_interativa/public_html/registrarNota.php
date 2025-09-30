@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,7 +22,7 @@ session_start();
         <div class="dados">
             <?php
               
-                        include "conexao.php";
+                        include "LoginRestrito/conexao.php";
                         $seguranca = new Seguranca();
                         $idDisciplina = $seguranca->antisql($_GET["id"]);
                         $idDisciplina = $_SESSION["idDisciplina"][$idDisciplina];
@@ -34,8 +34,8 @@ session_start();
 ";
                         } 
                         //echo $sql;
-                        $resultados = mysql_query($sql);
-                        $linhas = mysql_num_rows($resultados);
+                        $resultados = mysqli_query($conexao, $sql);
+                        $linhas = mysqli_num_rows($resultados);
                         if ($linhas > 0) {
                         echo "<form method='post' action='gravarNota.php'>"
                             . "<input type='hidden' name='disciplina' value='$idDisciplina'>";

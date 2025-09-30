@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -16,7 +16,7 @@ session_start();
             if ($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "professor") {
                 //conteudo do site
                 include "topo.php";
-                include './conexao.php';
+                include 'LoginRestrito/conexao.php';
                 $seguranca = new Seguranca();
                 $consulta = "";
                 if (isset($_POST["txtTurma"])) {
@@ -48,8 +48,8 @@ session_start();
                                             $sql = "SELECT * FROM turma ORDER BY turma";
                                         }
                                         //echo $sql;
-                                        $resultados = mysql_query($sql);
-                                        $linhas = mysql_num_rows($resultados);
+                                        $resultados = mysqli_query($conexao, $sql);
+                                        $linhas = mysqli_num_rows($resultados);
                                         if ($linhas > 0) {
                                             for ($i = 0; $i < $linhas; $i++) {
                                                 $idturma = mysql_result($resultados, $i, "idturma");
@@ -117,8 +117,8 @@ session_start();
         //echo $sql;
         $linhas = 0;
         if($consulta != ""){
-        $resultados = mysql_query($sql);
-        $linhas = mysql_num_rows($resultados);
+        $resultados = mysqli_query($conexao, $sql);
+        $linhas = mysqli_num_rows($resultados);
         }
         if ($linhas > 0) {
             echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
@@ -175,8 +175,8 @@ session_start();
             $sql = "SELECT aula.* FROM aula WHERE nome LIKE '%$consulta%' ORDER BY idAula DESC";
         }
         //echo $sql;
-        $resultados = mysql_query($sql);
-        $linhas = mysql_num_rows($resultados);
+        $resultados = mysqli_query($conexao, $sql);
+        $linhas = mysqli_num_rows($resultados);
         if ($linhas > 0) {
             echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
                 <tr>

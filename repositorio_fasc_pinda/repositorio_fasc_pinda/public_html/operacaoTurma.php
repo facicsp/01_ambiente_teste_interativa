@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,7 +14,7 @@ if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador"){
       //conteudo do site
 include "topo.php";
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
 $operacao = $_POST["operacao"];
 $id = $_POST["id"];
 
@@ -24,14 +24,14 @@ $idCurso = $_POST["txtCurso"];
 $semestre = $_POST["txtSemestre"];
 
 $sql="UPDATE turma SET turma = '$descricao', idcurso = '$idCurso', semestre = '$semestre' WHERE idturma = $id";
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 echo "<script>
     alert('Alteração realizada com sucesso!');
     window.location='cadastroTurma.php';
 </script>";
 }else if($operacao == 'excluir'){
 $sql = "DELETE FROM turma WHERE idturma = $id";
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 echo "<script>
     alert('Exclusão realizada com sucesso!');
     window.location='cadastroTurma.php';

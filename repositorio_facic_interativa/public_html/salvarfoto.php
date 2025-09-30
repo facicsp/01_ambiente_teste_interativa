@@ -1,10 +1,10 @@
-<?php
+﻿<?php
 session_start();
 if($_SESSION["usuario"] == ""){
     echo "Permissão negada!";
 }else{
 
-    include 'conexao.php';
+    include 'LoginRestrito/conexao.php';
 $id = $_SESSION["id"];
 //Verifica quantas fotos já existem
     $path = "fotos/";
@@ -78,7 +78,7 @@ echo "Upload efetuado com sucesso!";
 echo '<br /><a href="' . $_UP['pasta'] . $nome_final . '">Clique aqui para acessar o arquivo</a>';
 $sql = "INSERT INTO foto VALUES(null,'$nome_final','$id')";
 echo $sql;
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 
 echo "
 <script>

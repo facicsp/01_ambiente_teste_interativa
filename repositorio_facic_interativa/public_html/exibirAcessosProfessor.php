@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -57,7 +57,7 @@ session_start();
                         return $horas.":".$minutos;
                     }
 
-                    include "conexao.php";
+                    include "LoginRestrito/conexao.php";
                     $seguranca = new Seguranca();
                     
                     $sql = "SELECT a.*,date_format(a.data,'%d/%m/%Y')as data2,p.nome "
@@ -65,8 +65,8 @@ session_start();
                             . "WHERE a.idprofessor = '$idProfessor' "
                             . "AND a.idprofessor = p.idProfessor "
                             . "ORDER BY idacesso DESC";
-                    $result = mysql_query($sql);
-                    $linhas = mysql_num_rows($result);
+                    $result = mysqli_query($conexao, $sql);
+                    $linhas = mysqli_num_rows($result);
                     if ($linhas > 0) {
                         $nome = mysql_result($result, 0, "nome");
                         echo "<div class=\"barratitulo\"><h1>$linhas acesso(s) - $nome</h1></div>";

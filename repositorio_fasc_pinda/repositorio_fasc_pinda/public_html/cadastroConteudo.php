@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -15,7 +15,7 @@ session_start();
             if($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "professor"){
                 //conteudo do site
                 include "topo.php";
-                include "conexao.php";
+                include "LoginRestrito/conexao.php";
                 $seguranca = new Seguranca();
                 if(isset($_GET["id"])){
                 $idAula = $seguranca->antisql($_GET["id"]);
@@ -25,8 +25,8 @@ session_start();
                 }
                 $sqlAula = "SELECT descricao FROM aula WHERE idAula = '".$idAula."'";
    //             echo $sqlAula;
-                $result = mysql_query($sqlAula);
-                $linhas = mysql_num_rows($result);
+                $result = mysqli_query($conexao, $sqlAula);
+                $linhas = mysqli_num_rows($result);
                 $titulo = "";
                 if ($linhas > 0) {
                     $titulo = mysql_result($result, 0, "descricao");
@@ -79,8 +79,8 @@ session_start();
                                 $consulta = $_GET["txtConsulta"];
                             }
                             $sql = "SELECT * FROM conteudo WHERE idAula = '$idAula'";
-                            $resultados = mysql_query($sql);
-                            $linhas = mysql_num_rows($resultados);
+                            $resultados = mysqli_query($conexao, $sql);
+                            $linhas = mysqli_num_rows($resultados);
                             if ($linhas > 0) {
                                 echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
                 <tr>

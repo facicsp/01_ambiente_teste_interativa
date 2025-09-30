@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@
                 //conteudo do site
                 include "topo.php";
 
-                include 'conexao.php';
+                include 'LoginRestrito/conexao.php';
 
                 $seguranca = new Seguranca();
 
@@ -25,9 +25,9 @@
 
                 $sql = "SELECT video.*,disciplina.disciplina FROM video,disciplina WHERE idvideo = '$id' AND video.iddisciplina = disciplina.idDisciplina";
 
-                $result = mysql_query($sql);
+                $result = mysqli_query($conexao, $sql);
 
-                $linhas = mysql_num_rows($result);
+                $linhas = mysqli_num_rows($result);
 
                 if ($linhas > 0) {
                     $titulo = mysql_result($result, 0, "titulo");
@@ -81,8 +81,8 @@
                                 <?php
                                 $sql = "SELECT * FROM disciplina WHERE idProfessor ='$idProfessor' ORDER BY disciplina";
                                 //echo $sql;
-                                $resultados = mysql_query($sql);
-                                $linhas = mysql_num_rows($resultados);
+                                $resultados = mysqli_query($conexao, $sql);
+                                $linhas = mysqli_num_rows($resultados);
                                 if ($linhas > 0) {
                                     for ($i = 0; $i < $linhas; $i++) {
 

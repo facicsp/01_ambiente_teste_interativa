@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -102,22 +102,22 @@ session_start();
                 $idAluno = $_SESSION["id"];
                 include "topo.php";
                 echo "<div class='trilha'>";
-                include "conexao.php";
+                include "LoginRestrito/conexao.php";
                 mysql_set_charset("utf-8");
                 if (isset($_GET["idDisciplina"])) {
                     $idDisciplina = $_GET["idDisciplina"];
                     $sql = "select idusuario,nome from usuario,matricula where matricula.idturma in(select idturma from disciplina where iddisciplina = '$idDisciplina') and matricula.idaluno = usuario.idusuario";
                     //echo $sql;
-                    $result = mysql_query($sql);
-                    $linhas = mysql_num_rows($result);
+                    $result = mysqli_query($conexao, $sql);
+                    $linhas = mysqli_num_rows($result);
                     if ($linhas > 0) {
                         for ($i = 0; $i < $linhas; $i++) {
                             $idUsuario = mysql_result($result, $i, "idUsuario");
                             $nome = mysql_result($result, $i, "nome");
                             //Verifica Extras
                             $sqlExtra = "select sum(pontos)as pontos from extra where idAluno = '$idUsuario' and idDisciplina = '$idDisciplina'";
-                            $resultExtra = mysql_query($sqlExtra);
-                            $linhasExtra = mysql_num_rows($resultExtra);
+                            $resultExtra = mysqli_query($conexao, $sqlExtra);
+                            $linhasExtra = mysqli_num_rows($resultExtra);
                             $pontosExtras = 0;
                             if($linhasExtra > 0){
                                 $pontosExtras = mysql_result($resultExtra, 0, "pontos");
@@ -128,9 +128,9 @@ session_start();
                             
                             //Verifica a Frequencia
                             $sqlFrequencia = "SELECT frequencia from pontosfrequencia WHERE idAluno = '$idUsuario' AND idDisciplina = '$idDisciplina'";
-                            $resultFrequencia = mysql_query($sqlFrequencia);
+                            $resultFrequencia = mysqli_query($conexao, $sqlFrequencia);
                             $totalFrequencia = 0;
-                            if (mysql_num_rows($resultFrequencia) > 0) {
+                            if (mysqli_num_rows($resultFrequencia) > 0) {
                                 $frequencia = mysql_result($resultFrequencia, 0, "frequencia");
                                 $totalFrequencia = (500 * $frequencia) / 100;
                             }
@@ -139,7 +139,7 @@ session_start();
                             //Fim do Verifica a Frequencia
                             $sqlPontos = "select usuario.nome,sum(atividade.nota) as pontos from atividade,aula,usuario where atividade.idaluno = '$idUsuario' and atividade.iddisciplina = '$idDisciplina' and atividade.idaula = aula.idaula and atividade.idaluno = usuario.idusuario and atividade.data > '2016-10-01'";
                             //echo $sqlPontos;
-                            $resultPontos = mysql_query($sqlPontos);
+                            $resultPontos = mysqli_query($conexao, $sqlPontos);
                             //echo $sqlPontos;
                             $pontos = mysql_result($resultPontos, 0, "pontos");
                             $nome2 = substr($nome, 0, 3);

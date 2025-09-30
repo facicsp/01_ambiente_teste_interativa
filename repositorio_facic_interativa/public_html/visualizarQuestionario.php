@@ -1,6 +1,6 @@
-<?php 
+﻿<?php 
   session_start(); 
-  include './conexao.php';
+  include 'LoginRestrito/conexao.php';
   
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -49,20 +49,20 @@
                 $bimestre = $seguranca->antisql($_POST['bimestre']);
 
                 if ($bimestre == 0) {
-                    mysql_query("UPDATE aplicarprova SET titulo=NULL, idProva=NULL, idProfessor=NULL  WHERE idAplicarProva='$idAplicarProva' AND bimestre='0'");
+                    mysqli_query($conexao, "UPDATE aplicarprova SET titulo=NULL, idProva=NULL, idProfessor=NULL  WHERE idAplicarProva='$idAplicarProva' AND bimestre='0'");
                 } else {
-                    mysql_query("DELETE FROM aplicarprova WHERE idAplicarProva = '$idAplicarProva'");
+                    mysqli_query($conexao, "DELETE FROM aplicarprova WHERE idAplicarProva = '$idAplicarProva'");
                 }
               
               echo "<script>alert('Exclusão realizada com sucesso!');</script>";       
             }
           
             $titulo     = isset($_POST['txtConsulta']) ? $seguranca->antisql($_POST['txtConsulta']) : '';
-            $resultados = mysql_query("SELECT professor.nome, disciplina.disciplina, turma.turma, aplicarprova.* FROM aplicarprova 
+            $resultados = mysqli_query($conexao, "SELECT professor.nome, disciplina.disciplina, turma.turma, aplicarprova.* FROM aplicarprova 
                 LEFT JOIN professor ON professor.idProfessor = aplicarprova.idProfessor 
                 LEFT JOIN disciplina ON disciplina.idDisciplina = aplicarprova.idDisciplina 
                 LEFT JOIN turma ON turma.idTurma = aplicarprova.idTurma  WHERE titulo LIKE '%$titulo%' OR nome LIKE '%$titulo%'");
-            $linhas     = mysql_num_rows($resultados);
+            $linhas     = mysqli_num_rows($resultados);
             
             if ($linhas > 0) {
                 echo "<table border='0' align='center' cellpadding='5' cellspacing='0'>

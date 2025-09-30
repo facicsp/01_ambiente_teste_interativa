@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 
 <head>
@@ -33,7 +33,7 @@
             include "topo.php";
             include './Util.php';
             $util = new Util();
-            include './conexao.php';
+            include 'LoginRestrito/conexao.php';
             $seguranca = new Seguranca();
             $idUsuario = $_SESSION["id"];
             $tipo = $_SESSION["tipo"];
@@ -57,8 +57,8 @@ AND disciplina.idProfessor = professor.idProfessor ORDER BY disciplina.disciplin
                     $sql = sqlDisciplina($idUsuario, $_SESSION['semestre']);
                 }
                 
-                $result = mysql_query($sql);
-                $linhas = mysql_num_rows($result);
+                $result = mysqli_query($conexao, $sql);
+                $linhas = mysqli_num_rows($result);
                 if ($linhas > 0) {
                     for ($i = 0; $i < $linhas; $i++) {
                         $idDisciplina = mysql_result($result, $i, "idDisciplina");
@@ -99,8 +99,8 @@ AND disciplina.idProfessor = professor.idProfessor ORDER BY disciplina.disciplin
                             $sql = "SELECT * FROM topico WHERE idUsuario = $idUsuario AND (titulo LIKE '%$consulta%' OR conteudo LIKE '%$consulta%') ";
                         }
 
-                        $resultados = mysql_query($sql);
-                        $linhas = mysql_num_rows($resultados);
+                        $resultados = mysqli_query($conexao, $sql);
+                        $linhas = mysqli_num_rows($resultados);
                         if ($linhas > 0) {
 
                             echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
@@ -118,12 +118,12 @@ AND disciplina.idProfessor = professor.idProfessor ORDER BY disciplina.disciplin
                                 $descricao = mysql_result($resultados, $i, "titulo");
                                 $idDisciplina = mysql_result($resultados, $i, "idDisciplina");
 
-                                $resultDisciplina = mysql_query("SELECT * FROM disciplina WHERE idDisciplina = $idDisciplina");
+                                $resultDisciplina = mysqli_query($conexao, "SELECT * FROM disciplina WHERE idDisciplina = $idDisciplina");
                                 $semestre = mysql_result($resultDisciplina, 0, 'semestre');
 
-                                $resultAvaliativo = mysql_query("SELECT bimestre FROM forumavaliacao WHERE idTopico = '$id'");
+                                $resultAvaliativo = mysqli_query($conexao, "SELECT bimestre FROM forumavaliacao WHERE idTopico = '$id'");
 
-                                if (mysql_num_rows($resultAvaliativo) > 0) {
+                                if (mysqli_num_rows($resultAvaliativo) > 0) {
                                     $avaliativo = mysql_result($resultAvaliativo, 0, "bimestre") . "º Bimestre";
                                 } else {
                                     $avaliativo = "Não avaliativo";

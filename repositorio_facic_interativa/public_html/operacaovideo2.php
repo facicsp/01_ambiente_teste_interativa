@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@
                 //conteudo do site
                 
                 
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
  
 $seguranca = new Seguranca();
 
@@ -26,12 +26,12 @@ $Titulo = $seguranca->antisql($_POST["txtTitulo"]);
 $Video = $seguranca->antisql($_POST["txtVideo"]);
 $Iddisciplina = $seguranca->antisql($_POST["txtIddisciplina"]);
 $Idprofessor = $seguranca->antisql($_POST["txtIdprofessor"]);
-$sql = "UPDATE video SET titulo = '$Titulo',video = '$Video',iddisciplina = '$Iddisciplina',idprofessor = '$Idprofessor' WHERE idvideo = '$id'";mysql_query($sql);
+$sql = "UPDATE video SET titulo = '$Titulo',video = '$Video',iddisciplina = '$Iddisciplina',idprofessor = '$Idprofessor' WHERE idvideo = '$id'";mysqli_query($conexao, $sql);
 echo "<script>
 alert('Alteração realizada com sucesso!');
 window.location = 'cadastrovideo.php';
 </script>";}else if($operacao == 'excluir'){
-$sql = "DELETE FROM video WHERE idvideo = $id";mysql_query($sql);
+$sql = "DELETE FROM video WHERE idvideo = $id";mysqli_query($conexao, $sql);
 echo "<script>
 alert('Exclusão realizada com sucesso!');
 window.location = 'cadastrovideo.php';

@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 
 <head>
@@ -16,7 +16,7 @@
             include "topo.php";
             include './Util.php';
             $util = new Util();
-            include './conexao.php';
+            include 'LoginRestrito/conexao.php';
     ?>
             <div class="principal grid-80 prefix-10 suffix-10">
                 <div id="titulo" class="grid-100 titulo">
@@ -62,7 +62,7 @@
                         <select name="txtDisciplina">
                             <option>::Escolha uma disciplina::</option>
                             <?php
-                            //include 'conexao.php';
+                            //include 'LoginRestrito/conexao.php';
                             //$seguranca = new Seguranca();
                             if ($_SESSION["tipo"] == "professor") {
                                 $idProfessor = $_SESSION["id"];
@@ -77,8 +77,8 @@
                                                           WHERE disciplina.semestre = '" . $_SESSION['semestre'] . "' ORDER BY turma, disciplina";
                             }
 
-                            $resultados = mysql_query($sql);
-                            $linhas = mysql_num_rows($resultados);
+                            $resultados = mysqli_query($conexao, $sql);
+                            $linhas = mysqli_num_rows($resultados);
                             $listaDisciplina = "0";
 
                             if ($linhas > 0) {
@@ -144,8 +144,8 @@ $sql = "SELECT video.idvideo, video.titulo, disciplina.disciplina, turma.turma F
                   
                   //echo $sql;
 
-                    $resultados = mysql_query($sql);
-                    $linhas = mysql_num_rows($resultados);
+                    $resultados = mysqli_query($conexao, $sql);
+                    $linhas = mysqli_num_rows($resultados);
                     if ($linhas > 0) {
 
                         echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>

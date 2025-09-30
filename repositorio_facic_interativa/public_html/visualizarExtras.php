@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,7 +22,7 @@ session_start();
 
                 <div class="dados">
                     <?php
-                    include './conexao.php';
+                    include 'LoginRestrito/conexao.php';
                     $seguranca = new Seguranca();
                     if(isset($_GET["d"])){
                         $d = $_GET["d"];
@@ -35,8 +35,8 @@ session_start();
                     
                     
                     echo $sql;
-                    $result = mysql_query($sql);
-                    $linhas = mysql_num_rows($result);
+                    $result = mysqli_query($conexao, $sql);
+                    $linhas = mysqli_num_rows($result);
                     if($linhas > 0){
                         echo "<table>"
                         . "<tr>"

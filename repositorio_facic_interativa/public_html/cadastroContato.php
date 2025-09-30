@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,7 +14,7 @@ if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "professor"){
       //conteudo do site
       include "topo.php";
-      include "./conexao.php";
+      include "LoginRestrito/conexao.php";
       $seguranca = new Seguranca();
       $idAluno = $seguranca->antisql($_POST["idAluno"]);
       $nome = $seguranca->antisql($_POST["nome"]);

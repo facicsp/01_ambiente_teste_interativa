@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 
 function getLetra($numero){
@@ -35,7 +35,7 @@ function getLetra($numero){
 if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "aluno"){
 
-    include 'conexao.php';
+    include 'LoginRestrito/conexao.php';
 
     $idQuestao = $_POST["txtIdQuestao"];
     $resposta  = $_POST["txtResposta"];
@@ -43,10 +43,10 @@ if (isset($_SESSION["usuario"])) {
     $html = "";
     
     for ($i=0; $i<sizeof($idQuestao); $i++) {
-       mysql_query("INSERT INTO respostas VALUES (NULL, '".$idQuestao[$i]."', '".$resposta[$i]."', '$idAluno')");
+       mysqli_query($conexao, "INSERT INTO respostas VALUES (NULL, '".$idQuestao[$i]."', '".$resposta[$i]."', '$idAluno')");
 
       $escolha = getLetra($resposta[$i]);
-      $result = mysql_query("SELECT idQuestao, descricao, $escolha FROM questao WHERE idQuestao = '".$idQuestao[$i]."'");
+      $result = mysqli_query($conexao, "SELECT idQuestao, descricao, $escolha FROM questao WHERE idQuestao = '".$idQuestao[$i]."'");
 
       $_idQuestao = mysql_result($result, 0, "idQuestao");
       $_descricao = mysql_result($result, 0, "descricao");
@@ -61,7 +61,7 @@ if (isset($_SESSION["usuario"])) {
     $header  = "Content-type: text/html; charset=iso-8859-1\n";
     $header .= "From: FACIC INTERATIVA<sistemafacic@ava24horas.com>";
 
-    $result = mysql_query("SELECT email FROM usuario WHERE idUsuario = '$idAluno'");
+    $result = mysqli_query($conexao, "SELECT email FROM usuario WHERE idUsuario = '$idAluno'");
     $email = mysql_result($result, 0, "email");
 
     $mail = ("$email");

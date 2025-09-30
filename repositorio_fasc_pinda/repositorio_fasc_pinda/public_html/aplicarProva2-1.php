@@ -1,13 +1,13 @@
-<?php 
+﻿<?php 
   session_start(); 
-  include './conexao.php';
+  include 'LoginRestrito/conexao.php';
   
   if (isset($_GET["turma"])) {
     $idDisciplina = $_GET["disciplina"];
     $idTurma = $_GET["turma"];
 
-    $result = mysql_query("SELECT * FROM aplicarprova WHERE idDisciplina = '$idDisciplina' AND idTurma = '$idTurma' AND bimestre = 0");
-    $linhas = mysql_num_rows($result);
+    $result = mysqli_query($conexao, "SELECT * FROM aplicarprova WHERE idDisciplina = '$idDisciplina' AND idTurma = '$idTurma' AND bimestre = 0");
+    $linhas = mysqli_num_rows($result);
     if ($linhas > 0) {
       echo "<option value='' selected disabled>::Escolha uma data::</option>";
       for ($i = 0; $i < $linhas; $i++) {
@@ -106,19 +106,19 @@
                   <select name="txtProva" required>
                     <option value="" selected disabled>::Escolha um formulário que ainda não foi aplicado::</option>
                     <?php
-                        $result = mysql_query("SELECT * FROM prova WHERE idProfessor = " . $_SESSION["id"]);
-                        $linhas = mysql_num_rows($result);
+                        $result = mysqli_query($conexao, "SELECT * FROM prova WHERE idProfessor = " . $_SESSION["id"]);
+                        $linhas = mysqli_num_rows($result);
 
                         for ($i=0; $i<$linhas; $i++) { 
                             $idProva = mysql_result($result, $i, "idProva");
                             $titulo  = mysql_result($result, $i, "titulo");
 
-                            $resultQuestoes = mysql_query("SELECT COUNT(*) AS questoes FROM questao2 WHERE idProva = $idProva");
+                            $resultQuestoes = mysqli_query($conexao, "SELECT COUNT(*) AS questoes FROM questao2 WHERE idProva = $idProva");
                             
                             if (mysql_result($resultQuestoes, 0, "questoes") > 0) {
-                              $resultAplicado = mysql_query("SELECT idProva FROM aplicarprova WHERE idProva = $idProva");
+                              $resultAplicado = mysqli_query($conexao, "SELECT idProva FROM aplicarprova WHERE idProva = $idProva");
 
-                              if (mysql_num_rows($resultAplicado) == 0) {
+                              if (mysqli_num_rows($resultAplicado) == 0) {
                                 $titulo = $titulo == "" ? "sem título" : $titulo;
                                 echo "<option value='$idProva'>$titulo</option>";
                               }
@@ -218,8 +218,8 @@
                             $sql = "SELECT * FROM turma WHERE turma.semestre = '{$_SESSION["semestre"]}' ORDER BY turma";
                         }
           
-                        $resultados = mysql_query($sql);
-                        $linhas = mysql_num_rows($resultados);
+                        $resultados = mysqli_query($conexao, $sql);
+                        $linhas = mysqli_num_rows($resultados);
                         if ($linhas > 0) {
                             for ($i = 0; $i < $linhas; $i++) {
                                 $idturma = mysql_result($resultados, $i, "idturma");
@@ -252,8 +252,8 @@
                               WHERE d.semestre = '{$_SESSION["semestre"]}' 
                               AND d.idTurma = t.idTurma ORDER BY d.disciplina";
                         }
-                        $resultados = mysql_query($sql);
-                        $linhas = mysql_num_rows($resultados);
+                        $resultados = mysqli_query($conexao, $sql);
+                        $linhas = mysqli_num_rows($resultados);
                         if ($linhas > 0) {
                             for ($i = 0; $i < $linhas; $i++) {
                                 $idDisciplina = mysql_result($resultados, $i, "idDisciplina");
@@ -306,8 +306,8 @@
                               WHERE d.semestre = '{$_SESSION["semestre"]}' 
                               AND d.idTurma = t.idTurma ORDER BY d.disciplina";
                         }
-                        $resultados = mysql_query($sql);
-                        $linhas = mysql_num_rows($resultados);
+                        $resultados = mysqli_query($conexao, $sql);
+                        $linhas = mysqli_num_rows($resultados);
                         if ($linhas > 0) {
                             for ($i = 0; $i < $linhas; $i++) {
                                 $idDisciplina = mysql_result($resultados, $i, "idDisciplina");
@@ -334,7 +334,7 @@
 
             if (isset($_POST['operacao']) && $_POST['operacao'] == 'excluir') {
               $idAplicarProva = $seguranca->antisql($_POST['id']);
-              mysql_query("DELETE FROM aplicarprova WHERE idAplicarProva = '$idAplicarProva' AND idProfessor = '$idProfessor'");
+              mysqli_query($conexao, "DELETE FROM aplicarprova WHERE idAplicarProva = '$idAplicarProva' AND idProfessor = '$idProfessor'");
               echo "<script>alert('Exclusão realizada com sucesso!');</script>";       
             }
           
@@ -345,11 +345,11 @@
             $where = " AND disciplina.idDisciplina = '{$_POST["txtDisciplina"]}'";
           }
           
-            $resultados = mysql_query("SELECT * FROM aplicarprova 
+            $resultados = mysqli_query($conexao, "SELECT * FROM aplicarprova 
               LEFT JOIN turma ON turma.idTurma = aplicarprova.idTurma 
               LEFT JOIN disciplina ON disciplina.idDisciplina = aplicarprova.idDisciplina 
               WHERE aplicarprova.idProfessor = '$idProfessor' AND aplicarprova.idDisciplina IN($listaDisciplina) AND titulo LIKE '%$titulo%' $where");
-            $linhas     = mysql_num_rows($resultados);
+            $linhas     = mysqli_num_rows($resultados);
             
             if ($linhas > 0) {
                 echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>

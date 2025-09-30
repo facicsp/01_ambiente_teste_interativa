@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -81,11 +81,11 @@ if (isset($_SESSION["usuario"])) {
                                     <select name="txtAluno" id="txtAluno">
                                         <option>::Escolha um Aluno::</option>
                                         <?php
-                                            include 'conexao.php';
+                                            include 'LoginRestrito/conexao.php';
                                             $sql = "SELECT * FROM usuario ORDER BY nome";
                                             echo $sql;
-                                            $resultados = mysql_query($sql);
-                                            $linhas = mysql_num_rows($resultados);
+                                            $resultados = mysqli_query($conexao, $sql);
+                                            $linhas = mysqli_num_rows($resultados);
                                             if ($linhas > 0) {
                                                 for ($i = 0; $i < $linhas; $i++) {
                                                     $idUsuario = mysql_result($resultados, $i, "idUsuario");
@@ -109,8 +109,8 @@ if (isset($_SESSION["usuario"])) {
                                         <?php
                                             $sql = "SELECT * FROM turma WHERE semestre = '". $_SESSION['semestre']."' ORDER BY turma";
                                             echo $sql;
-                                            $resultados = mysql_query($sql);
-                                            $linhas = mysql_num_rows($resultados);
+                                            $resultados = mysqli_query($conexao, $sql);
+                                            $linhas = mysqli_num_rows($resultados);
                                             if ($linhas > 0) {
                                                 for ($i = 0; $i < $linhas; $i++) {
                                                     $idTurma = mysql_result($resultados, $i, "idTurma");
@@ -177,8 +177,8 @@ WHERE usuario.nome LIKE '%$consulta%' AND listadisciplina.idDisciplina = discipl
 AND listadisciplina.idAluno = usuario.idUsuario AND disciplina.semestre = '{$_SESSION['semestre']}';";
                       
                     //echo $sql;
-                    $resultados = mysql_query($sql);
-                    $linhas = mysql_num_rows($resultados);
+                    $resultados = mysqli_query($conexao, $sql);
+                    $linhas = mysqli_num_rows($resultados);
                     if ($linhas > 0) {
                         echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
                 <tr>

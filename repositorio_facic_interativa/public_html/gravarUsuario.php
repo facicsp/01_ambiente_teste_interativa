@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -18,7 +18,7 @@ session_start();
             include "topo.php";
 
 
-            include 'conexao.php';
+            include 'LoginRestrito/conexao.php';
             $ra = $_POST["txtRa"];
             $endereco = $_POST["txtEndereco"];
             $bairro = $_POST["txtBairro"];
@@ -51,16 +51,16 @@ session_start();
     
             //echo "<script>console.log(`$sql`)</script>";
     
-            mysql_query($sql);
+            mysqli_query($conexao, $sql);
 
             if ($idTurma > 0) {
                 $sql = "SELECT idUsuario FROM usuario WHERE nome = '$nomeCivil' AND email = '$email'";
-                $result = mysql_query($sql);
+                $result = mysqli_query($conexao, $sql);
                 $idUsuario = mysql_result($result, 0, "idUsuario");
                 date_default_timezone_set("Brazil/East");
                 $data = date("Y-m-d");
                 $sql = "INSERT INTO matricula VALUES(null,'$idUsuario','$idTurma','$data')";
-                mysql_query($sql);
+                mysqli_query($conexao, $sql);
 
 
             }

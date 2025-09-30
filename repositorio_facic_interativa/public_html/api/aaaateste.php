@@ -1,4 +1,4 @@
-<?php
+﻿<?php
     
 include 'hasAccess.php';
 
@@ -15,8 +15,8 @@ AND listadisciplina.idDisciplina = disciplina.idDisciplina
 AND listadisciplina.idAluno = usuario.idUsuario
 AND disciplina.idProfessor = professor.idProfessor AND semestre = '". SEMESTRE ."'";
             
-$result = mysql_query($sql);
-$linhas = mysql_num_rows($result);
+$result = mysqli_query($conexao, $sql);
+$linhas = mysqli_num_rows($result);
 if ($linhas > 0) {
     for ($i = 0; $i < $linhas; $i++) {
         $idDisciplina = mysql_result($result, $i, "idDisciplina");
@@ -35,14 +35,14 @@ if ($linhas > 0) {
 }
 // FIM GAMBIARRA
             
-$result = mysql_query("SELECT idDisciplina, disciplina, idTurma, professor.nome AS docente FROM disciplina, professor 
+$result = mysqli_query($conexao, "SELECT idDisciplina, disciplina, idTurma, professor.nome AS docente FROM disciplina, professor 
                         WHERE idturma IN(SELECT idturma FROM matricula WHERE idaluno = '$idAluno') 
                         AND disciplina.idProfessor = professor.idProfessor AND semestre = '" . SEMESTRE . "'");
 
-$linhas = mysql_num_rows($result);
+$linhas = mysqli_num_rows($result);
 
 if ($linhas > 0) {
-    while($row = mysql_fetch_assoc($result)) {
+    while($row = mysqli_fetch_assoc($result)) {
         $rows[] = $row;
     }
     
@@ -66,14 +66,14 @@ $idAluno = $seguranca->antisql($_REQUEST["id"]);
 
 if (strlen($idAluno) < 1) exit(json_encode([]));
             
-$result = mysql_query("SELECT idDisciplina, disciplina, idTurma, professor.nome AS docente FROM disciplina, professor 
+$result = mysqli_query($conexao, "SELECT idDisciplina, disciplina, idTurma, professor.nome AS docente FROM disciplina, professor 
                         WHERE idturma IN(SELECT idturma FROM matricula WHERE idaluno = '$idAluno') 
                         AND disciplina.idProfessor = professor.idProfessor AND semestre = '" . SEMESTRE . "'");
 
-$linhas = mysql_num_rows($result);
+$linhas = mysqli_num_rows($result);
 
 if ($linhas > 0) {
-    while($row = mysql_fetch_assoc($result)) {
+    while($row = mysqli_fetch_assoc($result)) {
         $rows[] = $row;
     }
     

@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,14 +13,14 @@
                 //conteudo do site
                 
                 
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
  
 $seguranca = new Seguranca();
 $Titulo = $seguranca->antisql($_POST["txtTitulo"]);
 $Video = $seguranca->antisql($_POST["txtVideo"]);
 $Iddisciplina = $seguranca->antisql($_POST["txtIddisciplina"]);
 $Idprofessor = $seguranca->antisql($_POST["txtIdprofessor"]);
-$sql = "INSERT INTO video VALUES(null,'$Titulo','$Video','$Iddisciplina','$Idprofessor')";mysql_query($sql);
+$sql = "INSERT INTO video VALUES(null,'$Titulo','$Video','$Iddisciplina','$Idprofessor')";mysqli_query($conexao, $sql);
 echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'cadastrovideo.php';

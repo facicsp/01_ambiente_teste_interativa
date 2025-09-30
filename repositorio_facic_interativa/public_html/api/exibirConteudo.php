@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 include 'hasAccess.php';
 include 'util/mime_content_type.php';
@@ -16,21 +16,21 @@ $sql = "SELECT
         WHERE idAula = '$idAula' 
         ORDER BY dataAula";
 
-$result = mysql_query($sql);
-$linhas = mysql_num_rows($result);
+$result = mysqli_query($conexao, $sql);
+$linhas = mysqli_num_rows($result);
 
 if ($linhas > 0) {
-    $data = mysql_fetch_assoc($result);
+    $data = mysqli_fetch_assoc($result);
     
     //$data["dataAtividade"] = date('Y-m-d', strtotime("+1 day", strtotime($data["dataAtividade"])));
     
     $data["material"] = [];
 
-    $resultConteudo = mysql_query("SELECT idConteudo, titulo, arquivo FROM conteudo WHERE idAula = '$idAula'");
-    $linhaConteudo = mysql_num_rows($resultConteudo);
+    $resultConteudo = mysqli_query($conexao, "SELECT idConteudo, titulo, arquivo FROM conteudo WHERE idAula = '$idAula'");
+    $linhaConteudo = mysqli_num_rows($resultConteudo);
 
     if($linhaConteudo > 0) {
-        while($row = mysql_fetch_assoc($resultConteudo)) {
+        while($row = mysqli_fetch_assoc($resultConteudo)) {
             $row["type"] = getMimeType($row["arquivo"]);
             $data["material"][] = $row;
         }

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -13,11 +13,11 @@ session_start();
         if (isset($_SESSION["usuario"])) {
             if ($_SESSION["tipo"] == "administrador") {
                 //atividade do site
-                include "topo.php";include "conexao.php";
+                include "topo.php";include "LoginRestrito/conexao.php";
                 $seguranca = new Seguranca();
 
                 $idDisciplina = $seguranca->antisql($_POST["id"]);
-                $result = mysql_query("SELECT * FROM disciplina WHERE idDisciplina = '$idDisciplina'");
+                $result = mysqli_query($conexao, "SELECT * FROM disciplina WHERE idDisciplina = '$idDisciplina'");
                 $idTurma = mysql_result($result, 0, "idTurma");
                 $turma = mysql_result($result, 0, "disciplina");
 ?>
@@ -43,8 +43,8 @@ session_start();
                         and m.idTurma = t.idTurma
                         ORDER BY u.nome";
                     //echo $sql;
-                    $resultados = mysql_query($sql);
-                    $linhas = mysql_num_rows($resultados);
+                    $resultados = mysqli_query($conexao, $sql);
+                    $linhas = mysqli_num_rows($resultados);
                     
                     echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
                     <tr>
@@ -72,10 +72,10 @@ session_start();
                             }
                         }
 
-                        $resultados = mysql_query("SELECT idUsuario, ra, nome FROM listadisciplina 
+                        $resultados = mysqli_query($conexao, "SELECT idUsuario, ra, nome FROM listadisciplina 
                           LEFT JOIN usuario ON usuario.idUsuario = listadisciplina.idAluno
                           WHERE idDisciplina = '$idDisciplina'");
-$linhas = mysql_num_rows($resultados);
+$linhas = mysqli_num_rows($resultados);
 
 for ($i = 0; $i < $linhas; $i++) {
   $id = mysql_result($resultados, $i, "idUsuario");

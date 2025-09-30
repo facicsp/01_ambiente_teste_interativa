@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -15,16 +15,16 @@ if (isset($_SESSION["usuario"])) {
       //atividade do site
 include "topo.php";
 
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
 $seguranca = new Seguranca();
 $operacao = $seguranca->antisql($_POST["operacao"]);
 $id = $seguranca->antisql($_POST["id"]);
 
 if($operacao == 'excluir'){
 $sql = "DELETE FROM atividade WHERE idatividade = $id";
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 
-mysql_query("UPDATE protocolo SET exclusao = '". date('Y-m-d G:i:s') ."' WHERE idAtividade = '$id'");
+mysqli_query($conexao, "UPDATE protocolo SET exclusao = '". date('Y-m-d G:i:s') ."' WHERE idAtividade = '$id'");
 
 echo "<script>
     alert('Exclusão realizada com sucesso!');

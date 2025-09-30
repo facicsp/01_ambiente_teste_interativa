@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -12,14 +12,14 @@ if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador"){
       //conteudo do site
   //   include "topo.php";
-      include 'conexao.php';
+      include 'LoginRestrito/conexao.php';
 $seguranca = new Seguranca();
 $tipo = $seguranca->antisql($_POST["txtTipo"]);
 $pontos = $seguranca->antisql($_POST["txtPontos"]);
 $idDisciplina = $seguranca->antisql($_POST["txtDisciplina"]);
 $sql = "INSERT INTO desafio VALUES(null,'$tipo','$pontos','$idDisciplina')";
 echo $sql;
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'cadastroDesafio.php';

@@ -1,12 +1,12 @@
-<?php
+﻿<?php
 
 session_start();
-include './conexao.php';
+include 'LoginRestrito/conexao.php';
 
 $idAluno = $_SESSION["id"];
 
-$result = mysql_query("SELECT idAluno FROM avaliacao_interna_aluno WHERE idAluno = '$idAluno'");
-if (mysql_num_rows($result) > 0) exit("<script>location.href='index.php';</script>");
+$result = mysqli_query($conexao, "SELECT idAluno FROM avaliacao_interna_aluno WHERE idAluno = '$idAluno'");
+if (mysqli_num_rows($result) > 0) exit("<script>location.href='index.php';</script>");
 
 if (isset($_POST["acao"])) {
     // CREATE TABLE avaliacao_interna_aluno(
@@ -36,7 +36,7 @@ if (isset($_POST["acao"])) {
     $questao10 = $_POST["questao10"];
     $questao11 = $_POST["questao11"];
 
-    mysql_query("INSERT INTO avaliacao_interna_aluno VALUES (NULL, '$idAluno', '$questao1', '$questao2', '$questao3', '$questao4', 
+    mysqli_query($conexao, "INSERT INTO avaliacao_interna_aluno VALUES (NULL, '$idAluno', '$questao1', '$questao2', '$questao3', '$questao4', 
         '$questao5', '$questao6', '$questao7', '$questao8', '$questao9', '$questao10', '$questao11')");
 
     exit("<script>location.href='index.php';</script>");

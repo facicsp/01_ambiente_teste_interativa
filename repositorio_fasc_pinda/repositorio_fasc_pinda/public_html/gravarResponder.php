@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@
                 //conteudo do site
 
 
-                include 'conexao.php';
+                include 'LoginRestrito/conexao.php';
 
                 $seguranca = new Seguranca();
                 $quantidade = $seguranca->antisql($_POST["quantidade"]);
@@ -24,13 +24,13 @@
                 $idDisciplina = $_SESSION["disciplina"];
                 $sql = "INSERT INTO questionario VALUES(null,'$idAluno','$idDisciplina','$idPergunta','$idResposta')";
                 echo $sql;
-                mysql_query($sql);
+                mysqli_query($conexao, $sql);
                 
                 
                 }
                 /*
                 $sqlResposta = "SELECT correta FROM resposta WHERE idResposta = '$idResposta'";
-                $resultResposta = mysql_query($sqlResposta);
+                $resultResposta = mysqli_query($conexao, $sqlResposta);
                 $correta = mysql_result($resultResposta, 0, "correta");
                 if($correta == "sim"){
                     $mensagem = "RESPOSTA CORRETA!";

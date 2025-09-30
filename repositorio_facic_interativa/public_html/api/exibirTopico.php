@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 include 'hasAccess.php';
 
@@ -6,17 +6,17 @@ $seguranca = new Seguranca();
 $idTopico = $seguranca->antisql($_REQUEST["idTopico"]);
 
 $sql = "SELECT titulo, conteudo FROM topico WHERE idTopico = '$idTopico'";
-$result = mysql_query($sql);
-$linhas = mysql_num_rows($result);
+$result = mysqli_query($conexao, $sql);
+$linhas = mysqli_num_rows($result);
 
 if ($linhas > 0) {
-  $dados = mysql_fetch_assoc($result);
+  $dados = mysqli_fetch_assoc($result);
   $dados["comentario"] = [];
   
   // COMENTARIOS
   $sql = "SELECT * FROM comentario WHERE idTopico = '$idTopico' ORDER BY idComentario";
-  $result = mysql_query($sql);
-  $linhas = mysql_num_rows($result);
+  $result = mysqli_query($conexao, $sql);
+  $linhas = mysqli_num_rows($result);
 
   if ($linhas > 0) {
     for ($i = 0; $i < $linhas; $i++) {
@@ -40,8 +40,8 @@ if ($linhas > 0) {
 
       // RESPOSTAS
       $sqlSub = "SELECT * FROM subresposta WHERE idComentario = '$idComentario' ORDER BY idSub";
-      $resultSub = mysql_query($sqlSub);
-      $linhasSub = mysql_num_rows($resultSub);
+      $resultSub = mysqli_query($conexao, $sqlSub);
+      $linhasSub = mysqli_num_rows($resultSub);
 
       if ($linhasSub > 0) {
         for ($j = 0; $j < $linhasSub; $j++) {
@@ -71,8 +71,8 @@ if ($linhas > 0) {
 
 function getNome($tabela, $campo, $id) {
   $query = "SELECT nome FROM $tabela WHERE $campo = '$id'";
-  $resultNome = mysql_query($query);
-  if(mysql_num_rows($resultNome) > 0) {
+  $resultNome = mysqli_query($conexao, $query);
+  if(mysqli_num_rows($resultNome) > 0) {
       $nome = mysql_result($resultNome, 0, "nome");
       return $nome;
   } else {

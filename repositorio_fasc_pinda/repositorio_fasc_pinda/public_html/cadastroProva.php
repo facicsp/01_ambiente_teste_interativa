@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title></title>
@@ -14,7 +14,7 @@ if ($_SESSION["tipo"] == "administrador"  || $_SESSION["tipo"] == "professor") {
 include "topo.php";
 // include './Util.php';
 // $util = new Util();
-// include './conexao.php';
+// include 'LoginRestrito/conexao.php';
 ?>
 
 <div id="app">

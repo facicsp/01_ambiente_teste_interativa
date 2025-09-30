@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,7 +22,7 @@ session_start();
 
                 <div class="dados">
                     <?php
-                    include './conexao.php';
+                    include 'LoginRestrito/conexao.php';
                     $seguranca = new Seguranca();
                     $id = "";
 
@@ -32,8 +32,8 @@ session_start();
                     }
                     $sql = "SELECT usuario.nome,pontosfrequencia.* from pontosfrequencia,usuario WHERE pontosfrequencia.idDisciplina = '$id' and pontosfrequencia.idAluno = usuario.idUsuario ORDER BY usuario.nome";
                     echo $sql;
-                    $resultados = mysql_query($sql);
-                    $linhas = mysql_num_rows($resultados);
+                    $resultados = mysqli_query($conexao, $sql);
+                    $linhas = mysqli_num_rows($resultados);
                     if ($linhas > 0) {
                         //$listaAlunos[];
                         echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
@@ -76,13 +76,13 @@ session_start();
                         }
                     } else {
                         $sql = "select idAluno from matricula where idTurma in(select idTurma from disciplina where iddisciplina = '$id')";
-                        $result = mysql_query($sql);
-                        $linhas = mysql_num_rows($result);
+                        $result = mysqli_query($conexao, $sql);
+                        $linhas = mysqli_num_rows($result);
                         if ($linhas > 0) {
                             for ($i = 0; $i < $linhas; $i++) {
                                 $idAluno = mysql_result($result, $i, "idAluno");
                                 $sqlFrequencia = "INSERT INTO pontosfrequencia VALUES(null,'$idAluno','$id','0')";
-                                mysql_query($sqlFrequencia);
+                                mysqli_query($conexao, $sqlFrequencia);
                             }
                             echo "<script>"
                             . "window.location='registrarPontoFrequencia.php?idDisciplina=$id';"
@@ -93,8 +93,8 @@ session_start();
                     }
                     /*
                       $sql = "select iddisciplina from aula where idaula = '$id'";
-                      $result = mysql_query($sql);
-                      $linhas = mysql_num_rows($result);
+                      $result = mysqli_query($conexao, $sql);
+                      $linhas = mysqli_num_rows($result);
                       if ($linhas > 0) {
                       for ($i = 0;
                       $i < $linhas;
@@ -104,8 +104,8 @@ session_start();
                       }
                       $sql = "select idaluno from matricula where idturma in(select idturma from aula where idaula = '$id')";
                       //echo $sql;
-                      $result = mysql_query($sql);
-                      $linhas = mysql_num_rows($result);
+                      $result = mysqli_query($conexao, $sql);
+                      $linhas = mysqli_num_rows($result);
                       $quantidadeNaoEntregue = 0;
                       if ($linhas > 0) {
                       for ($i = 0;
@@ -113,13 +113,13 @@ session_start();
                       $i++) {
                       $idAluno = mysql_result($result, $i, "idaluno");
                       $sqlAtividade = "select * from atividade where idaula = '$id' and idaluno = '$idAluno'";
-                      $resultAtividade = mysql_query($sqlAtividade);
-                      $linhasAtividade = mysql_num_rows($resultAtividade);
+                      $resultAtividade = mysqli_query($conexao, $sqlAtividade);
+                      $linhasAtividade = mysqli_num_rows($resultAtividade);
                       if ($linhasAtividade == 0) {
                       $sql = "insert into atividade values(null,'Atividade','','$id','$idAluno','0000-00-00','','','$idDisciplina','0')";
                       //echo "<br>$sql";
                       $quantidadeNaoEntregue++;
-                      mysql_query($sql);
+                      mysqli_query($conexao, $sql);
                       }
                       }
                       }

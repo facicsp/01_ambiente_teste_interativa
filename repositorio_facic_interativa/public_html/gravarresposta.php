@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,13 +13,13 @@
                 //conteudo do site
                 
                 
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
  
 $seguranca = new Seguranca();
 $Resposta = $seguranca->antisql($_POST["txtResposta"]);
 $Correta = $seguranca->antisql($_POST["txtCorreta"]);
 $IdPergunta = $seguranca->antisql($_POST["txtIdPergunta"]);
-$sql = "INSERT INTO resposta VALUES(null,'$Resposta','$Correta','$IdPergunta')";mysql_query($sql);
+$sql = "INSERT INTO resposta VALUES(null,'$Resposta','$Correta','$IdPergunta')";mysqli_query($conexao, $sql);
 echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'cadastroresposta.php';

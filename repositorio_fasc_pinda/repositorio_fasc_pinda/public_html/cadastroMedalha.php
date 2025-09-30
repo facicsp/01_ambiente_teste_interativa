@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -58,7 +58,7 @@
                         <div class="grid-100">
                             <select name="txtDisciplina">
                                 <?php
-                                    include './conexao.php';
+                                    include 'LoginRestrito/conexao.php';
                                     include './Util.php';
                                     $util = new Util();
                                     $dados = $util->carregarCombo("disciplina", "idDisciplina", "disciplina");
@@ -132,8 +132,8 @@
                             
                             $sql = "SELECT medalha.*,disciplina.disciplina as disciplina FROM medalha,disciplina WHERE medalha.descricao LIKE '%$consulta%' AND medalha.idDisciplina = disciplina.idDisciplina";
                             //echo $sql;
-                            $resultados = mysql_query($sql);
-                            $linhas = mysql_num_rows($resultados);
+                            $resultados = mysqli_query($conexao, $sql);
+                            $linhas = mysqli_num_rows($resultados);
                             if ($linhas > 0) {
                       
                                 echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -13,7 +13,7 @@ session_start();
         if (isset($_SESSION["usuario"])) {
             if ($_SESSION["tipo"] == "administrador") {
                 //atividade do site
-                include "topo.php";include "conexao.php";
+                include "topo.php";include "LoginRestrito/conexao.php";
                 $seguranca = new Seguranca();
                 $idTurma = $seguranca->antisql($_GET["idturma"]);
                 $turma = $seguranca->antisql($_GET["turma"]);
@@ -40,8 +40,8 @@ session_start();
                         and m.idTurma = t.idTurma
                         ORDER BY u.nome";
                     //echo $sql;
-                    $resultados = mysql_query($sql);
-                    $linhas = mysql_num_rows($resultados);
+                    $resultados = mysqli_query($conexao, $sql);
+                    $linhas = mysqli_num_rows($resultados);
                     if ($linhas > 0) {
                         echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
                 <tr>

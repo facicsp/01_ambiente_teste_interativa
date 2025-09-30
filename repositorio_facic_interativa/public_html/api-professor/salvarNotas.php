@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 include 'hasAccess.php';
 
@@ -15,6 +15,6 @@ $t2 = $seguranca->antisql($_POST["virtual2"]);
 $sql = "UPDATE boletim SET bimestre1='$bimestre1',bimestre2='$bimestre2',
   exame='$exame',sub='$sub',t1='$t1',t2='$t2' WHERE idBoletim = '$idBoletim'";
 
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 
 echo json_encode(true);

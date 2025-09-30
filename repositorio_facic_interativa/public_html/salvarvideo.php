@@ -1,10 +1,10 @@
-<?php
+﻿<?php
 session_start();
 if($_SESSION["usuario"] == ""){
     echo "Permissão negada!";
 }else{
 
-    include 'conexao.php';
+    include 'LoginRestrito/conexao.php';
 $seguranca = new Seguranca();
 $Titulo = $seguranca->antisql($_POST["txtTitulo"]);
 $Video = $seguranca->antisql($_POST["txtVideo"]);
@@ -84,7 +84,7 @@ echo "Upload efetuado com sucesso!";
 echo '<br /><a href="' . $_UP['pasta'] . $nome_final . '">Clique aqui para acessar o arquivo</a>';
 */
 $sql = "INSERT INTO video VALUES(null,'$Titulo','$Video','$Iddisciplina','$id')";
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 //echo $sql;
 echo "
 <script>

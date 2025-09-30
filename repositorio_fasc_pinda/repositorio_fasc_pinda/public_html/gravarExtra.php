@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,12 +14,12 @@ if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "aluno"){
       //atividade do site
       include "topo.php";
-      include 'conexao.php';
+      include 'LoginRestrito/conexao.php';
       $seguranca = new Seguranca();
       $idAluno = $_SESSION["id"];
       $sqlAtividade = "SELECT idExtra FROM extra WHERE idAluno='$idAluno'";
-      $result = mysql_query($sqlAtividade);
-      $linhas = mysql_num_rows($result);
+      $result = mysqli_query($conexao, $sqlAtividade);
+      $linhas = mysqli_num_rows($result);
       $nomeArquivo = "";
       if($linhas > 0){
           $linhas++;
@@ -55,7 +55,7 @@ if(isset($_SESSION["disciplina"])){
 $idDisciplina = $_SESSION["disciplina"];
 $sql = "INSERT INTO extra VALUES(null,'$idTipo','$idDisciplina','$idAluno','$titulo','0','$obs','Enviado','$uploadarq','$data')";
 //echo $sql;
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'index.php';

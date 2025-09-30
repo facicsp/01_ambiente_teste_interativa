@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,7 +22,7 @@ session_start();
 
         <div class="dados">
             <?php
-            include './conexao.php';
+            include 'LoginRestrito/conexao.php';
             $seguranca = new Seguranca();
             $id = "";
 
@@ -33,8 +33,8 @@ session_start();
             $sql = "select usuario.idUsuario,usuario.nome from usuario,matricula
 where idTurma in(select idTurma from disciplina where idDisciplina = '$id') and matricula.idAluno = usuario.idUsuario order by usuario.nome";
             echo $sql;
-            $resultados = mysql_query($sql);
-            $linhas = mysql_num_rows($resultados);
+            $resultados = mysqli_query($conexao, $sql);
+            $linhas = mysqli_num_rows($resultados);
             if ($linhas > 0) {
             //$listaAlunos[];
             echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
@@ -51,7 +51,7 @@ where idTurma in(select idTurma from disciplina where idDisciplina = '$id') and 
             $nome = mysql_result($resultados, $i, "nome");
             $sqlPontos = "select sum(pontos)as pontos from extra where idAluno = '$idAluno' and idDisciplina = '$id'";
             //echo $sqlPontos;
-            $resultPontos = mysql_query($sqlPontos);
+            $resultPontos = mysqli_query($conexao, $sqlPontos);
             $pontos = mysql_result($resultPontos, 0, "pontos");
 
             echo "

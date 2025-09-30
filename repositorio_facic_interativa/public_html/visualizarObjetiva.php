@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -93,18 +93,18 @@ function getLetra($numero){
     return $escolha;
   }
 
-            include "conexao.php";
+            include "LoginRestrito/conexao.php";
 
             $seguranca = new Seguranca();
             $idProva = $seguranca->antisql($_GET["idProva"]);
             
-            $result = mysql_query("SELECT nome, ra, SUM(IF(correcao > 0, 1, 0)) AS acertos, COUNT(*) AS erros FROM lista_resposta 
+            $result = mysqli_query($conexao, "SELECT nome, ra, SUM(IF(correcao > 0, 1, 0)) AS acertos, COUNT(*) AS erros FROM lista_resposta 
                     LEFT JOIN questao2 ON questao2.idQuestao = lista_resposta.idQuestao 
                     LEFT JOIN usuario ON usuario.idUsuario = lista_resposta.idAluno 
                     WHERE lista_resposta.idProva = '$idProva' AND questao2.tipo = 'objetiva'
                     GROUP BY idAluno
                     ORDER BY nome ASC");
-            $linhas = mysql_num_rows($result);
+            $linhas = mysqli_num_rows($result);
             
             echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0' width='950px' align='center'>
                 <tr>

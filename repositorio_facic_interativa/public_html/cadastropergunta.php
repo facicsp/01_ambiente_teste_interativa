@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -14,7 +14,7 @@
                 include "topo.php";
                 include './Util.php';
                 $util = new Util();
-                include './conexao.php';
+                include 'LoginRestrito/conexao.php';
                 ?>
 <div class="principal grid-80 prefix-10 suffix-10">
                     <div id="titulo" class="grid-100 titulo">
@@ -36,8 +36,8 @@
                                     <?php
                                     $idProfessor = $_SESSION["id"];
                                     $sql = "SELECT d.*,t.turma from disciplina d,turma t WHERE d.idProfessor = '$idProfessor' AND d.idTurma = t.idTurma";
-                                    $result = mysql_query($sql);
-                                    $linhas = mysql_num_rows($result);
+                                    $result = mysqli_query($conexao, $sql);
+                                    $linhas = mysqli_num_rows($result);
                                     if($linhas > 0){
                                         for($i=0;$i<$linhas;$i++){
                                         $idDisciplina = mysql_result($result, $i, "idDisciplina");
@@ -71,8 +71,8 @@
                             $consulta = $_GET["txtConsulta"];
                             $idProfessor = $_SESSION["id"];
                             $sql = "SELECT p.* FROM pergunta p,disciplina d WHERE p.pergunta LIKE '%$consulta%' and p.idDisciplina = d.idDisciplina and d.idProfessor = '$idProfessor'";
-                            $resultados = mysql_query($sql);
-                            $linhas = mysql_num_rows($resultados);
+                            $resultados = mysqli_query($conexao, $sql);
+                            $linhas = mysqli_num_rows($resultados);
                             if ($linhas > 0) {
                       
                                 echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>

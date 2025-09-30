@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,21 +14,21 @@ session_start();
             if ($_SESSION["tipo"] == "administrador") {
                 //conteudo do site
                 include "topo.php";
-                include 'conexao.php';
+                include 'LoginRestrito/conexao.php';
                 $seguranca = new Seguranca();
                 $idTurma = $seguranca->antisql($_POST["txtTurma"]);
                 $idTurmaNova = $seguranca->antisql($_POST["txtTurmaNova"]);
                 $data = $seguranca->antisql($_POST["txtData"]);
 
                 $buscaAlunos = "select idAluno from matricula where idturma = '$idTurma'";
-                $result = mysql_query($buscaAlunos);
-                $linhas = mysql_num_rows($result);
+                $result = mysqli_query($conexao, $buscaAlunos);
+                $linhas = mysqli_num_rows($result);
                 if ($linhas > 0) {
 
                     for ($i = 0; $i < $linhas; $i++) {
                         $idAluno = mysql_result($result, $i, "idAluno");
                         $sql = "INSERT INTO matricula VALUES(null,'$idAluno','$idTurmaNova','$data')";
-                        mysql_query($sql);
+                        mysqli_query($conexao, $sql);
                     }
 
                     echo "<script>

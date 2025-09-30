@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -17,7 +17,7 @@ session_start();
         if ($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "aluno") {
             //conteudo do site
             include "topo.php";
-            include "conexao.php";
+            include "LoginRestrito/conexao.php";
             $seguranca = new Seguranca();
             if ($_SESSION["tipo"] == "administrador") {
                 $idUsuario = $seguranca->antisql($_POST["id"]);
@@ -25,8 +25,8 @@ session_start();
                 $idUsuario = $_SESSION["id"];
             }
             $sql = "SELECT * FROM usuario WHERE idusuario = '$idUsuario'";
-            $resultados = mysql_query($sql);
-            $linhas = mysql_num_rows($resultados);
+            $resultados = mysqli_query($conexao, $sql);
+            $linhas = mysqli_num_rows($resultados);
             if ($linhas > 0) {
 
                 for ($i = 0; $i < $linhas; $i++) {

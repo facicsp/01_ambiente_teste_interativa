@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -40,7 +40,7 @@ session_start();
         <div class="dados grid-90 prefix-5 suffix-5">
             
                         <?php
-                        include "conexao.php";
+                        include "LoginRestrito/conexao.php";
                         $seguranca = new Seguranca();
                         if ($_SESSION["tipo"] == "aluno") {
                             $idDisciplina = $seguranca->antisql($_GET["idDisciplina"]);
@@ -63,8 +63,8 @@ session_start();
                             $sql = "select aula.*,date_format(dataAula,'%d/%m/%Y ás %Hh%i')as dataAula2,date_format(dataAtividade,'%d/%m/%Y ás %Hh%i')as dataAtividade2 from aula where iddisciplina = '$idDisciplina' AND TIMESTAMPDIFF(SECOND, dataAula, now()) > 0 ORDER BY dataAula";
                         
                         //echo $sql;
-                        $resultados = mysql_query($sql);
-                        $linhas = mysql_num_rows($resultados);
+                        $resultados = mysqli_query($conexao, $sql);
+                        $linhas = mysqli_num_rows($resultados);
                         if ($linhas > 0) {
                             
 
@@ -126,8 +126,8 @@ session_start();
                           
                           //echo "<script>console.log('$idDisciplina');</script>";
                 
-                $result = mysql_query($sql);
-                $linhas = mysql_num_rows($result);
+                $result = mysqli_query($conexao, $sql);
+                $linhas = mysqli_num_rows($result);
                 
                 if($linhas > 0) {
                     echo "<div class='grid-100'>";

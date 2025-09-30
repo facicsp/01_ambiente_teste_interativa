@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,14 +13,14 @@
                 //conteudo do site
                 
                 
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
  
 $seguranca = new Seguranca();
 $Titulo = $seguranca->antisql($_POST["txtTitulo"]);
 $Link = $seguranca->antisql($_POST["txtLink"]);
 $idarea = $seguranca->antisql($_POST["txtArea"]);
 $sql = "INSERT INTO periodico VALUES(null,'$Titulo','$Link','$idarea')";
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'cadastroperiodico.php';

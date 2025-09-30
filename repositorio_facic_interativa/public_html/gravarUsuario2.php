@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -16,7 +16,7 @@ if (isset($_SESSION["usuario"])) {
       include "topo.php";
 
 
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
 $ra = $_POST["txtRa"];
 $nome = $_POST["txtNome"];
 $endereco = $_POST["txtEndereco"];
@@ -35,16 +35,16 @@ $idTurma = $_POST["txtTurma"];
 $adaptado = $_POST["txtAdaptado"];
 $sql = "INSERT INTO usuario VALUES(null,'$nome','$endereco','$bairro','$cidade','$estado','$cep','$nascimento','$telefone','$celular','$email','".md5($senha)."','$tipo','$obs','$ra','','$adaptado','0', '')";
 exit($sql);
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 
 if($idTurma > 0){
     $sql = "SELECT idUsuario FROM usuario WHERE nome = '$nome' AND email = '$email'";
-    $result = mysql_query($sql);
+    $result = mysqli_query($conexao, $sql);
     $idUsuario = mysql_result($result, 0, "idUsuario");
     date_default_timezone_set("Brazil/East");
     $data = date("Y-m-d");
     $sql = "INSERT INTO matricula VALUES(null,'$idUsuario','$idTurma','$data')";
-    mysql_query($sql);
+    mysqli_query($conexao, $sql);
 
     
 }

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 session_start();
 
@@ -6,7 +6,7 @@ if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "professor") {
 
   $data = json_decode(file_get_contents("php://input"), true);
   
-  include 'conexao.php';
+  include 'LoginRestrito/conexao.php';
 
   $seguranca    = new Seguranca();
   $idProfessor  = $_SESSION["id"];
@@ -20,8 +20,8 @@ if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "professor") {
   if (isset($_SESSION['idProva']) && $idProva) {
     $idProva = $_SESSION['idProva'];
   } else {
-    mysql_query("INSERT INTO prova VALUES (NULL, '$titulo', '$idProfessor')");
-    $result  = mysql_query("SELECT idProva FROM prova WHERE titulo = '$titulo' AND idProfessor = '$idProfessor' ORDER BY idProva DESC LIMIT 1");
+    mysqli_query($conexao, "INSERT INTO prova VALUES (NULL, '$titulo', '$idProfessor')");
+    $result  = mysqli_query($conexao, "SELECT idProva FROM prova WHERE titulo = '$titulo' AND idProfessor = '$idProfessor' ORDER BY idProva DESC LIMIT 1");
     $idProva = mysql_result($result, 0, 'idProva');
     $_SESSION['idProva'] = $idProva;
   }
@@ -35,8 +35,8 @@ if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "professor") {
   $g = $data["6"] ? $seguranca->antisql($data["6"]) : false;
   $h = $data["7"] ? $seguranca->antisql($data["7"]) : false;
 
-  mysql_query("INSERT INTO questao2 VALUES (NULL, '$descricao', '$tipo', '$peso', '$idProva')");
-  $result = mysql_query("SELECT idQuestao FROM questao2 WHERE descricao = '$descricao' AND tipo = '$tipo' AND idProva = '$idProva' ORDER BY idQuestao DESC LIMIT 1");
+  mysqli_query($conexao, "INSERT INTO questao2 VALUES (NULL, '$descricao', '$tipo', '$peso', '$idProva')");
+  $result = mysqli_query($conexao, "SELECT idQuestao FROM questao2 WHERE descricao = '$descricao' AND tipo = '$tipo' AND idProva = '$idProva' ORDER BY idQuestao DESC LIMIT 1");
   $idQuestao = mysql_result($result, 0, 'idQuestao');
 
   if ($tipo == "objetiva") {
@@ -44,7 +44,7 @@ if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "professor") {
       if (isset($data[$i])) {
         $alternativa = $seguranca->antisql($data[$i]);
         $altCorreta = $correta == $i ? "sim" : "nao";
-        mysql_query("INSERT INTO alternativa VALUES (NULL, '$alternativa', '$altCorreta', '$idQuestao')");
+        mysqli_query($conexao, "INSERT INTO alternativa VALUES (NULL, '$alternativa', '$altCorreta', '$idQuestao')");
       }
     }
   }

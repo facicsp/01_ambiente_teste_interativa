@@ -1,4 +1,4 @@
-<?php
+﻿<?php
     
 include 'hasAccess.php';
 
@@ -7,27 +7,27 @@ $idAluno = $seguranca->antisql($_REQUEST["id"]);
 
 if (strlen($idAluno) < 1) exit(json_encode([]));
             
-$result = mysql_query("SELECT idDisciplina FROM disciplina 
+$result = mysqli_query($conexao, "SELECT idDisciplina FROM disciplina 
                         WHERE idturma IN(SELECT idturma FROM matricula WHERE idaluno = '$idAluno') AND semestre = '" . SEMESTRE . "'");
 
-$linhas = mysql_num_rows($result);
+$linhas = mysqli_num_rows($result);
 
 if ($linhas > 0) {
     $disciplinas = '0';
 
-    while($row = mysql_fetch_assoc($result)) {
+    while($row = mysqli_fetch_assoc($result)) {
         $disciplinas .= ',' . $row['idDisciplina'];
     }
 
 } else exit(json_encode([]));
    
-$result = mysql_query("SELECT idnoticia, titulo FROM noticia 
+$result = mysqli_query($conexao, "SELECT idnoticia, titulo FROM noticia 
                         WHERE tipo = 'Mural' AND idDisciplina IN ($disciplinas) ORDER BY RAND() LIMIT 3");
 
-$linhas = mysql_num_rows($result);
+$linhas = mysqli_num_rows($result);
 
 if ($linhas > 0) {
-    while($row = mysql_fetch_assoc($result)) {
+    while($row = mysqli_fetch_assoc($result)) {
         $rows[] = $row;
     }
     

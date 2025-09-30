@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -31,7 +31,7 @@ session_start();
                                 <select name="txtDisciplina">
                                     <option>::Escolha uma disciplina::</option>
                                     <?php
-                                    include './conexao.php';
+                                    include 'LoginRestrito/conexao.php';
                                     $seguranca = new Seguranca();
                                     if($_SESSION["tipo"] == "professor"){
                                             $idProfessor = $_SESSION["id"];
@@ -44,8 +44,8 @@ session_start();
                                                   WHERE disciplina.semestre = '". $_SESSION['semestre'] ."' ORDER BY disciplina";
                                             }
                                     //echo $sql;
-                                    $resultados = mysql_query($sql);
-                                    $linhas = mysql_num_rows($resultados);
+                                    $resultados = mysqli_query($conexao, $sql);
+                                    $linhas = mysqli_num_rows($resultados);
                                     $listaDisciplina = [];
                                     if ($linhas > 0) {
                                         for ($i = 0; $i < $linhas; $i++) {
@@ -88,8 +88,8 @@ session_start();
                             $sql = "SELECT aula.* FROM aula WHERE nome LIKE '%$consulta%' AND idDisciplina IN (".implode($listaDisciplina, ',').") ORDER BY idAula DESC";
                         }
                         //echo $sql;
-                        $resultados = mysql_query($sql);
-                        $linhas = mysql_num_rows($resultados);
+                        $resultados = mysqli_query($conexao, $sql);
+                        $linhas = mysqli_num_rows($resultados);
                         if ($linhas > 0) {
                             echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
                 <tr>

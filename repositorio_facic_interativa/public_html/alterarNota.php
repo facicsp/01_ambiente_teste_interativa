@@ -1,4 +1,4 @@
-      <?php
+﻿      <?php
         session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -15,7 +15,7 @@ if (isset($_SESSION["usuario"])) {
       //conteudo do site
 include "topo.php";
 
-      include 'conexao.php';
+      include 'LoginRestrito/conexao.php';
 $seguranca = new Seguranca();
 $idAtividade = $seguranca->antisql($_POST["idAtividade"]);
 $nota = $seguranca->antisql($_POST["txtNota"]);
@@ -23,7 +23,7 @@ $nota = str_replace(",", ".", $nota);
 $retorno = $seguranca->antisql($_POST["txtRetorno"]);
 $sql="UPDATE atividade SET nota = '$nota',retorno='$retorno' WHERE idAtividade = '$idAtividade'";
 echo $sql;
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 $idAula = $_SESSION["idAulaNota"];
 echo "<script>
     alert('Alteração realizada com sucesso!');

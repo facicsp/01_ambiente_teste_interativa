@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,7 +22,7 @@ $senha .="".rand(0, 100);
 }
 include '../conexao.php';
 $sql = "UPDATE usuario SET senha2 = '$senha' WHERE email='$email'";
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 
 $msg = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
 <html xmlns=\"http://www.w3.org/1999/xhtml\">

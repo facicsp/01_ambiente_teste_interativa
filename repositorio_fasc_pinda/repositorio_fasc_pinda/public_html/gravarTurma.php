@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,12 +14,12 @@ if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador"){
       //conteudo do site
 include "topo.php";
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
 $descricao = $_POST["txtDescricao"];
 $idCurso = $_POST["txtCurso"];
 $sql = "INSERT INTO turma VALUES(null,'$descricao','$idCurso','sim', '".$_SESSION['semestre']."')";
 //echo $sql;
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'cadastroTurma.php';

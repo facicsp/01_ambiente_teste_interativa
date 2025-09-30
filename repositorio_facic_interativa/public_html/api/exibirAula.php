@@ -1,4 +1,4 @@
-<?php
+﻿<?php
     
 include 'hasAccess.php';
 
@@ -14,11 +14,11 @@ $sql = "SELECT
         WHERE iddisciplina = '$idDisciplina' 
         ORDER BY aula.dataAula";
 
-$result = mysql_query($sql);
-$linhas = mysql_num_rows($result);
+$result = mysqli_query($conexao, $sql);
+$linhas = mysqli_num_rows($result);
 
 if ($linhas > 0) {
-  while($row = mysql_fetch_assoc($result)) {
+  while($row = mysqli_fetch_assoc($result)) {
       $rows[] = $row;
   }
   

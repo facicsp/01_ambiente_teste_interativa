@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -17,7 +17,7 @@ session_start();
 if (isset($_SESSION["usuario"])) {
   if ($_SESSION["tipo"] == "professor") {
       
-      include 'conexao.php';
+      include 'LoginRestrito/conexao.php';
       $seguranca = new Seguranca();
 $idBoletim = $seguranca->antisql($_POST["idBoletim"]);
 $idDisciplina = $seguranca->antisql($_POST["idDisciplina"]);
@@ -37,7 +37,7 @@ $t2 = $seguranca->antisql($_POST["txtT2"]);
 
 $sql = "UPDATE boletim SET bimestre1='$bimestre1',bimestre2='$bimestre2',exame='$exame',sub='$sub' WHERE idBoletim = '$idBoletim'";
 //echo $sql;
-    mysql_query($sql);
+    mysqli_query($conexao, $sql);
 
 echo "<script>
 alert('Gravação realizada com sucesso!');

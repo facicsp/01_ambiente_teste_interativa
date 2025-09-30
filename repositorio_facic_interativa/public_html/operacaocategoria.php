@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@
                 //conteudo do site
                 
                 
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
  
 $seguranca = new Seguranca();
 
@@ -23,12 +23,12 @@ $id = $seguranca->antisql($_POST["id"]);
 
 if($operacao == 'alterar'){
 $Categoria = $seguranca->antisql($_POST["txtCategoria"]);
-$sql = "UPDATE categoria SET categoria = '$Categoria' WHERE idcategoria = '$id'";mysql_query($sql);
+$sql = "UPDATE categoria SET categoria = '$Categoria' WHERE idcategoria = '$id'";mysqli_query($conexao, $sql);
 echo "<script>
 alert('Alteração realizada com sucesso!');
 window.location = 'cadastrocategoria.php';
 </script>";}else if($operacao == 'excluir'){
-$sql = "DELETE FROM categoria WHERE idcategoria = $id";mysql_query($sql);
+$sql = "DELETE FROM categoria WHERE idcategoria = $id";mysqli_query($conexao, $sql);
 echo "<script>
 alert('Exclusão realizada com sucesso!');
 window.location = 'cadastrocategoria.php';

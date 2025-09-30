@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 include 'hasAccess.php';
 
@@ -12,6 +12,6 @@ date_default_timezone_set('America/Sao_Paulo');
 $data = Date("Y-m-d");
 
 $sql = "INSERT INTO mensagem VALUES(null,'$mensagem','$data','$tipo','nao','$idContato')";
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 
 echo json_encode(true);

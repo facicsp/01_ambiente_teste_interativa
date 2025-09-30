@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -15,7 +15,7 @@ session_start();
         if (isset($_SESSION["usuario"])) {
             if ($_SESSION["tipo"] == "professor" || $_SESSION["tipo"] == "aluno") {
                 include "topo.php";
-                include './conexao.php';
+                include 'LoginRestrito/conexao.php';
                 $seguranca = new Seguranca();
                 
                 
@@ -23,8 +23,8 @@ session_start();
                 $idDisciplina = 27;
                 $sql = "SELECT * FROM video WHERE titulo LIKE '%$consulta%' AND idDisciplina = $idDisciplina ORDER BY idvideo DESC";
                 
-                $result = mysql_query($sql);
-                $linhas = mysql_num_rows($result);
+                $result = mysqli_query($conexao, $sql);
+                $linhas = mysqli_num_rows($result);
                 
                 if($linhas > 0) {
                     echo "<div class='grid-70 prefix-15 suffix-15'>";

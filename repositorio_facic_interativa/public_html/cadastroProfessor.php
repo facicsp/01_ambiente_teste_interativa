@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -121,7 +121,7 @@ echo '<a href="definirCoordenador.php" class="button" style="float: left;">Profe
 
                             <?php
             }
-                            include 'conexao.php';
+                            include 'LoginRestrito/conexao.php';
                             $consulta = "";
                             if (isset($_GET["txtConsulta"])) {
                                 $consulta = $_GET["txtConsulta"];
@@ -131,8 +131,8 @@ echo '<a href="definirCoordenador.php" class="button" style="float: left;">Profe
                             }else{
                             $sql = "SELECT * FROM professor WHERE nome LIKE '%$consulta%' ORDER BY nome";
                             }
-                            $resultados = mysql_query($sql);
-                            $linhas = mysql_num_rows($resultados);
+                            $resultados = mysqli_query($conexao, $sql);
+                            $linhas = mysqli_num_rows($resultados);
                             if ($linhas > 0) {
                                 echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
                 <tr>

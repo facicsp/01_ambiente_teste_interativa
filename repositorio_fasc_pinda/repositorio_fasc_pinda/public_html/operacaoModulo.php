@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -13,7 +13,7 @@ session_start();
 if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador"){
       //conteudo do site
-include "topo.php";include 'conexao.php';
+include "topo.php";include 'LoginRestrito/conexao.php';
 $operacao = $_POST["operacao"];
 $id = $_POST["id"];
 
@@ -21,14 +21,14 @@ if($operacao == 'alterar'){
 $descricao = $_POST["txtDescricao"];
 $idCurso = $_POST["txtCurso"];
 $sql="UPDATE modulo SET modulo = '$descricao', idcurso = '$idCurso' WHERE idmodulo = $id";
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 echo "<script>
     alert('Alteração realizada com sucesso!');
     window.location='cadastroModulo.php';
 </script>";
 }else if($operacao == 'excluir'){
 $sql = "DELETE FROM modulo WHERE idmodulo = $id";
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 echo "<script>
     alert('Exclusão realizada com sucesso!');
     window.location='cadastroModulo.php';

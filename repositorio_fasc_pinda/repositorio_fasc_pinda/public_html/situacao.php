@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,15 +22,15 @@ session_start();
         <div class="dados">
             <div class="barratitulo"><h1>Situação Acadêmica</h1></div>
                         <?php
-                        include "conexao.php";
+                        include "LoginRestrito/conexao.php";
                         if ($_SESSION["tipo"] == "aluno") {
                             $sql = "select date_format(matricula.data,'%d/%m/%Y')as data,turma.turma,turma.idcurso from matricula,turma where matricula.idAluno = '$idAluno' and matricula.idTurma = turma.idTurma";
                         } else {
                             $sql = "SELECT aula.* FROM aula WHERE nome LIKE '%$consulta%' ORDER BY idAula DESC";
                         }
                         //echo $sql;
-                        $resultados = mysql_query($sql);
-                        $linhas = mysql_num_rows($resultados);
+                        $resultados = mysqli_query($conexao, $sql);
+                        $linhas = mysqli_num_rows($resultados);
                         if ($linhas > 0) {
                             echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
                 <tr>
@@ -46,8 +46,8 @@ session_start();
                                 $turma = mysql_result($resultados, $i, "turma");
                                 $idCurso = mysql_result($resultados, $i, "idCurso");
                                 $sqlCurso = "select curso.descricao from curso where idcurso = '$idCurso'";
-                                $resultadosCurso = mysql_query($sqlCurso);
-                                $linhasCurso = mysql_num_rows($resultadosCurso);
+                                $resultadosCurso = mysqli_query($conexao, $sqlCurso);
+                                $linhasCurso = mysqli_num_rows($resultadosCurso);
                                 $curso = "";
                                 if($linhasCurso > 0){
                                     $curso = mysql_result($resultadosCurso, 0, "descricao");

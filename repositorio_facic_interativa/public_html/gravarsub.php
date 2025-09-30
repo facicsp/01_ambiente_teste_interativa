@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -13,7 +13,7 @@ session_start();
 if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "aluno" || $_SESSION["tipo"] == "professor"){
       //conteudo do site
-      include 'conexao.php';
+      include 'LoginRestrito/conexao.php';
       $seguranca = new Seguranca();
       $idUsuario = $_SESSION["id"];
       $sub = $seguranca->antisql($_POST["txtSubResposta"]);
@@ -24,7 +24,7 @@ if (isset($_SESSION["usuario"])) {
     
     //exit($sql);
     
-    mysql_query($sql);
+    mysqli_query($conexao, $sql);
 echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'forum.php?idTopico=$idTopico';

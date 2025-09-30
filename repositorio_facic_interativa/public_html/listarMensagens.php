@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 
 function MontarLink($texto)
@@ -33,7 +33,7 @@ function MontarLink($texto)
 if (isset($_SESSION["usuario"])) {
     if ($_SESSION["tipo"] == "aluno" || $_SESSION["tipo"] == "professor") {
         
-        include './conexao.php';
+        include 'LoginRestrito/conexao.php';
         $seguranca = new Seguranca();
         $idEscritor = $seguranca->antisql($_SESSION["id"]);
         $tipoEscritor = $seguranca->antisql($_SESSION["tipo"]);
@@ -47,11 +47,11 @@ if (isset($_SESSION["usuario"])) {
 
         if ($tipoEscritor == "aluno") {
             if ($tipoGrupo == "curso" || $tipoGrupo == "turma") {
-                $result = mysql_query("SELECT turma.idTurma, turma.idCurso FROM matricula
+                $result = mysqli_query($conexao, "SELECT turma.idTurma, turma.idCurso FROM matricula
                     LEFT JOIN turma ON turma.idTurma = matricula.idTurma
                     WHERE idaluno = '$idEscritor' AND ativo = 'sim' AND semestre = '$semestre'");
     
-                if (mysql_num_rows($result) > 0) {
+                if (mysqli_num_rows($result) > 0) {
                     $idGrupo = mysql_result($result, 0, ($tipoGrupo == "turma" ? "idTurma" : "idCurso"));
                 }
             } else if (isset($_GET["professor"])) {
@@ -81,12 +81,12 @@ if (isset($_SESSION["usuario"])) {
             $where = "AND idAluno = $idAluno";
         }
 
-        $result = mysql_query("SELECT mensagem, DATE_FORMAT(data, '%d/%m/%Y às %Hh%i') AS data_formatada, 
+        $result = mysqli_query($conexao, "SELECT mensagem, DATE_FORMAT(data, '%d/%m/%Y às %Hh%i') AS data_formatada, 
             nome, tipoEscritor, idEscritor, anexo FROM mensagens 
             LEFT JOIN usuario ON usuario.idUsuario = mensagens.idEscritor 
             WHERE idGrupo='$idGrupo' AND tipoGrupo='$tipoGrupo' $where");
 
-        $linhas = mysql_num_rows($result);
+        $linhas = mysqli_num_rows($result);
         if ($linhas > 0) {
             for ($i=0; $i < $linhas; $i++) { 
                 $mensagem = mysql_result($result, $i, "mensagem");
@@ -97,7 +97,7 @@ if (isset($_SESSION["usuario"])) {
                 $anexo = mysql_result($result, $i, "anexo");
 
                 if ($tipoEscritor == "professor") {
-                    $r = mysql_query("SELECT nome FROM professor WHERE idProfessor = '$idEscritor2'");
+                    $r = mysqli_query($conexao, "SELECT nome FROM professor WHERE idProfessor = '$idEscritor2'");
                     $nome = mysql_result($r, 0, "nome");
                 }
 

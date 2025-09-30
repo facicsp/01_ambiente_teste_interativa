@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 
 // recebendo a url da imagem
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
 $seguranca = new Seguranca();
 $filename = $seguranca->antisql($_GET['img']);
 $ext = $seguranca->antisql($_GET['ext']);

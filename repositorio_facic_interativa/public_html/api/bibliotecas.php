@@ -1,4 +1,4 @@
-<?php include '../conexao.php'; ?>
+﻿<?php include '../conexao.php'; ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -102,8 +102,8 @@
     $sql = "select p.*,a.area from periodico p,area a 
     WHERE p.idarea = a.idarea 
     ORDER BY a.area,p.titulo";
-    $result = mysql_query($sql);
-    $linhas = mysql_num_rows($result);
+    $result = mysqli_query($conexao, $sql);
+    $linhas = mysqli_num_rows($result);
     $areaauxiliar = "";
     if($linhas > 0){
     for($i=0;$i<$linhas;$i++){
@@ -128,8 +128,8 @@
     //Exibir os repositórios
     $sql = "select * from formulario 
     ORDER BY titulo";
-    $result = mysql_query($sql);
-    $linhas = mysql_num_rows($result);
+    $result = mysqli_query($conexao, $sql);
+    $linhas = mysqli_num_rows($result);
     $areaauxiliar = "";
     if($linhas > 0){
     for($i=0;$i<$linhas;$i++){

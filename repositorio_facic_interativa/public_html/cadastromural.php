@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -172,7 +172,7 @@ session_start();
                                                     }
                                                     
                                                     
-                                                    include 'conexao.php';
+                                                    include 'LoginRestrito/conexao.php';
                                                     $seguranca = new Seguranca();
               
                                                     if ($_SESSION["tipo"] == "professor") {
@@ -184,8 +184,8 @@ session_start();
     $sql = "SELECT d.*, t.turma, t.idturma FROM disciplina d,turma t where d.idTurma = t.idTurma ORDER BY d.disciplina";
 }
 
-$resultados = mysql_query($sql);
-$linhas = mysql_num_rows($resultados);
+$resultados = mysqli_query($conexao, $sql);
+$linhas = mysqli_num_rows($resultados);
 
 if ($linhas > 0) {
     for ($i = 0; $i < $linhas; $i++) {
@@ -244,8 +244,8 @@ if ($linhas > 0) {
                                                         $sql = "SELECT * FROM disciplina WHERE semestre = '".$_SESSION['semestre']."' ORDER BY disciplina";
                                                     }
         //echo $sql;
-        $resultados = mysql_query($sql);
-        $linhas = mysql_num_rows($resultados);
+        $resultados = mysqli_query($conexao, $sql);
+        $linhas = mysqli_num_rows($resultados);
         if ($linhas > 0) {
             for ($i = 0; $i < $linhas; $i++) {
 
@@ -288,8 +288,8 @@ if ($linhas > 0) {
             $sql = "SELECT idnoticia,titulo FROM noticia WHERE iddisciplina = '$consulta' ORDER BY titulo DESC";
         }
         //echo $sql;
-        $resultados = mysql_query($sql);
-        $linhas = mysql_num_rows($resultados);
+        $resultados = mysqli_query($conexao, $sql);
+        $linhas = mysqli_num_rows($resultados);
         if ($linhas > 0) {
             echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
                 <tr>

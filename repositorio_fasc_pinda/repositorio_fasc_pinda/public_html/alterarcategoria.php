@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@
                 //conteudo do site
                 include "topo.php";
                 
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
  
 $seguranca = new Seguranca();
 
@@ -25,9 +25,9 @@ $id = $seguranca->antisql($_POST["id"]);
 
 $sql = "SELECT * FROM categoria WHERE idcategoria = '$id'";
 
-$result = mysql_query($sql);
+$result = mysqli_query($conexao, $sql);
 
-$linhas = mysql_num_rows($result);
+$linhas = mysqli_num_rows($result);
 
 if ($linhas > 0) {
 $categoria = mysql_result($result, 0, "categoria");

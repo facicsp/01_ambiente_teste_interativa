@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@ if (isset($_SESSION["usuario"])) {
       //conteudo do site
 include "topo.php";
 
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
 $seguranca = new Seguranca();
 $operacao = $seguranca->antisql($_POST["operacao"]);
 $id = $seguranca->antisql($_POST["id"]);
@@ -24,14 +24,14 @@ $pontos = $seguranca->antisql($_POST["txtPontos"]);
 
 $idDisciplina = $seguranca->antisql($_POST["txtDisciplina"]);
 $sql="UPDATE desafio SET tipo = '$tipo',pontos='$pontos',idDisciplina='$idDisciplina' WHERE idDesafio = $id";
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 echo "<script>
     alert('Alteração realizada com sucesso!');
     window.location='cadastroDesafio.php';
 </script>";
 }else if($operacao == 'excluir'){
 $sql = "DELETE FROM desafio WHERE idDesafio = $id";
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 echo "<script>
     alert('Exclusão realizada com sucesso!');
     window.location='cadastroDesafio.php';

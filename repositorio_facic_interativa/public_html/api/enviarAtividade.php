@@ -1,4 +1,4 @@
-<?php
+﻿<?php
     
 include 'hasAccess.php';
 
@@ -12,8 +12,8 @@ $data = $seguranca->antisql($_REQUEST["data"]);
 $hora = $seguranca->antisql($_REQUEST["hora"]);
 $obs = $seguranca->antisql($_REQUEST["txtObservacao"]);
 
-$result = mysql_query("SELECT idAtividade FROM atividade WHERE idAula='$idAula'");
-$linhas = mysql_num_rows($result);
+$result = mysqli_query($conexao, "SELECT idAtividade FROM atividade WHERE idAula='$idAula'");
+$linhas = mysqli_num_rows($result);
 
 if($linhas > 0) {
   $linhas++;
@@ -24,11 +24,11 @@ if($linhas > 0) {
 
 $uploadpast = "atividades";
 
-$result = mysql_query("SELECT idDisciplina FROM aula WHERE idAula = '$idAula'");
+$result = mysqli_query($conexao, "SELECT idDisciplina FROM aula WHERE idAula = '$idAula'");
 $idDisciplina = mysql_result($result, 0, 'idDisciplina');
 
 if($_FILES['txtArquivo']['size'] == 0) {
-  mysql_query("INSERT INTO atividade VALUES(null,'$titulo','','$idAula','$idAluno','$data','$hora','$obs','$idDisciplina','0','')");
+  mysqli_query($conexao, "INSERT INTO atividade VALUES(null,'$titulo','','$idAula','$idAluno','$data','$hora','$obs','$idDisciplina','0','')");
   json_encode("INSERT INTO atividade VALUES(null,'$titulo','','$idAula','$idAluno','$data','$hora','$obs','$idDisciplina','0','')");
 } else {
   if($_FILES['txtArquivo']['size'] <= 10500000) {
@@ -43,7 +43,7 @@ if($_FILES['txtArquivo']['size'] == 0) {
 
       if (!move_uploaded_file($_FILES['txtArquivo']['tmp_name'], "../$uploadarq")) exit(json_encode("Ops! Houve algum erro. ".$_FILES["txtArquivo"]["error"]));
 
-      mysql_query("INSERT INTO atividade VALUES(null,'$titulo','$uploadarq','$idAula','$idAluno','$data','$hora','$obs','$idDisciplina','0','')");
+      mysqli_query($conexao, "INSERT INTO atividade VALUES(null,'$titulo','$uploadarq','$idAula','$idAluno','$data','$hora','$obs','$idDisciplina','0','')");
       echo json_encode(true);
       // echo json_encode("INSERT INTO atividade VALUES(null,'$titulo','$uploadarq','$idAula','$idAluno','$data','$hora','$obs','$idDisciplina','0','')");
     } else{

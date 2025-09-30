@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@
                 //conteudo do site
                 include "topo.php";
                 
-include 'conexao.php';
+include 'LoginRestrito/conexao.php';
  
 $seguranca = new Seguranca();
 
@@ -25,9 +25,9 @@ $id = $seguranca->antisql($_POST["id"]);
 
 $sql = "SELECT * FROM pergunta WHERE idpergunta = '$id'";
 
-$result = mysql_query($sql);
+$result = mysqli_query($conexao, $sql);
 
-$linhas = mysql_num_rows($result);
+$linhas = mysqli_num_rows($result);
 
 if ($linhas > 0) {
 $pergunta = mysql_result($result, 0, "pergunta");
@@ -51,15 +51,15 @@ $idDisciplina = mysql_result($result, 0, "idDisciplina");
                                 <select name="txtDisciplina">
                                     <?php
                                     $sqlCombo = "SELECT disciplina FROM disciplina WHERE idDisciplina = '$idDisciplina'";
-                                    $resultCombo = mysql_query($sqlCombo);
+                                    $resultCombo = mysqli_query($conexao, $sqlCombo);
                                     $descricaoCombo = mysql_result($resultCombo, 0, "disciplina");
                                     ?>
                                     <option value="<?php echo $idDisciplina;?>"><?php echo $descricaoCombo;?></option>
                                     <?php
                                     $idProfessor = $_SESSION["id"];
                                     $sql = "SELECT d.*,t.turma from disciplina d,turma t WHERE d.idProfessor = '$idProfessor' AND d.idTurma = t.idTurma";
-                                    $result = mysql_query($sql);
-                                    $linhas = mysql_num_rows($result);
+                                    $result = mysqli_query($conexao, $sql);
+                                    $linhas = mysqli_num_rows($result);
                                     if($linhas > 0){
                                         for($i=0;$i<$linhas;$i++){
                                         $idDisciplina = mysql_result($result, $i, "idDisciplina");

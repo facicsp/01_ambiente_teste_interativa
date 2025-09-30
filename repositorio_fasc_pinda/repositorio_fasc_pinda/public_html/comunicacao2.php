@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 
  
@@ -200,7 +200,7 @@ $tipos = [
             if (isset($_SESSION["usuario"])) {
                 if ($_SESSION["tipo"] == "aluno" || $_SESSION["tipo"] == "professor") {
 
-                    include './conexao.php';
+                    include 'LoginRestrito/conexao.php';
                     $seguranca = new Seguranca();
                     $idEscritor = $seguranca->antisql($_SESSION["id"]);
                     $tipoEscritor = $seguranca->antisql($_SESSION["tipo"]);

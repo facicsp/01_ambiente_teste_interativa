@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -56,8 +56,8 @@ $header .= "From: Ambiente Virtual Facic<contato@facicinterativa.com.br>";
 
 
 $sql = "SELECT usuario.email from usuario,matricula where matricula.idTurma = '$idTurma' and matricula.idAluno = usuario.idUsuario";
-$result = mysql_query($sql);
-$linhas = mysql_num_rows($result);
+$result = mysqli_query($conexao, $sql);
+$linhas = mysqli_num_rows($result);
 
 if($linhas > 0){
     for($i = 0;$i < $linhas;$i++){

@@ -1,10 +1,10 @@
-<?php
+﻿<?php
 
 session_start();
 
 if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "professor") {
       
-  include "conexao.php";
+  include "LoginRestrito/conexao.php";
   $seguranca = new Seguranca();
   
   $idBoletim = $seguranca->antisql($_POST["idBoletim"]);
@@ -22,7 +22,7 @@ if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "professor") {
   $sql = "UPDATE boletim SET bimestre1 = '$bimestre1', bimestre2 = '$bimestre2', 
             exame = '$exame', sub = '$sub' WHERE idBoletim = '$idBoletim'";
 
-  mysql_query($sql);
+  mysqli_query($conexao, $sql);
 
   echo json_encode(true);
 }

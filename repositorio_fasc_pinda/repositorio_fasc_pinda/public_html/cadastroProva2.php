@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 
 <head>
@@ -16,7 +16,7 @@
     include "topo.php";
     // include './Util.php';
     // $util = new Util();
-    // include './conexao.php';
+    // include 'LoginRestrito/conexao.php';
   ?>
 
   <div id="app">

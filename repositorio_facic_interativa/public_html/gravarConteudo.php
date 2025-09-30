@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,12 +14,12 @@ if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "professor"){
       //conteudo do site
 include "topo.php";
-      include 'conexao.php';
+      include 'LoginRestrito/conexao.php';
       $seguranca = new Seguranca();
       $idAula = $_SESSION["idAula"];
       $sqlConteudo = "SELECT idConteudo FROM conteudo WHERE idAula='$idAula'";
-      $result = mysql_query($sqlConteudo);
-      $linhas = mysql_num_rows($result);
+      $result = mysqli_query($conexao, $sqlConteudo);
+      $linhas = mysqli_num_rows($result);
       
       $nomeArquivo = md5(time() . $idDisciplina);
       
@@ -47,7 +47,7 @@ else {echo "Arquivo não enviado - $script";}
 $titulo = $seguranca->antisql($_POST["txtTitulo"]);
 $sql = "INSERT INTO conteudo VALUES(null,'$titulo','$uploadarq','$idAula')";
 //echo $sql;
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'cadastroConteudo.php';

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,14 +14,14 @@ if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador"){
       //conteudo do site
       include "topo.php";
-      include 'conexao.php';
+      include 'LoginRestrito/conexao.php';
 $seguranca = new Seguranca();
 $idAluno = $seguranca->antisql($_POST["txtAluno"]);
 $idTurma = $seguranca->antisql($_POST["txtTurma"]);
 $data = $seguranca->antisql($_POST["txtData"]);
 $sql = "INSERT INTO matricula VALUES(null,'$idAluno','$idTurma','$data')";
 //echo $sql;
-mysql_query($sql);
+mysqli_query($conexao, $sql);
 
 echo "<script>
 alert('Gravação realizada com sucesso!');

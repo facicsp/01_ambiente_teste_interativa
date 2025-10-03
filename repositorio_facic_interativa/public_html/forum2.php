@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 function MontarLink ($texto)
     {
@@ -177,8 +177,8 @@ function gravarNota(idAluno,idDisciplina,idTopico){
             //mysql_set_charset("UTF8");
             $query = "SELECT nome FROM $tabela WHERE $campo = '$id'";
             //echo $query;
-            $resultNome = mysqli_query($conexao, $query);
-            if(mysqli_num_rows($resultNome) > 0){
+            $resultNome = mysql_query($query);
+            if(mysql_num_rows($resultNome) > 0){
                 $nome = mysql_result($resultNome, 0, "nome");
                 
                 return $nome;
@@ -220,7 +220,7 @@ function gravarNota(idAluno,idDisciplina,idTopico){
                     }
                     echo "<h2>:::Tópicos:::</h2>";
 
-                    include 'LoginRestrito/conexao.php';
+                    include './conexao.php';
                     $seguranca = new Seguranca();
                     if (isset($_POST["idDisciplina"])) {
                         $idDisciplina = $seguranca->antisql($_POST["idDisciplina"]);
@@ -231,8 +231,8 @@ function gravarNota(idAluno,idDisciplina,idTopico){
                     }
 
                     $sql = "SELECT * FROM topico WHERE idDisciplina = '$idDisciplina'";
-                    $result = mysqli_query($conexao, $sql);
-                    $linhas = mysqli_num_rows($result);
+                    $result = mysql_query($sql);
+                    $linhas = mysql_num_rows($result);
                     if ($linhas > 0) {
                         for ($i = 0; $i < $linhas; $i++) {
                             $idTopico = mysql_result($result, $i, "idTopico");
@@ -252,12 +252,12 @@ function gravarNota(idAluno,idDisciplina,idTopico){
                         $idTopico = $seguranca->antisql($_GET["idTopico"]);
                         $sql = "SELECT * FROM topico WHERE idTopico = '$idTopico' AND idDisciplina = '$idDisciplina'";
                         //echo $sql;
-                        $result = mysqli_query($conexao, $sql);
-                        $linhas = mysqli_num_rows($result);
+                        $result = mysql_query($sql);
+                        $linhas = mysql_num_rows($result);
                         if ($linhas > 0) {
                             
-                            $resultBimestre = mysqli_query($conexao, "SELECT bimestre FROM forumavaliacao WHERE idTopico = '$idTopico'");
-                            $avaliativo = mysqli_num_rows($resultBimestre);
+                            $resultBimestre = mysql_query("SELECT bimestre FROM forumavaliacao WHERE idTopico = '$idTopico'");
+                            $avaliativo = mysql_num_rows($resultBimestre);
                             
                             for ($i = 0; $i < $linhas; $i++) {
 
@@ -276,8 +276,8 @@ function gravarNota(idAluno,idDisciplina,idTopico){
                         //Localizar comentários
                         $sql = "SELECT * FROM comentario WHERE idTopico = '$idTopico' ORDER BY idComentario";
                         //echo $sql;
-                        $result = mysqli_query($conexao, $sql);
-                        $linhas = mysqli_num_rows($result);
+                        $result = mysql_query($sql);
+                        $linhas = mysql_num_rows($result);
                         if ($linhas > 0) {
                             for ($i = 0; $i < $linhas; $i++) {
 
@@ -293,8 +293,8 @@ function gravarNota(idAluno,idDisciplina,idTopico){
                                     $nome = getNome("usuario", "idUsuario", $idUsuario);
                                     $imagem = "aluno.png";
                                     
-                                    $resultNota = mysqli_query($conexao, "select * from notaforum where idAluno = '$idUsuario' AND idDisciplina = '$idDisciplina' AND idTopico = '$idTopico'");
-                                    if (mysqli_num_rows($resultNota) > 0) $nota = mysql_result($resultNota, 0, "nota");
+                                    $resultNota = mysql_query("select * from notaforum where idAluno = '$idUsuario' AND idDisciplina = '$idDisciplina' AND idTopico = '$idTopico'");
+                                    if (mysql_num_rows($resultNota) > 0) $nota = mysql_result($resultNota, 0, "nota");
                                     else $nota = 0;
                                     
                                     echo "<div class='grupocomentario'>
@@ -335,8 +335,8 @@ function gravarNota(idAluno,idDisciplina,idTopico){
                                 
                                 $sqlSub = "SELECT * FROM subresposta WHERE idComentario = '$idComentario' ORDER BY idSub";
                                 //echo $sqlSub;
-                                $resultSub = mysqli_query($conexao, $sqlSub);
-                                $linhasSub = mysqli_num_rows($resultSub);
+                                $resultSub = mysql_query($sqlSub);
+                                $linhasSub = mysql_num_rows($resultSub);
                                 if ($linhasSub > 0) {
                                     for ($j = 0; $j < $linhasSub; $j++) {
                                         $idUsuario = mysql_result($resultSub, $j, "idUsuario");

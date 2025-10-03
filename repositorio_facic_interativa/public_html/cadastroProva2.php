@@ -1,8 +1,8 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
 
 <head>
-  <title></title>
+  <title>Cadastro de Prova</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="css/cadastro.css">
   <link rel="stylesheet" href="css/prova.css">
@@ -14,9 +14,6 @@
     if (isset($_SESSION["usuario"])) {
     if ($_SESSION["tipo"] == "administrador"  || $_SESSION["tipo"] == "professor") {
     include "topo.php";
-    // include './Util.php';
-    // $util = new Util();
-    // include 'LoginRestrito/conexao.php';
   ?>
 
   <div id="app">
@@ -33,7 +30,7 @@
         </label>
         <span>Discursiva</span>
       </div>
-      
+
       <input v-model="pergunta.peso" type="number" step="0.1" min="0" max="10" placeholder="Peso">
 
       <h2 class="numero">{{numero}}</h2>
@@ -52,10 +49,6 @@
       <div class="addAlternativa" title="Adicionar alternativa" v-if="!pergunta.tipo" v-on:click="add">Adicionar mais
         alternativas</div>
 
-      <div style="margin: 10px 0;">
-        <label for="anexo">Anexar arquivo (opcional):</label><br>
-        <input type="file" id="anexo" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" style="margin-top: 5px;">
-      </div>
       <p class="sucesso" v-if="sucesso">✔ Questão salva com sucesso!</p>
       <p class="erro" v-if="titulo.trim().length == 0 && pergunta.enviado">Ops! Preencha o campo título.</p>
       <p class="erro" v-if="pergunta.descricao.value.trim().length == 0 && pergunta.enviado">Ops! Preencha o campo
@@ -65,16 +58,14 @@
         alternativa correta.</p>
       <button class="salvar botao sucesso" v-on:click="salvar">SALVAR QUESTÃO</button>
       <button class="salvar botao erro" v-on:click="finalizar" :disabled="!idProva"
-        :title="!idProva">FINALIZAR</button>
+        :title="!idProva ? 'Salve pelo menos uma questão antes de finalizar' : ''">FINALIZAR</button>
     </div>
   </div>
-
-
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-  <script src="js/criarProva.js"></script>
+  <script src="js/criarProva_FINAL.js"></script>
 </body>
 
 </html>

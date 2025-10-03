@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@ if (isset($_SESSION["usuario"])) {
       //conteudo do site
 include "topo.php";
 
-include 'LoginRestrito/conexao.php';
+include 'conexao.php';
 $seguranca = new Seguranca();
 $operacao = $seguranca->antisql($_POST["operacao"]);
 $id = $seguranca->antisql($_POST["id"]);
@@ -26,7 +26,7 @@ $idDisciplina = $seguranca->antisql($_POST["txtDisciplina"]);
 
 $sql="UPDATE medalha SET descricao = '$descricao',pontos='$pontos',obs='$obs',idDisciplina='$idDisciplina' WHERE idMedalha = $id";
 echo $sql;
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 
 
 //trecho para capturar a imagem
@@ -97,7 +97,7 @@ if (move_uploaded_file($_FILES['arquivo']['tmp_name'], $_UP['pasta'] . $nome_fin
 // Upload efetuado com sucesso, exibe uma mensagem e um link para o arquivo
 echo "Upload efetuado com sucesso!";
 $sql="UPDATE medalha SET descricao = '$descricao',obs='$obs',medalha='$nome_final',pontos='$pontos',idDisciplina='$idDisciplina' WHERE idMedalha = $id";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 
 //Fim do trecho para capturar a imagem
 }}
@@ -109,7 +109,7 @@ echo "<script>
 
 }else if($operacao == 'excluir'){
 $sql = "DELETE FROM medalha WHERE idMedalha = $id";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 echo "<script>
     alert('Exclusão realizada com sucesso!');
     window.location='cadastroMedalha.php';

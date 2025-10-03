@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@
                 //conteudo do site
                 
                 
-include 'LoginRestrito/conexao.php';
+include 'conexao.php';
  
 $seguranca = new Seguranca();
 
@@ -23,12 +23,12 @@ $id = $seguranca->antisql($_POST["id"]);
 
 if($operacao == 'alterar'){
 $Area = $seguranca->antisql($_POST["txtArea"]);
-$sql = "UPDATE area SET area = '$Area' WHERE idarea = '$id'";mysqli_query($conexao, $sql);
+$sql = "UPDATE area SET area = '$Area' WHERE idarea = '$id'";mysql_query($sql);
 echo "<script>
 alert('Alteração realizada com sucesso!');
 window.location = 'cadastroarea.php';
 </script>";}else if($operacao == 'excluir'){
-$sql = "DELETE FROM area WHERE idarea = $id";mysqli_query($conexao, $sql);
+$sql = "DELETE FROM area WHERE idarea = $id";mysql_query($sql);
 echo "<script>
 alert('Exclusão realizada com sucesso!');
 window.location = 'cadastroarea.php';

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -17,7 +17,7 @@ session_start();
             //conteudo do site
             include "topo.php";
 
-            include 'LoginRestrito/conexao.php';
+            include 'conexao.php';
             $seguranca = new Seguranca();
             $operacao = $seguranca->antisql($_POST["operacao"]);
             $id = $seguranca->antisql($_POST["id"]);
@@ -73,7 +73,7 @@ session_start();
                     }
                 }
                 // echo $sql;
-                mysqli_query($conexao, $sql);
+                mysql_query($sql);
                 if ($_SESSION["tipo"] == "administrador") {
                     echo "<script>
     alert('Alteração realizada com sucesso!');
@@ -88,7 +88,7 @@ session_start();
             } else if ($operacao == 'excluir') {
                 $sql = "DELETE FROM usuario WHERE idusuario = $id";
                 //echo $sql;
-                mysqli_query($conexao, $sql);
+                mysql_query($sql);
                 echo "<script>
     alert('Exclusão realizada com sucesso!');
     window.location='cadastroUsuario.php';

@@ -1,12 +1,12 @@
-﻿<?php
+<?php
 
 session_start();
-include 'LoginRestrito/conexao.php';
+include './conexao.php';
 
 $idAluno = $_SESSION["id"];
 
-$result = mysqli_query($conexao, "SELECT idAluno FROM avaliacao_interna_aluno WHERE idAluno = '$idAluno'");
-if (mysqli_num_rows($result) > 0) exit("<script>location.href='index.php';</script>");
+$result = mysql_query("SELECT idAluno FROM avaliacao_interna_aluno WHERE idAluno = '$idAluno'");
+if (mysql_num_rows($result) > 0) exit("<script>location.href='index.php';</script>");
 
 if (isset($_POST["acao"])) {
     // CREATE TABLE avaliacao_interna_aluno(
@@ -36,7 +36,7 @@ if (isset($_POST["acao"])) {
     $questao10 = $_POST["questao10"];
     $questao11 = $_POST["questao11"];
 
-    mysqli_query($conexao, "INSERT INTO avaliacao_interna_aluno VALUES (NULL, '$idAluno', '$questao1', '$questao2', '$questao3', '$questao4', 
+    mysql_query("INSERT INTO avaliacao_interna_aluno VALUES (NULL, '$idAluno', '$questao1', '$questao2', '$questao3', '$questao4', 
         '$questao5', '$questao6', '$questao7', '$questao8', '$questao9', '$questao10', '$questao11')");
 
     exit("<script>location.href='index.php';</script>");
@@ -190,7 +190,7 @@ if (isset($_POST["acao"])) {
             <div class="questao">
                 <div>
                     <p>Como você avalia o valor das mensalidades escolares e os
-                        descontos concedidos pela FASC, em uma escala de 0 à 10?
+                        descontos concedidos pela FACIC, em uma escala de 0 à 10?
                     </p>
                 </div>
                 <div class="alternativas">
@@ -206,7 +206,7 @@ if (isset($_POST["acao"])) {
             </div>
             <div class="questao">
                 <div>
-                    <p>Como você avalia as medidas tomadas pela FASC
+                    <p>Como você avalia as medidas tomadas pela FACIC
                         em face a pandemia do COVID-19, em escala de 0 à 10?
                     </p>
                 </div>
@@ -256,12 +256,12 @@ if (isset($_POST["acao"])) {
                 </div>
             </div>
             <div class="questao">
-                <p>Quais suas sugestões à Direção da FASC</p>
+                <p>Quais suas sugestões à Direção da FACIC</p>
                 <textarea name="questao8" rows="4" required value=""></textarea>
             </div>
             <div class="questao">
                 <div>
-                    <p>Mesmo depois da pandemia do COVID-19, você pensa em solicitar a FASC mais disciplinas em EAD nos cursos presenciais?
+                    <p>Mesmo depois da pandemia do COVID-19, você pensa em solicitar a FACIC mais disciplinas em EAD nos cursos presenciais?
                     </p>
                 </div>
                 <div class="alternativas-inline">

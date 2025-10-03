@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -15,7 +15,7 @@ if (isset($_SESSION["usuario"])) {
       //conteudo do site
 include "topo.php";
 
-      include 'LoginRestrito/conexao.php';
+      include 'conexao.php';
 $seguranca = new Seguranca();
 $operacao = $seguranca->antisql($_POST["operacao"]);
 $id = $seguranca->antisql($_POST["id"]);
@@ -48,7 +48,7 @@ if(isset($_POST["txtCancelarAvaliativo"])){
   
 $sql="UPDATE aula SET descricao = '$descricao',conteudo='$conteudo',dataAula='$dataAula',dataAtividade='$dataAtividade',idTurma='$idTurma',idDisciplina='$idDisciplina' $sqlBimestre WHERE idAula = $id";
 
-if(mysqli_query($conexao, $sql)){
+if(mysql_query($sql)){
 echo "<script>
     alert('Alteração realizada com sucesso!');
     window.location='cadastroAula.php';
@@ -58,7 +58,7 @@ echo "<script>
 }
 }else if($operacao == 'excluir'){
 $sql = "DELETE FROM aula WHERE idAula = $id";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 echo "<script>
     alert('Exclusão realizada com sucesso!');
     window.location='cadastroAula.php';

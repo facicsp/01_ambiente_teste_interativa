@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 include 'hasAccess.php';
 
@@ -10,6 +10,6 @@ $idComent  = $seguranca->antisql($_POST["idComentario"]);
 $idTopico  = $seguranca->antisql($_POST["idTopico"]);
 
 $sql = "INSERT INTO subresposta VALUES(null,'$sub','$idUsuario','$tipo','$idComent',DEFAULT)";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 
 echo json_encode(true);

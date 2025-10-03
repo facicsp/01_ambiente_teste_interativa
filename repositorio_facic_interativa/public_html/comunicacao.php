@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 
  
@@ -200,7 +200,7 @@ $tipos = [
             if (isset($_SESSION["usuario"])) {
                 if ($_SESSION["tipo"] == "aluno" || $_SESSION["tipo"] == "professor") {
 
-                    include 'LoginRestrito/conexao.php';
+                    include './conexao.php';
                     $seguranca = new Seguranca();
                     $idEscritor = $seguranca->antisql($_SESSION["id"]);
                     $tipoEscritor = $seguranca->antisql($_SESSION["tipo"]);
@@ -218,8 +218,8 @@ $tipos = [
                     )
                     AND disciplina.idProfessor = professor.idProfessor AND semestre = '$semestre'";
 
-                        $result = mysqli_query($conexao, $sql);
-                        $linhas = mysqli_num_rows($result);
+                        $result = mysql_query($sql);
+                        $linhas = mysql_num_rows($result);
                         
                         if ($linhas > 0) {
                             $selectProfessor = "<select id='professor'>";
@@ -253,16 +253,16 @@ $tipos = [
 
             // mensagens dos cursos
             $sql = sqlTurma($idEscritor, $semestre);
-            $result = mysqli_query($conexao, $sql);
-            $linhas = mysqli_num_rows($result);
+            $result = mysql_query($sql);
+            $linhas = mysql_num_rows($result);
             $idsCursoProfessor = [];
 
             if ($linhas > 0) {
                 for ($i=0; $i < $linhas; $i++) { 
                     $idCurso = mysql_result($result, $i, "idCurso");
                     
-                    $res = mysqli_query($conexao, "SELECT * FROM curso WHERE idCurso = '$idCurso'");
-                    if (mysqli_num_rows($res) > 0) {
+                    $res = mysql_query("SELECT * FROM curso WHERE idCurso = '$idCurso'");
+                    if (mysql_num_rows($res) > 0) {
                         $idCurso = mysql_result($res, 0, "idCurso");
                         $curso = mysql_result($res, 0, "descricao");
 
@@ -285,8 +285,8 @@ $tipos = [
             //     </div>";
 
             // $sql = sqlTurma($idEscritor, $semestre);
-            // $result = mysqli_query($conexao, $sql);
-            // $linhas = mysqli_num_rows($result);
+            // $result = mysql_query($sql);
+            // $linhas = mysql_num_rows($result);
 
             // if ($linhas > 0) {
             //     for ($i=0; $i < $linhas; $i++) { 
@@ -300,7 +300,7 @@ $tipos = [
 
 
             // // mensagens de alunos para o professor
-            // $result = mysqli_query($conexao, "SELECT idAluno, nome, DATE_FORMAT(data, '%m/%d/%Y às %Hh%i') AS data_formatada FROM mensagens 
+            // $result = mysql_query("SELECT idAluno, nome, DATE_FORMAT(data, '%m/%d/%Y às %Hh%i') AS data_formatada FROM mensagens 
             //     LEFT JOIN usuario ON usuario.idUsuario = mensagens.idAluno 
             //     WHERE tipoGrupo = 'professor' AND idGrupo = '$idEscritor' 
             //     GROUP BY idAluno");
@@ -309,7 +309,7 @@ $tipos = [
             //         <p>Mensagem de alunos</p>
             //     </div>";
 
-            // $linhas = mysqli_num_rows($result);
+            // $linhas = mysql_num_rows($result);
 
             // if ($linhas > 0) {
             //     for ($i=0; $i < $linhas; $i++) { 

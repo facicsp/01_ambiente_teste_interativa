@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 header("Access-Control-Allow-Origin: http://ava24horas.com");
 $code = $_REQUEST["code"];
 if($code == "dhdhd7dyuy78iuh3uy78yueh28"){
@@ -6,12 +6,12 @@ if($code == "dhdhd7dyuy78iuh3uy78yueh28"){
     $ra = $_REQUEST["ra"];
     $idTurma = $_REQUEST["idturma"];
         
-    include 'LoginRestrito/conexao.php';
+    include './conexao.php';
     $sql = "SELECT idUsuario,ra FROM usuario WHERE ra = '$ra'";
     $retorno .= $sql+"<br>";
-    $result = mysqli_query($conexao, $sql);
+    $result = mysql_query($sql);
     if($ra > 0){
-    if(mysqli_num_rows($result)==0){
+    if(mysql_num_rows($result)==0){
      
         $nome = $_REQUEST["nome"];
         $endereco = $_REQUEST["endereco"];
@@ -27,8 +27,8 @@ if($code == "dhdhd7dyuy78iuh3uy78yueh28"){
         
         $sql2 = "INSERT INTO usuario VALUES(null,'$nome','$endereco','$bairro','$cidade','$estado','$cep','$nascimento','$telefone','$celular','$email','$senha','aluno','','$ra','0000-00-00','','0')";
         $retorno .= $sql2+"<br>";
-        mysqli_query($conexao, $sql2);
-        $idAluno = mysqli_insert_id($conexao);
+        mysql_query($sql2);
+        $idAluno = mysql_insert_id();
         
     }else{
         $idAluno = mysql_result($result, 0, "idUsuario");
@@ -36,11 +36,11 @@ if($code == "dhdhd7dyuy78iuh3uy78yueh28"){
     $diaHoje = date('Y-m-d');
 
     $sqlMatricula = "SELECT * from matricula WHERE idAluno = '$idAluno' AND idTurma = '$idTurma'";
-    $resultMatricula = mysqli_query($conexao, $sqlMatricula);
-    if(mysqli_num_rows($resultMatricula) == 0){
+    $resultMatricula = mysql_query($sqlMatricula);
+    if(mysql_num_rows($resultMatricula) == 0){
     
     $sql3 = "INSERT INTO matricula VALUES(null,'$idAluno','$idTurma','$diaHoje')";
-    mysqli_query($conexao, $sql3);
+    mysql_query($sql3);
     $retorno = $sql3+"<br>";
     }
     

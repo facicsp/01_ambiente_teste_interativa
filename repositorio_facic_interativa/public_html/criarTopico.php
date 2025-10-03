@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,7 +22,7 @@ session_start();
         <div class="dados">
             <div class="barratitulo"><h1>Criar Tópico</h1></div>
                         <?php
-                        include "LoginRestrito/conexao.php";
+                        include "conexao.php";
                         $seguranca = new Seguranca();
                         $idUsuario =$_SESSION["id"];
                         $tipo = $_SESSION["tipo"];

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@
                 //conteudo do site
                 include "topo.php";
                 
-include 'LoginRestrito/conexao.php';
+include 'conexao.php';
  
 $seguranca = new Seguranca();
 
@@ -25,9 +25,9 @@ $id = $seguranca->antisql($_POST["id"]);
 
 $sql = "SELECT * FROM resposta WHERE idresposta = '$id'";
 
-$result = mysqli_query($conexao, $sql);
+$result = mysql_query($sql);
 
-$linhas = mysqli_num_rows($result);
+$linhas = mysql_num_rows($result);
 
 if ($linhas > 0) {
 $resposta = mysql_result($result, 0, "resposta");
@@ -64,7 +64,7 @@ $idPergunta = mysql_result($result, 0, "idPergunta");
                                     <?php
                                     /*
                                     $sqlCombo = "SELECT pergunta FROM Pergunta WHERE IdPergunta = '$IdPergunta'";
-                                    $resultCombo = mysqli_query($conexao, $sqlCombo);
+                                    $resultCombo = mysql_query($sqlCombo);
                                     $descricaoCombo = mysql_result($resultCombo, 0, "pergunta");
                                      * 
                                      */

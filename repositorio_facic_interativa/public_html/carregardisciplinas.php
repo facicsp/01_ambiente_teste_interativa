@@ -1,13 +1,13 @@
-﻿<?php
+<?php
 $idTurma = $_REQUEST["idTurma"];
 $idAluno = 0;
 $idMatricula = 1;
 
-include 'LoginRestrito/conexao.php';
+include './conexao.php';
 $sql = "select idDisciplina, disciplina from disciplina where idTurma = '$idTurma'";
 
-$resultados = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($resultados);
+$resultados = mysql_query($sql);
+$linhas = mysql_num_rows($resultados);
 
 if($linhas > 0){
 $retorno = "<label>Selecione a disciplina:</label>"

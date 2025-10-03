@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -47,17 +47,17 @@ session_start();
             <div class="barratitulo"><h1>Questionário</h1></div>
             
             <?php
-            include "LoginRestrito/conexao.php";
+            include "conexao.php";
 
             $seguranca = new Seguranca();
             $idAplicar = $seguranca->antisql($_POST["id"]);
 
 
             $sql = "SELECT * FROM aplicarprova WHERE idDisciplina = '$idDisciplina' AND idAplicarProva = '$idAplicar'";
-            $resultados = mysqli_query($conexao, $sql);
-            $linhas = mysqli_num_rows($resultados);
+            $resultados = mysql_query($sql);
+            $linhas = mysql_num_rows($resultados);
 
-            if (mysqli_num_rows($resultados) == 1) {
+            if (mysql_num_rows($resultados) == 1) {
               $data = mysql_result($resultados, 0, 'data');
               $idProva = mysql_result($resultados, 0, 'idProva');
 
@@ -66,18 +66,18 @@ session_start();
 // LEFT JOIN aplicarprova ON aplicarprova.idProva = questao.idProva 
 // WHERE respostas.idAluno = 903 AND aplicarprova.idAplicarProva = 3
 
-              $result = mysqli_query($conexao, "SELECT descricao, a,b,c,d,e,f,g,h, resposta, correta, questao.idQuestao FROM respostas 
+              $result = mysql_query("SELECT descricao, a,b,c,d,e,f,g,h, resposta, correta, questao.idQuestao FROM respostas 
                                     LEFT JOIN questao ON questao.idQuestao = respostas.idQuestao 
                                     LEFT JOIN aplicarprova ON aplicarprova.idProva = questao.idProva 
                                     WHERE respostas.idAluno = '$idAluno' AND aplicarprova.idAplicarProva = '$idAplicar'");
 
 
-              if (mysqli_num_rows($result) == 0) {
+              if (mysql_num_rows($result) == 0) {
                 echo "<script>window.location = 'responder.php';</script>"; 
                 exit;
               }
 
-              for ($i=0; $i<mysqli_num_rows($result); $i++) {
+              for ($i=0; $i<mysql_num_rows($result); $i++) {
                 $descricao = mysql_result($result, $i, 'descricao');
                 $resposta = mysql_result($result, $i, 'resposta');
                 $correta = mysql_result($result, $i, 'correta');

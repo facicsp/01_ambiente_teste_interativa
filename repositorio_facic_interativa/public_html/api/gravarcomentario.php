@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 include 'hasAccess.php';
 
@@ -9,16 +9,16 @@ $tipo       = 'aluno';
 $idTopico   = $seguranca->antisql($_POST["idTopico"]);
 
 $sql = "INSERT INTO comentario VALUES(null,'$comentario','$idUsuario','$tipo','$idTopico',DEFAULT)";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 
-$result = mysqli_query($conexao, "SELECT idComentario FROM comentario 
+$result = mysql_query("SELECT idComentario FROM comentario 
   WHERE comentario = '$comentario' 
   AND idUsuario = '$idUsuario' 
   AND idTopico = '$idTopico' 
   ORDER BY idComentario DESC 
   LIMIT 1");
 
-if (mysqli_num_rows($result) > 0) {
+if (mysql_num_rows($result) > 0) {
 
   $idComentario = mysql_result($result, 0, "idComentario");
   echo json_encode($idComentario);

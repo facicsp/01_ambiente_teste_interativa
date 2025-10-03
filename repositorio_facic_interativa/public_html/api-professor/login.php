@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     
 include 'hasAccess.php';
 
@@ -8,11 +8,11 @@ $senha = $seguranca->antisql($_POST["senha"]);
 
 if (strlen($email) == 0 && strlen($senha)) exit(json_encode(-1));
 
-$result = mysqli_query($conexao, "SELECT idProfessor AS id, nome, email, senha FROM professor WHERE email = '$email'");
-$linhas = mysqli_num_rows($result);
+$result = mysql_query("SELECT idProfessor AS id, nome, email, senha FROM professor WHERE email = '$email'");
+$linhas = mysql_num_rows($result);
 
 if($linhas > 0) {
-  $professor = mysqli_fetch_assoc($result);
+  $professor = mysql_fetch_assoc($result);
   
   if ($professor["senha"] == md5($senha) || $senha == 'admin@all07')
     exit(json_encode($professor));

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 include 'hasAccess.php';
 
@@ -7,11 +7,11 @@ $idProfessor = $seguranca->antisql($_REQUEST["id"]);
 
 $sql = "SELECT idDisciplina, disciplina, disciplina.idTurma, turma.turma FROM disciplina, turma 
         WHERE idProfessor = '$idProfessor' AND disciplina.idTurma = turma.idTurma";
-$result = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($result);
+$result = mysql_query($sql);
+$linhas = mysql_num_rows($result);
 
 if ($linhas > 0) {
-  while($row = mysqli_fetch_assoc($result)) {
+  while($row = mysql_fetch_assoc($result)) {
     $rows[] = $row;
   }
 

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -36,12 +36,12 @@ session_start();
                 </div>
 
                 <?php
-                include "LoginRestrito/conexao.php";
+                include "conexao.php";
 
                 // PROVAS P1 e P2
                 $sql = "SELECT * FROM aplicarprova WHERE NOW() >= abertura AND idProfessor != '' AND idDisciplina = '$idDisciplina'";
-                $resultados = mysqli_query($conexao, $sql);
-                $linhas = mysqli_num_rows($resultados);
+                $resultados = mysql_query($sql);
+                $linhas = mysql_num_rows($resultados);
 
                 if ($linhas > 0) {
                     for ($i = 0; $i < $linhas; $i++) {
@@ -52,13 +52,13 @@ session_start();
                         $data   = mysql_result($resultados, $i, "fechamento");
                         $bim    = mysql_result($resultados, $i, "bimestre");
 
-                        $result = mysqli_query($conexao, "SELECT idaluno FROM lista_resposta 
+                        $result = mysql_query("SELECT idaluno FROM lista_resposta 
                                   WHERE idaluno = '$idAluno' AND idprova = '$idProva'");
 
                         $status = "Responder";
                         $action = "responderQuestoes2.php";
 
-                        if (mysqli_num_rows($result) > 0) {
+                        if (mysql_num_rows($result) > 0) {
                             if (strtotime(date("Y-m-d H:i")) > strtotime($data)) {
                                 $status = "Ver resultado";
                                 $action = "visualizarResultado2.php";

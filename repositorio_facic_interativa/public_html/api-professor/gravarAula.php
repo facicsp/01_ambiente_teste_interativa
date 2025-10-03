@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 include 'hasAccess.php';
 
@@ -19,6 +19,6 @@ if ($_POST["avaliativo"] == 1) {
 }
 
 $sql = "INSERT INTO aula VALUES(null,'$descricao','$conteudo','$dataAula','$dataAtividade','$idDisciplina','$idTurma', '$bimestre')";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 
 echo json_encode(true);

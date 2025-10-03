@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -77,7 +77,7 @@ session_start();
         <div class="dados">
             <div class="barratitulo"><h1>Registrar Frequência</h1></div>
                         <?php
-                        include "LoginRestrito/conexao.php";
+                        include "conexao.php";
                         $seguranca = new Seguranca();
                         $id = $seguranca->antisql($_GET["id"]);
                         $idDisciplina = $_SESSION["idDisciplina"][$id];
@@ -92,8 +92,8 @@ session_start();
                         echo "<h2>Aula: $aula</h2>";
                         $sql = "select usuario.nome,frequencia.frequencia,frequencia.idFrequencia from frequencia,usuario where idaula = '$idAula' and frequencia.idaluno = usuario.idusuario";
                         //echo $sql;
-                        $result = mysqli_query($conexao, $sql);
-                        $linhas = mysqli_num_rows($result);
+                        $result = mysql_query($sql);
+                        $linhas = mysql_num_rows($result);
                         if($linhas > 0){
                             echo "<p style='color:black;'>O preenchimento da frequência nesta aula já foi realizada!</p>"
                             . "<a href='cadastroAula.php' style='color:#069;font-size:18px;'>Retornar</a>";
@@ -135,8 +135,8 @@ session_start();
 ";
                         } 
                         //echo $sql;
-                        $resultados = mysqli_query($conexao, $sql);
-                        $linhas = mysqli_num_rows($resultados);
+                        $resultados = mysql_query($sql);
+                        $linhas = mysql_num_rows($resultados);
                         if ($linhas > 0) {
                         echo "<form method='post' action='gravarFrequencia.php'>"
                             . "<input type='hidden' name='disciplina' value='$idDisciplina'>"

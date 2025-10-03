@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -57,7 +57,7 @@ session_start();
                         return $horas.":".$minutos;
                     }
 
-                    include "LoginRestrito/conexao.php";
+                    include "conexao.php";
                     mysql_set_charset("iso-8859-1");
                     $seguranca = new Seguranca();
                     
@@ -66,8 +66,8 @@ session_start();
                             . "WHERE a.idusuario = '$idAluno' "
                             . "AND a.idusuario = u.idUsuario "
                             . "ORDER BY idacesso DESC";
-                    $result = mysqli_query($conexao, $sql);
-                    $linhas = mysqli_num_rows($result);
+                    $result = mysql_query($sql);
+                    $linhas = mysql_num_rows($result);
                     if ($linhas > 0) {
                         $nome = mysql_result($result, 0, "nome");
                         

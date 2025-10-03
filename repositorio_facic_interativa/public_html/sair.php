@@ -1,29 +1,29 @@
-﻿<?php
+<?php
 
 session_start();
 if ($_SESSION["tipo"] == "professor") {
-    include 'LoginRestrito/conexao.php';
+    include './conexao.php';
     $idProfessor = $_SESSION["id"];
     $sql = "SELECT * FROM acessoprofessor WHERE idProfessor= '$idProfessor' ORDER BY idacesso DESC limit 1";
-    $result = mysqli_query($conexao, $sql);
+    $result = mysql_query($sql);
     $idacesso = mysql_result($result, 0, "idacesso");
     date_default_timezone_set('America/Sao_Paulo');
     $hora = date("H:i");
     $sql = "UPDATE acessoprofessor SET horasaida = '$hora' WHERE idacesso = '$idacesso'";
-    mysqli_query($conexao, $sql);
+    mysql_query($sql);
     //echo $sql;
 }
 if ($_SESSION["tipo"] == "aluno") {
-    include 'LoginRestrito/conexao.php';
+    include './conexao.php';
     $idAluno = $_SESSION["id"];
     $sql = "SELECT * FROM acesso WHERE idusuario= '$idAluno' ORDER BY idacesso DESC limit 1";
     //echo "<p>$sql</p>";
-    $result = mysqli_query($conexao, $sql);
+    $result = mysql_query($sql);
     $idacesso = mysql_result($result, 0, "idacesso");
     date_default_timezone_set('America/Sao_Paulo');
     $hora = date("H:i");
     $sql = "UPDATE acesso SET horasaida = '$hora' WHERE idacesso = '$idacesso'";
-    mysqli_query($conexao, $sql);
+    mysql_query($sql);
     //echo "<p>$sql</p>";
 }
 

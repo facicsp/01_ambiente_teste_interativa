@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -26,7 +26,7 @@ session_start();
                     <h1>Minhas Aulas</h1>
                 </div>
                 <?php
-                include "LoginRestrito/conexao.php";
+                include "conexao.php";
                 include "funcaoDisciplinas.php";
                 $seguranca = new Seguranca();
 
@@ -37,8 +37,8 @@ session_start();
                     $sql = "select disciplina.*,turma.turma,professor.nome from disciplina,turma,professor where disciplina.semestre = '" . $_SESSION['semestre'] . "' AND disciplina.idprofessor = professor.idprofessor and disciplina.idturma = turma.idturma ORDER BY idTurma";
                 }
                 
-                $result = mysqli_query($conexao, $sql);
-                $linhas = mysqli_num_rows($result);
+                $result = mysql_query($sql);
+                $linhas = mysql_num_rows($result);
                 if ($linhas > 0) {
                     $idTurma2 = "";
                     for ($i = 0; $i < $linhas; $i++) {

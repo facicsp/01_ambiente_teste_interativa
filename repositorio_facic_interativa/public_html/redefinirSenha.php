@@ -1,12 +1,12 @@
-﻿<?php
+<?php
 session_start();
-include "LoginRestrito/conexao.php";
+include "conexao.php";
 $seguranca = new Seguranca();
 if(isset($_SESSION["senha2"])){
     $senha = $seguranca->antisql($_POST["txtSenha"]);
     $idUsuario = $_SESSION["idUsuario"];
     $sql = "UPDATE usuario SET senha = md5('$senha') WHERE idUsuario='$idUsuario'";
-    mysqli_query($conexao, $sql);
+    mysql_query($sql);
     unset($_SESSION["senha2"]);
     unset($_SESSION["email"]);
     unset($_SESSION["idUsuario"]);
@@ -21,8 +21,8 @@ $codigo = $seguranca->antisql($_GET["codigo"]);
     $sql = "SELECT * FROM usuario "
         . "WHERE idUsuario='$idUsuario' "
         . "AND senha2='$codigo'";
-$resultados = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($resultados);
+$resultados = mysql_query($sql);
+$linhas = mysql_num_rows($resultados);
 if($linhas > 0){
     
     $_SESSION["senha2"]="ok";

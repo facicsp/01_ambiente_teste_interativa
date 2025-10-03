@@ -1,11 +1,11 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <?php
 if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "professor"){
 
-    include 'LoginRestrito/conexao.php';
+    include 'conexao.php';
 
     $seguranca    = new Seguranca();
     $titulo       = $seguranca->antisql($_POST["txtDescricao"]);
@@ -31,7 +31,7 @@ if (isset($_SESSION["usuario"])) {
         $sql = "UPDATE aplicarprova SET titulo='$titulo', idProva='$idProva', idProfessor='$idProfessor'  WHERE idAplicarProva='$idAplicar'";
     }
 
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 echo "<script>alert('Gravação realizada com sucesso!'); window.location = 'aplicarProva.php';</script>";
 }else{
       echo "Acesso negado!;";

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 include 'hasAccess.php';
 
@@ -7,8 +7,8 @@ $idProfessor = $seguranca->antisql($_REQUEST["id"]);
 
 $sql = "SELECT turma.idturma,turma.turma from turma where idturma 
   IN (select disciplina.idTurma from disciplina where idprofessor = '$idProfessor')";
-$resultados = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($resultados);
+$resultados = mysql_query($sql);
+$linhas = mysql_num_rows($resultados);
 
 $dados = array(
   "turmas" => [],
@@ -17,17 +17,17 @@ $dados = array(
 );
 
 if ($linhas > 0) {
-  while($row = mysqli_fetch_assoc($resultados)) {
+  while($row = mysql_fetch_assoc($resultados)) {
     $dados["turmas"][] = $row;
   }
 }
 
 $sql = "SELECT d.*,t.turma FROM disciplina d,turma t where d.idTurma = t.idTurma and d.idProfessor = '$idProfessor' ORDER BY d.disciplina";
-$resultados = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($resultados);
+$resultados = mysql_query($sql);
+$linhas = mysql_num_rows($resultados);
 
 if ($linhas > 0) {
-  while($row = mysqli_fetch_assoc($resultados)) {
+  while($row = mysql_fetch_assoc($resultados)) {
     $dados["disciplinas"][] = $row;
     $dados["listaDisciplinas"][] = $row["idDisciplina"];
   }

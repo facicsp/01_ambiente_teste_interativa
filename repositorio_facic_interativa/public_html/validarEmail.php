@@ -1,14 +1,14 @@
-﻿<?php
+<?php
 session_start();
-include "LoginRestrito/conexao.php";
+include "conexao.php";
 $seguranca = new Seguranca();
 $usuario = $seguranca->antisql($_POST["txtEmail"]);
 
     $sql = "SELECT idUsuario FROM usuario "
         . "WHERE email='$usuario' "
         . "AND tipo='aluno'";
-$resultados = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($resultados);
+$resultados = mysql_query($sql);
+$linhas = mysql_num_rows($resultados);
 if($linhas > 0){
     $_SESSION["idUsuario"] = mysql_result($resultados, 0, "idUsuario");
     $_SESSION["email"]=$usuario;

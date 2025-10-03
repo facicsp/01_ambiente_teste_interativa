@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -183,7 +183,7 @@ session_start();
     <?php
         if (isset($_SESSION["usuario"])) {
             if ($_SESSION["tipo"] == "professor") {
-                include 'LoginRestrito/conexao.php';
+                include './conexao.php';
                 include "funcaoNotas.php";
                 include "topo.php";
                 ?>
@@ -197,7 +197,7 @@ session_start();
         <hr>
         <div class="grid-100" style="margin-top:30px;">
             <?php
-                        //include 'LoginRestrito/conexao.php';
+                        //include './conexao.php';
 
                         $seguranca = new Seguranca();
                         $consulta = "";
@@ -217,8 +217,8 @@ session_start();
                             include "funcaoDisciplinas.php";
                             $sql = sqlDisciplina($idProfessor, $_SESSION['semestre']);
                           
-                            $resultados = mysqli_query($conexao, $sql);
-                            $linhas = mysqli_num_rows($resultados);
+                            $resultados = mysql_query($sql);
+                            $linhas = mysql_num_rows($resultados);
                             
                             if ($linhas > 0) {
                                 echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
@@ -256,37 +256,37 @@ session_start();
                             $idTurma = $seguranca->antisql($_POST["idTurma"]);
                             }
                           
-                          $resultDisciplina = mysqli_query($conexao, "SELECT * FROM disciplina WHERE idDisciplina = '$idDisciplina'");
+                          $resultDisciplina = mysql_query("SELECT * FROM disciplina WHERE idDisciplina = '$idDisciplina'");
                           $disciplinaSelecionada = mysql_result($resultDisciplina , 0, "disciplina");
                           echo "<h2 class='display-on-print'>$disciplinaSelecionada</h2>";
                             
                             $sqlBoletim = "select idAluno from matricula where idTurma = '$idTurma' and idAluno not in (select idAluno from boletim where idDisciplina = '$idDisciplina')";
-                            $resultBoletim = mysqli_query($conexao, $sqlBoletim);
-                            $linhasBoletim = mysqli_num_rows($resultBoletim);
+                            $resultBoletim = mysql_query($sqlBoletim);
+                            $linhasBoletim = mysql_num_rows($resultBoletim);
                             if($linhasBoletim > 0){
                                 for($n=0;$n < $linhasBoletim;$n++){
                                     $idAluno = mysql_result($resultBoletim, $n, "idAluno");
                                     $sql = "INSERT INTO boletim VALUES(null,'$idAluno','$idDisciplina','0','0','0','0','0','0')";
-                                    mysqli_query($conexao, $sql);
+                                    mysql_query($sql);
                                 }
                             }
                             
                             
                             $sqlAdaptado = "select idAluno from listadisciplina where idDisciplina = '$idDisciplina' and idAluno not in (select idAluno from boletim where idDisciplina = $idDisciplina)";
-                            $resultAdaptado = mysqli_query($conexao, $sqlAdaptado);
-                            $linhasAdaptado = mysqli_num_rows($resultAdaptado);
+                            $resultAdaptado = mysql_query($sqlAdaptado);
+                            $linhasAdaptado = mysql_num_rows($resultAdaptado);
                             if($linhasAdaptado > 0){
                                 for($n=0;$n < $linhasAdaptado;$n++){
                                     $idAluno = mysql_result($resultAdaptado, $n, "idAluno");
                                     $sql = "INSERT INTO boletim VALUES(null,'$idAluno','$idDisciplina','0','0','0','0','0','0')";
-                                    mysqli_query($conexao, $sql);
+                                    mysql_query($sql);
                                 }
                             }
                             
                             
                             $sqlBoletim = "SELECT boletim.*,usuario.nome, usuario.ra FROM boletim,usuario WHERE idDisciplina = '$idDisciplina' AND boletim.idAluno = usuario.idUsuario ORDER BY usuario.nome";
-                            $resultBoletim = mysqli_query($conexao, $sqlBoletim);
-                            $linhasBoletim = mysqli_num_rows($resultBoletim);
+                            $resultBoletim = mysql_query($sqlBoletim);
+                            $linhasBoletim = mysql_num_rows($resultBoletim);
                             if ($linhasBoletim > 0) {
                                 echo "<button class='button divtempo2 hidden-on-print' onclick='salvar()'>Gravar Todos</button>";
                                 echo " &nbsp; <button class='button divtempo2 hidden-on-print' onclick='window.print()'>Imprimir</button>";
@@ -386,13 +386,13 @@ session_start();
                             } else {
                                 $sqlAlunos = "SELECT u.idUsuario,u.nome FROM matricula m,usuario u WHERE m.idTurma = '$idTurma' and m.idAluno = u.idUsuario ORDER BY u.nome";
                                 //echo $sqlAlunos;
-                                $resultadosAlunos = mysqli_query($conexao, $sqlAlunos);
-                                $linhasAlunos = mysqli_num_rows($resultadosAlunos);
+                                $resultadosAlunos = mysql_query($sqlAlunos);
+                                $linhasAlunos = mysql_num_rows($resultadosAlunos);
                                 if ($linhasAlunos > 0) {
                                     for ($i = 0; $i < $linhasAlunos; $i++) {
                                         $idAluno = mysql_result($resultadosAlunos, $i, "idUsuario");
                                         $sql = "INSERT INTO boletim VALUES(null,'$idAluno','$idDisciplina','0','0','0','0','0','0')";
-                                        mysqli_query($conexao, $sql);
+                                        mysql_query($sql);
                                     }
                                     echo "<script>"
                                     . "carregar($idDisciplina);"
@@ -402,8 +402,8 @@ session_start();
                             /*
                               $sqlAlunos = "SELECT u.idUsuario,u.nome FROM matricula m,usuario u WHERE m.idTurma = '$idTurma' and m.idAluno = u.idUsuario ORDER BY u.nome";
                               //echo $sqlAlunos;
-                              $resultadosAlunos = mysqli_query($conexao, $sqlAlunos);
-                              $linhasAlunos = mysqli_num_rows($resultadosAlunos);
+                              $resultadosAlunos = mysql_query($sqlAlunos);
+                              $linhasAlunos = mysql_num_rows($resultadosAlunos);
                               if ($linhasAlunos > 0) { */
                         } else {
                             echo "<p>Nenhum aluno matriculado nesta turma.</p>";

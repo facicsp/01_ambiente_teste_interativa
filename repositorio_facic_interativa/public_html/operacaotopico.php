@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@
                 //conteudo do site
                 
                 
-include 'LoginRestrito/conexao.php';
+include 'conexao.php';
  
 $seguranca = new Seguranca();
 
@@ -26,7 +26,7 @@ $Titulo = $seguranca->antisql($_POST["txtTitulo"]);
 $Conteudo = $seguranca->antisql($_POST["txtConteudo"]);
 $Status = $seguranca->antisql($_POST["txtStatus"]);
 $IdDisciplina = $seguranca->antisql($_POST["txtIdDisciplina"]);
-$sql = "UPDATE topico SET titulo = '$Titulo',conteudo = '$Conteudo',status = '$Status',idDisciplina = '$IdDisciplina' WHERE idtopico = '$id'";mysqli_query($conexao, $sql);
+$sql = "UPDATE topico SET titulo = '$Titulo',conteudo = '$Conteudo',status = '$Status',idDisciplina = '$IdDisciplina' WHERE idtopico = '$id'";mysql_query($sql);
 echo "<script>
 alert('Alteração realizada com sucesso!');
 window.location = 'dadosforum.php';
@@ -34,8 +34,8 @@ window.location = 'dadosforum.php';
     
 }else if($operacao == 'excluir'){
     
-mysqli_query($conexao, "DELETE FROM comentario WHERE idTopico = $id");
-mysqli_query($conexao, "DELETE FROM topico WHERE idtopico = $id");
+mysql_query("DELETE FROM comentario WHERE idTopico = $id");
+mysql_query("DELETE FROM topico WHERE idtopico = $id");
 
 echo "<script>
 alert('Exclusão realizada com sucesso!');

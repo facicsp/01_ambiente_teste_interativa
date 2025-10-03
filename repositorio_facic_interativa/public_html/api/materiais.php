@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 include 'hasAccess.php';
 
@@ -13,8 +13,8 @@ $sql = "SELECT idDisciplina,disciplina FROM disciplina
         WHERE l.idAluno = '$idAluno' 
         AND l.idDisciplina = d.idDisciplina";
 
-$resultados = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($resultados);
+$resultados = mysql_query($sql);
+$linhas = mysql_num_rows($resultados);
 
 if ($linhas > 0) {
   $data = [];
@@ -29,13 +29,13 @@ if ($linhas > 0) {
       WHERE a.idDisciplina = '$idDisciplina' 
       AND c.idAula = a.idAula";
 
-    $resultArquivo = mysqli_query($conexao, $sqlArquivo);
-    $linhasArquivo = mysqli_num_rows($resultArquivo);
+    $resultArquivo = mysql_query($sqlArquivo);
+    $linhasArquivo = mysql_num_rows($resultArquivo);
 
     if($linhasArquivo > 0) {
       $arquivos = [];
 
-      while($arquivo = mysqli_fetch_assoc($resultArquivo)) $arquivos[] = $arquivo;
+      while($arquivo = mysql_fetch_assoc($resultArquivo)) $arquivos[] = $arquivo;
 
       $data[$i]["arquivos"] = $arquivos;
     }

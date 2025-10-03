@@ -1,4 +1,4 @@
-﻿<?php
+<?php
   session_start();
   ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -17,7 +17,7 @@
       //conteudo do site
       include "topo.php";
       
-      include 'LoginRestrito/conexao.php';
+      include 'conexao.php';
       $seguranca = new Seguranca();
       $operacao = $seguranca->antisql($_POST["operacao"]);
       $id = $seguranca->antisql($_POST["id"]);
@@ -33,11 +33,11 @@
         $credito = $seguranca->antisql($_POST["txtCredito"]);
         $sql = "UPDATE disciplina SET idProfessor = '$idProfessor',disciplina='$disciplina',cargaHoraria='$cargaHoraria', credito='$credito',idTurma='$idTurma',inicio='$inicio',termino='$termino' WHERE idDisciplina = $id";
         
-        mysqli_query($conexao, $sql);
-        mysqli_query($conexao, "DELETE FROM relacao_professor_auxiliar WHERE idDisciplina = '$id'");
+        mysql_query($sql);
+        mysql_query("DELETE FROM relacao_professor_auxiliar WHERE idDisciplina = '$id'");
         
         if ($idProfessorAux > 0) {
-          mysqli_query($conexao, "INSERT INTO relacao_professor_auxiliar VALUES (NULL, '$idProfessorAux', '$id')");
+          mysql_query("INSERT INTO relacao_professor_auxiliar VALUES (NULL, '$idProfessorAux', '$id')");
         }
         
         
@@ -47,8 +47,8 @@
           </script>";
       } else if ($operacao == 'excluir') {
         
-        mysqli_query($conexao, "DELETE FROM video  WHERE iddisciplina = $id");
-        mysqli_query($conexao, "DELETE FROM disciplina WHERE idDisciplina = $id");
+        mysql_query("DELETE FROM video  WHERE iddisciplina = $id");
+        mysql_query("DELETE FROM disciplina WHERE idDisciplina = $id");
         
         echo "<script>
           alert('Exclusão realizada com sucesso!');

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 include 'hasAccess.php';
 
@@ -7,6 +7,6 @@ $idAluno = $seguranca->antisql($_REQUEST["id"]);
 $idAtividade = $seguranca->antisql($_REQUEST["idAtividade"]);
 
 $sql = "DELETE FROM atividade WHERE idatividade = $idAtividade AND idAluno = $idAluno";
-$result = mysqli_query($conexao, $sql);
+$result = mysql_query($sql);
 
 echo json_encode(true);

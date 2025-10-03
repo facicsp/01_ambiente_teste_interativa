@@ -1,7 +1,7 @@
-﻿<?php
+<?php
 
 session_start(); 
-include 'LoginRestrito/conexao.php';
+include './conexao.php';
 
 if (isset($_SESSION["usuario"])) {
   if ($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "professor") {
@@ -10,7 +10,7 @@ if (isset($_SESSION["usuario"])) {
     $id = $seguranca->antisql($_REQUEST["id"]);
     $nota = $seguranca->antisql($_REQUEST["nota"]);
 
-    mysqli_query($conexao, "UPDATE lista_resposta SET correcao = '$nota' WHERE idlistaresposta = '$id'");
+    mysql_query("UPDATE lista_resposta SET correcao = '$nota' WHERE idlistaresposta = '$id'");
 
     exit(true);
   }

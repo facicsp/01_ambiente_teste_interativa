@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,7 +14,7 @@ if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador"){
       //conteudo do site
 include "topo.php";
-      include 'LoginRestrito/conexao.php';
+      include 'conexao.php';
 $seguranca = new Seguranca();
 $operacao = $seguranca->antisql($_POST["operacao"]);
 $id = $seguranca->antisql($_POST["id"]);
@@ -25,7 +25,7 @@ $idTurma = $seguranca->antisql($_POST["txtTurma"]);
 $data = $seguranca->antisql($_POST["txtData"]);
 
 $sql="UPDATE matricula SET idTurma = '$idTurma', idAluno = '$idAluno',data='$data' WHERE idMatricula = $id";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 echo "<script>
     alert('Alteração realizada com sucesso!');
     window.location='cadastroMatricula.php';
@@ -34,17 +34,17 @@ echo "<script>
 $idAluno = $seguranca->antisql($_POST["idAluno"]);
 $idTurma = $seguranca->antisql($_POST["idTurma"]);
 $sql = "DELETE FROM matricula WHERE idMatricula = $id";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 $sql = "select idDisciplina from disciplina where idTurma = $idTurma";
 //echo $sql;
-$result = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($result);
+$result = mysql_query($sql);
+$linhas = mysql_num_rows($result);
 if($linhas > 0){
     for($i=0;$i<$linhas;$i++){
         $idDisciplina = mysql_result($result, $i, "idDisciplina");
         $sql2 = "DELETE FROM boletim WHERE idDisciplina = '$idDisciplina' and idAluno = '$idAluno'";
         //echo $sql2;
-        mysqli_query($conexao, $sql2);
+        mysql_query($sql2);
     }
 }
 
@@ -58,18 +58,18 @@ else if($operacao == "excluirdisciplina"){
     
 $sql = "select idDisciplina from listadisciplina where idListaDisciplina = $id";
 //echo $sql;
-$result = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($result);
+$result = mysql_query($sql);
+$linhas = mysql_num_rows($result);
 if($linhas > 0){
     for($i=0;$i<$linhas;$i++){
         $idDisciplina = mysql_result($result, $i, "idDisciplina");
         $sql2 = "DELETE FROM boletim WHERE idDisciplina = '$idDisciplina' and idAluno = '$idAluno'";
         //echo $sql2;
-        mysqli_query($conexao, $sql2);
+        mysql_query($sql2);
     }
 }
 $sql = "DELETE FROM listadisciplina WHERE idListaDisciplina = $id";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 
 
 echo "<script>

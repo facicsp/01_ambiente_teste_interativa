@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -135,7 +135,7 @@ session_start();
                         <?php
                                     $semestre = $_SESSION["semestre"];
 
-                                    include 'LoginRestrito/conexao.php';
+                                    include './conexao.php';
                                     include './Util.php';
                                     include './funcaoDisciplinas.php';
                                     $util = new Util();
@@ -205,8 +205,8 @@ session_start();
                                             $sql = "SELECT d.*, t.turma, t.idturma FROM disciplina d,turma t where d.idTurma = t.idTurma ORDER BY d.disciplina";
                                         }
 
-                                        $resultados = mysqli_query($conexao, $sql);
-                                        $linhas = mysqli_num_rows($resultados);
+                                        $resultados = mysql_query($sql);
+                                        $linhas = mysql_num_rows($resultados);
                                         if ($linhas > 0) {
                                             for ($i = 0; $i < $linhas; $i++) {
 
@@ -254,8 +254,8 @@ session_start();
                                                 $sql = "SELECT * FROM disciplina WHERE semestre = '" . $_SESSION['semestre'] . "' ORDER BY disciplina";
                                             }
                                             // echo $sql;
-                                            $resultados = mysqli_query($conexao, $sql);
-                                            $linhas = mysqli_num_rows($resultados);
+                                            $resultados = mysql_query($sql);
+                                            $linhas = mysql_num_rows($resultados);
                                             if ($linhas > 0) {
                                                 $listaDisciplina = "0";
                                               
@@ -300,8 +300,8 @@ session_start();
                                     $sql = "SELECT turma, aula.*,date_format(dataAula,'%d/%m/%Y')as data FROM aula LEFT JOIN turma ON turma.idTurma = aula.idTurma WHERE iddisciplina = '$consulta' ORDER BY idAula DESC";
                                 }
                                 //echo $sql;
-                                $resultados = mysqli_query($conexao, $sql);
-                                $linhas = mysqli_num_rows($resultados);
+                                $resultados = mysql_query($sql);
+                                $linhas = mysql_num_rows($resultados);
                                 if ($linhas > 0) {
                                     echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
                 <tr>

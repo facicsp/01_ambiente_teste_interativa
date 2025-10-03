@@ -1,6 +1,6 @@
-﻿<?php 
+<?php 
     session_start(); 
-    include 'LoginRestrito/conexao.php';
+    include './conexao.php';
 
 
   
@@ -80,7 +80,7 @@
           
           if (isset($_GET["operacao"])) {
            
-          mysqli_query($conexao, "DELETE FROM questao2 WHERE idQuestao = '$idQuestao'");
+          mysql_query("DELETE FROM questao2 WHERE idQuestao = '$idQuestao'");
           echo "<script>alert('Excluido com sucesso!'); location.href='visualizarProvas2.php';</script>";
             exit;
             
@@ -96,14 +96,14 @@
             $correta = $_POST["txtCorreta"];
 
             // , peso='$peso'
-            mysqli_query($conexao, "UPDATE questao2 SET descricao='$descricao', peso='$peso' WHERE idQuestao = '$id'");
+            mysql_query("UPDATE questao2 SET descricao='$descricao', peso='$peso' WHERE idQuestao = '$id'");
 
             for ($i=0; $i < sizeof($alternativa); $i++) { 
                 $_alternativa = $seguranca->antisql($alternativa[$i]);
                 $_idAlternativa = $seguranca->antisql($idAlternativa[$i]);
                 $_correta     = $correta == $_idAlternativa ? "sim" : "nao";
 
-                mysqli_query($conexao, "UPDATE `alternativa` SET `alternativa`='$_alternativa',`correta`='$_correta' WHERE idalternativa = '$_idAlternativa'");
+                mysql_query("UPDATE `alternativa` SET `alternativa`='$_alternativa',`correta`='$_correta' WHERE idalternativa = '$_idAlternativa'");
             }
 
 
@@ -122,7 +122,7 @@
         
             echo '<div class="voltar"><a href="visualizarProvas2.php"><img src="imagens/voltar.png">Voltar</a></div><br><br><br>';
             
-            $result = mysqli_query($conexao, "SELECT * FROM questao2 WHERE idQuestao = $idQuestao");
+            $result = mysql_query("SELECT * FROM questao2 WHERE idQuestao = $idQuestao");
 
             $descricao = mysql_result($result, $i, 'descricao');
             $idQuestao = mysql_result($result, $i, 'idQuestao');
@@ -136,8 +136,8 @@
             echo "<textarea name='txtDescricao'>$descricao</textarea>";
 
             if ($tipo == 'objetiva') {
-                $resultAlt = mysqli_query($conexao, "SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
-                for ($ialt=0; $ialt < mysqli_num_rows($resultAlt); $ialt++) {
+                $resultAlt = mysql_query("SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
+                for ($ialt=0; $ialt < mysql_num_rows($resultAlt); $ialt++) {
                     $idAlternativa = mysql_result($resultAlt, $ialt, 'idalternativa');
                     $alternativa = mysql_result($resultAlt, $ialt, 'alternativa');
                     $correta = mysql_result($resultAlt, $ialt, 'correta');

@@ -1,17 +1,17 @@
-﻿<?php
+<?php
     session_start();
 
     if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "aluno") {
 
-        include "LoginRestrito/conexao.php";
+        include "conexao.php";
 
         $apiKey = "4539110d-faa4-4fb9-8ee3-603f48fd1b69";
         $seguranca = new Seguranca();
         $idAluno = $seguranca->antisql($_SESSION["id"]);
 
         $sql = "SELECT * FROM api_biblioteca WHERE idAluno='$idAluno'";
-        $result = mysqli_query($conexao, $sql);
-        $linhas = mysqli_num_rows($result);
+        $result = mysql_query($sql);
+        $linhas = mysql_num_rows($result);
 
         if ($linhas > 0) {
             $nome = mysql_result($result, 0, "nome");
@@ -128,7 +128,7 @@
                 exit;
             }
             
-            mysqli_query($conexao, "INSERT INTO api_biblioteca VALUES (NULL, '$email', '$nome', '$sobrenome', '$email');");
+            mysql_query("INSERT INTO api_biblioteca VALUES (NULL, '$email', '$nome', '$sobrenome', '$email');");
             echo "<script>location.href='minhabiblioteca.php';</script>";    
             exit;
         }

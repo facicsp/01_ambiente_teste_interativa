@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -18,7 +18,7 @@ session_start();
                 $idProfessor = $_SESSION["id"];
                 }
                 include "topo.php";
-                include "LoginRestrito/conexao.php";
+                include "conexao.php";
                 $seguranca = new Seguranca();
                 $idDisciplina = $seguranca->antisql($_GET["id"]);
                 $disciplina = $_SESSION["disciplina"][$idDisciplina];
@@ -35,8 +35,8 @@ session_start();
 
         <?php
         $sql = "select aula.descricao from atividade,aula where atividade.iddisciplina = '$idDisciplina'  and atividade.idaula = aula.idaula group by atividade.idAula order by atividade.idAula";
-        $result = mysqli_query($conexao, $sql);
-        $linhas = mysqli_num_rows($result);
+        $result = mysql_query($sql);
+        $linhas = mysql_num_rows($result);
         $quantidadeAtividades = $linhas;
         //echo $sql;
         if ($linhas > 0) {
@@ -55,8 +55,8 @@ session_start();
             echo "<td>Média</td></tr>";
             $sql = "select atividade.*,usuario.nome,atividade.nota from atividade,usuario where iddisciplina = '$idDisciplina' and atividade.idaluno = usuario.idusuario order by nome,idaula";
             //echo $sql;
-            $result = mysqli_query($conexao, $sql);
-            $linhas = mysqli_num_rows($result);
+            $result = mysql_query($sql);
+            $linhas = mysql_num_rows($result);
             if($linhas > 0){
                 for($i = 0;$i < $linhas;$i++){
                     $nome[$i] = mysql_result($result, $i, "nome");

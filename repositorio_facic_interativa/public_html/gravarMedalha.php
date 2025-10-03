@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -12,7 +12,7 @@ if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador"){
       //conteudo do site
   //   include "topo.php";
-      include 'LoginRestrito/conexao.php';
+      include 'conexao.php';
 $seguranca = new Seguranca();
 $descricao = $seguranca->antisql($_POST["txtDescricao"]);
 $pontos = $seguranca->antisql($_POST["txtPontos"]);
@@ -20,7 +20,7 @@ $obs = $seguranca->antisql($_POST["txtObs"]);
 $idDisciplina = $seguranca->antisql($_POST["txtDisciplina"]);
 //trecho para capturar a imagem
 $sql = "show table status like 'medalha'";
-$result = mysqli_query($conexao, $sql);
+$result = mysql_query($sql);
 $idMedalha = mysql_result($result, 0, "Auto_increment");
 
 
@@ -86,7 +86,7 @@ echo "Upload efetuado com sucesso!";
 //Fim do trecho para capturar a imagem
 $sql = "INSERT INTO medalha VALUES(null,'$descricao','$nome_final','$pontos','$obs','$idDisciplina')";
 echo $sql;
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'cadastroMedalha.php';

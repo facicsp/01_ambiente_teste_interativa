@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 session_start();
 
@@ -6,7 +6,7 @@ if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "professor") {
 
   $data = json_decode(file_get_contents("php://input"), true);
   
-  include 'LoginRestrito/conexao.php';
+  include 'conexao.php';
 
   $seguranca    = new Seguranca();
   $idProfessor  = $_SESSION["id"];
@@ -18,8 +18,8 @@ if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "professor") {
   if (isset($_SESSION['idProva']) && $idProva) {
     $idProva = $_SESSION['idProva'];
   } else {
-    mysqli_query($conexao, "INSERT INTO prova VALUES (NULL, '$titulo', '$idProfessor')");
-    $result  = mysqli_query($conexao, "SELECT idProva FROM prova WHERE titulo = '$titulo' AND idProfessor = '$idProfessor' ORDER BY idProva DESC LIMIT 1");
+    mysql_query("INSERT INTO prova VALUES (NULL, '$titulo', '$idProfessor')");
+    $result  = mysql_query("SELECT idProva FROM prova WHERE titulo = '$titulo' AND idProfessor = '$idProfessor' ORDER BY idProva DESC LIMIT 1");
     $idProva = mysql_result($result, 0, 'idProva');
     $_SESSION['idProva'] = $idProva;
   }
@@ -33,7 +33,7 @@ if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "professor") {
   $g = $data["6"] ? $seguranca->antisql($data["6"]) : NULL;
   $h = $data["7"] ? $seguranca->antisql($data["7"]) : NULL;
 
-  mysqli_query($conexao, "INSERT INTO questao VALUES(NULL, '$descricao', '$a', '$b', '$c', '$d', '$e', '$f', '$g', '$h', '$correta', '$idProva')");
+  mysql_query("INSERT INTO questao VALUES(NULL, '$descricao', '$a', '$b', '$c', '$d', '$e', '$f', '$g', '$h', '$correta', '$idProva')");
   echo json_encode($idProva);
 } else {  
   echo json_encode(false);

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -28,7 +28,7 @@ session_start();
         <div class="dados">
             <div class="barratitulo"><h1>Minhas Mensagens</h1></div>
             <?php
-            include "LoginRestrito/conexao.php";
+            include "conexao.php";
             $seguranca = new Seguranca();
             $id = $_SESSION["id"];
             if($_SESSION["tipo"] == "professor"){
@@ -38,8 +38,8 @@ session_start();
             $sql = "select contato.*,usuario.nome,professor.nome as professor from contato,usuario,professor where idAluno = '$id' and contato.idAluno = usuario.idUsuario and contato.idProfessor = professor.idprofessor order by idcontato desc";
             }
 
-            $result = mysqli_query($conexao, $sql);
-            $linhas = mysqli_num_rows($result);
+            $result = mysql_query($sql);
+            $linhas = mysql_num_rows($result);
             if ($linhas > 0) {
 
             for ($i = 0;$i < $linhas;$i++) {
@@ -51,8 +51,8 @@ session_start();
             $_SESSION["idContato"][$i] = $idContato;
             
             $consultaStatus = "select idMensagem from mensagem where idContato = '$idContato' and tipo <> '$tipo' and status = 'nao'";
-            $resultadoStatus = mysqli_query($conexao, $consultaStatus);
-            $linhasStatus = mysqli_num_rows($resultadoStatus);
+            $resultadoStatus = mysql_query($consultaStatus);
+            $linhasStatus = mysql_num_rows($resultadoStatus);
             
             if ($assunto == "") $assunto = "SEM ASSUNTO";
             
@@ -62,12 +62,12 @@ session_start();
                         echo ":: - Professor: $professor";
                     } else if ($_SESSION["tipo"] == "professor") {
                         echo ":: - Aluno: $nome";
-                        $resultNome = mysqli_query($conexao, "SELECT turma FROM contato 
+                        $resultNome = mysql_query("SELECT turma FROM contato 
                                                     LEFT JOIN matricula ON matricula.idAluno = contato.idAluno 
                                                     LEFT JOIN turma ON turma.idTurma = matricula.idTurma 
                                                     WHERE idContato = '$idContato' ORDER BY idMatricula DESC");
 
-                        if (mysqli_num_rows($resultNome) > 0) {
+                        if (mysql_num_rows($resultNome) > 0) {
                             $turma = mysql_result($resultNome, 0, "turma");
                             echo " - $turma";
                         }

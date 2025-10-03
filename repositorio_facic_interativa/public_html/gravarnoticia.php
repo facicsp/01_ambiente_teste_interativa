@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@
                 //conteudo do site
                 
                 
-include 'LoginRestrito/conexao.php';
+include 'conexao.php';
  
 $seguranca = new Seguranca();
 // $Tipo = $seguranca->antisql($_POST["txtTipo"]);
@@ -34,7 +34,7 @@ $Idprofessor = $_SESSION["id"];
 $Status = $seguranca->antisql($_POST["txtStatus"]);
 $sql = "INSERT INTO noticia VALUES(null,'$tipo','$Titulo','$Texto','$Data','$Iddisciplina','$Idprofessor','$Status')";
 //echo $sql;
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'cadastromural.php';

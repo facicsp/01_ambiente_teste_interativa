@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@
                 //conteudo do site
                 
                 
-include 'LoginRestrito/conexao.php';
+include 'conexao.php';
  
 $seguranca = new Seguranca();
 
@@ -24,12 +24,12 @@ $id = $seguranca->antisql($_POST["id"]);
 if($operacao == 'alterar'){
 $Pergunta = $seguranca->antisql($_POST["txtPergunta"]);
 $idDisciplina = $seguranca->antisql($_POST["txtDisciplina"]);
-$sql = "UPDATE pergunta SET pergunta = '$Pergunta',idDisciplina = '$idDisciplina' WHERE idpergunta = '$id'";mysqli_query($conexao, $sql);
+$sql = "UPDATE pergunta SET pergunta = '$Pergunta',idDisciplina = '$idDisciplina' WHERE idpergunta = '$id'";mysql_query($sql);
 echo "<script>
 alert('Alteração realizada com sucesso!');
 window.location = 'cadastropergunta.php';
 </script>";}else if($operacao == 'excluir'){
-$sql = "DELETE FROM pergunta WHERE idpergunta = $id";mysqli_query($conexao, $sql);
+$sql = "DELETE FROM pergunta WHERE idpergunta = $id";mysql_query($sql);
 echo "<script>
 alert('Exclusão realizada com sucesso!');
 window.location = 'cadastropergunta.php';

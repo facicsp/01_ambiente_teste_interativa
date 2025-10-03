@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 header("Access-Control-Allow-Origin: http://ava24horas.com");
 $code = $_REQUEST["code"];
 if($code == "dhdhd7dyuy78iuh3uy78yueh28"){
@@ -10,11 +10,11 @@ if($code == "dhdhd7dyuy78iuh3uy78yueh28"){
     
     $retorno = "<span>Obs.: Quando nenhum dado semelhante for encontrado, quer dizer que serão utilizados os dados gerados por esse sistema.</span>";
     
-    include 'LoginRestrito/conexao.php';
+    include './conexao.php';
     //Localiza o curso
     $sql = "SELECT * FROM curso WHERE descricao LIKE '$curso'";
-    $result = mysqli_query($conexao, $sql);
-    $linhas = mysqli_num_rows($result);
+    $result = mysql_query($sql);
+    $linhas = mysql_num_rows($result);
     $comboCurso = "<label>Cursos Semelhantes Encontrados:</label><select id='curso'>";
     if($linhas > 0){
         
@@ -31,8 +31,8 @@ if($code == "dhdhd7dyuy78iuh3uy78yueh28"){
     
     //Localiza a turma
     $sql = "SELECT * FROM turma WHERE turma LIKE '$turma'";
-    $result = mysqli_query($conexao, $sql);
-    $linhas = mysqli_num_rows($result);
+    $result = mysql_query($sql);
+    $linhas = mysql_num_rows($result);
     $comboTurma = "<label>Turmas Semelhantes Encontradas:</label><select id='turma'>";
     if($linhas > 0){
         
@@ -49,8 +49,8 @@ if($code == "dhdhd7dyuy78iuh3uy78yueh28"){
     
     //Localiza professor
     $sql = "SELECT * FROM professor WHERE nome LIKE '$professor'";
-    $result = mysqli_query($conexao, $sql);
-    $linhas = mysqli_num_rows($result);
+    $result = mysql_query($sql);
+    $linhas = mysql_num_rows($result);
     $comboProfessor = "<label>Professores Semelhantes Encontrados:</label><select id='professor'>";
     if($linhas > 0){
         

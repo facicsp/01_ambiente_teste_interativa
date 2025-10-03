@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,7 +14,7 @@ if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "aluno"){
       //conteudo do site
      include "topo.php";
-      include 'LoginRestrito/conexao.php';
+      include 'conexao.php';
       $seguranca = new Seguranca();
       $idProfessor = $seguranca->antisql($_POST["txtProfessor"]);
       $assunto = $seguranca->antisql($_POST["txtAssunto"]);
@@ -25,15 +25,15 @@ if (isset($_SESSION["usuario"])) {
       $data = Date("Y-m-d");
       
       $sql = "show table status like 'contato'";
-      $result = mysqli_query($conexao, $sql);
+      $result = mysql_query($sql);
       $idContato = mysql_result($result, 0, "Auto_increment");
       
       
       $sql = "INSERT INTO contato VALUES('$idContato','$assunto','$idAluno','$idProfessor')";
 //echo $sql;
-    mysqli_query($conexao, $sql);
+    mysql_query($sql);
     $sql = "INSERT INTO mensagem VALUES(null,'$mensagem','$data','$tipo','nao','$idContato')";
-    mysqli_query($conexao, $sql);
+    mysql_query($sql);
 echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'mensagens.php';

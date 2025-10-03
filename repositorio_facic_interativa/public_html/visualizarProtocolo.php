@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -16,7 +16,7 @@ session_start();
             if ($_SESSION["tipo"] == "administrador") {
                 //conteudo do site
                 include "topo.php";
-                include "LoginRestrito/conexao.php";
+                include "conexao.php";
                 ?>
 
 
@@ -47,11 +47,11 @@ session_start();
                                 
                             }
                             
-                            $resultados = mysqli_query($conexao, "SELECT arquivo, titulo, ra, idProtocolo, protocolo.idAtividade, exclusao FROM protocolo 
+                            $resultados = mysql_query("SELECT arquivo, titulo, ra, idProtocolo, protocolo.idAtividade, exclusao FROM protocolo 
                                 LEFT JOIN atividade ON protocolo.idAtividade = atividade.idAtividade 
                                 LEFT JOIN usuario ON atividade.idAluno = usuario.idUsuario $consulta");
                                 
-                            $linhas = mysqli_num_rows($resultados);
+                            $linhas = mysql_num_rows($resultados);
                             
                             if ($linhas > 0) {
                                 echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'><tr>

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -27,14 +27,14 @@ session_start();
                 <div class="dados">
                     <div class="barratitulo"><h1>Meu Boletim</h1></div>
                     <?php
-                    include "LoginRestrito/conexao.php";
+                    include "conexao.php";
                     include "funcaoNotas.php";
                     $seguranca = new Seguranca();
                     $idAluno = $_SESSION["id"];
                     $sqlDisciplina = "SELECT disciplina.disciplina, disciplina.idDisciplina, boletim.* FROM boletim INNER JOIN disciplina ON disciplina.idDisciplina = boletim.idDisciplina WHERE boletim.idaluno = '$idAluno' AND disciplina.semestre = '".$_SESSION['semestre']."'";
               //echo $sqlDisciplina;      
-              $resultDisciplina = mysqli_query($conexao, $sqlDisciplina);
-                    $linhasDisciplina = mysqli_num_rows($resultDisciplina);
+              $resultDisciplina = mysql_query($sqlDisciplina);
+                    $linhasDisciplina = mysql_num_rows($resultDisciplina);
                     // echo $linhasDisciplina;
                     if ($linhasDisciplina > 0) {
                       echo "<table border='1' align='center'>

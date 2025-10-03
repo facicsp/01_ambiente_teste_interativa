@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -50,14 +50,14 @@ if (isset($_SESSION["usuario"])) {
         </center>
 
         <?php
-        include 'LoginRestrito/conexao.php';
+        include 'conexao.php';
         $consulta = "";
         if(isset($_GET["txtConsulta"])){
         $consulta = $_GET["txtConsulta"];
         
         $sql = "SELECT * FROM curso WHERE descricao LIKE '%$consulta%'";
-        $resultados = mysqli_query($conexao, $sql);
-        $linhas = mysqli_num_rows($resultados);
+        $resultados = mysql_query($sql);
+        $linhas = mysql_num_rows($resultados);
         if ($linhas > 0) {
             echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
                 <tr>

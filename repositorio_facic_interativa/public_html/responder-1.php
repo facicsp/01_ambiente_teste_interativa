@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -36,10 +36,10 @@ session_start();
     </div>
 
     <?php
-                        include "LoginRestrito/conexao.php";
+                        include "conexao.php";
                         $sql = "SELECT * FROM aplicarprova WHERE '".date("Y-m-d", time())." 23:59:59' >= abertura AND idProfessor != '' AND idDisciplina = '$idDisciplina' AND bimestre NOT IN (10,20,30,40)";
-                        $resultados = mysqli_query($conexao, $sql);
-                        $linhas = mysqli_num_rows($resultados);
+                        $resultados = mysql_query($sql);
+                        $linhas = mysql_num_rows($resultados);
 
                         if ($linhas > 0) {
                             for ($i = 0; $i < $linhas; $i++) {
@@ -48,7 +48,7 @@ session_start();
                                 $titulo = mysql_result($resultados, $i, "titulo");
                                 $data   = mysql_result($resultados, $i, "fechamento");
 
-                                $result = mysqli_query($conexao, "SELECT idAluno FROM respostas 
+                                $result = mysql_query("SELECT idAluno FROM respostas 
                                     LEFT JOIN questao ON questao.idQuestao = respostas.idQuestao 
                                     LEFT JOIN aplicarprova ON aplicarprova.idProva = questao.idProva 
                                     WHERE respostas.idAluno = '$idAluno' AND aplicarprova.idAplicarProva = '$idApl'");
@@ -56,7 +56,7 @@ session_start();
                                 $status = "Responder";
                                 $action = "responderQuestoes.php";
 
-                                if (mysqli_num_rows($result) > 0) {
+                                if (mysql_num_rows($result) > 0) {
                                   if (strtotime(date("Y-m-d")) > strtotime($data)) {
                                     $status = "Ver resultado";
                                     $action = "visualizarResultado2.php";
@@ -83,8 +83,8 @@ session_start();
 
                         // PROVAS P1 e P2
                         $sql = "SELECT * FROM aplicarprova WHERE '".date("Y-m-d", time())." 23:59:59' >= abertura AND idProfessor != '' AND idDisciplina = '$idDisciplina' AND bimestre IN (10,20,30,40)";
-                        $resultados = mysqli_query($conexao, $sql);
-                        $linhas = mysqli_num_rows($resultados);
+                        $resultados = mysql_query($sql);
+                        $linhas = mysql_num_rows($resultados);
 
                         if ($linhas > 0) {
                             for ($i = 0; $i < $linhas; $i++) {
@@ -95,13 +95,13 @@ session_start();
                                 $data   = mysql_result($resultados, $i, "fechamento");
                                 $bim    = mysql_result($resultados, $i, "bimestre");
 
-                                $result = mysqli_query($conexao, "SELECT idaluno FROM lista_resposta 
+                                $result = mysql_query("SELECT idaluno FROM lista_resposta 
                                   WHERE idaluno = '$idAluno' AND idprova = '$idProva'");
 
                                 $status = "Responder";
                                 $action = "responderQuestoes2.php";
 
-                                if (mysqli_num_rows($result) > 0) {
+                                if (mysql_num_rows($result) > 0) {
                                   if (strtotime(date("Y-m-d")) > strtotime($data)) {
                                     $status = "Ver resultado";
                                     $action = "visualizarResultado2.php";

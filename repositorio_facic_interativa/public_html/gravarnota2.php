@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 session_start();
 
@@ -24,7 +24,7 @@ if (isset($_SESSION["usuario"])) {
         }
     }
     
-    include 'LoginRestrito/conexao.php';
+    include 'conexao.php';
     
     if($status == "comdata") {
         $sql = "UPDATE atividade SET arquivo_correcao='$caminho', nota='$nota', retorno='$retorno' WHERE idAtividade = '$idAtividade'";    
@@ -32,7 +32,7 @@ if (isset($_SESSION["usuario"])) {
         $sql = "UPDATE atividade SET arquivo_correcao='$caminho', nota='$nota', retorno='$retorno', data='$data' WHERE idAtividade = '$idAtividade'";
     }
 
-    if(mysqli_query($conexao, $sql)){
+    if(mysql_query($sql)){
         echo "Alterado";
     }else{
         echo "Erro";

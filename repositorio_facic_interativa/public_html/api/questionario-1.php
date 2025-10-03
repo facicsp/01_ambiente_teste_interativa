@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 include 'hasAccess.php';
 
@@ -10,8 +10,8 @@ $dados = [];
 
 // questionário normal
 $sql = "SELECT * FROM aplicarProva WHERE '".date("Y-m-d", time())." 23:59:59' >= abertura AND idProfessor != '' AND idDisciplina = '$idDisciplina' AND bimestre NOT IN (10,20)";
-$resultados = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($resultados);
+$resultados = mysql_query($sql);
+$linhas = mysql_num_rows($resultados);
 
 if ($linhas > 0) {
   for ($i = 0; $i < $linhas; $i++) {
@@ -20,14 +20,14 @@ if ($linhas > 0) {
     $titulo = mysql_result($resultados, $i, "titulo");
     $data   = mysql_result($resultados, $i, "fechamento");
 
-    $result = mysqli_query($conexao, "SELECT idAluno FROM respostas 
+    $result = mysql_query("SELECT idAluno FROM respostas 
       LEFT JOIN questao ON questao.idQuestao = respostas.idQuestao 
       LEFT JOIN aplicarprova ON aplicarprova.idProva = questao.idProva 
       WHERE respostas.idAluno = '$idAluno' AND aplicarprova.idAplicarProva = '$idApl'");
 
     $status = "Responder";
 
-    if (mysqli_num_rows($result) > 0) $status = "Ver resultado";
+    if (mysql_num_rows($result) > 0) $status = "Ver resultado";
     else if (strtotime(date("Y-m-d")) > strtotime($data)) $status = "Prazo excedido";
 
     $date = date_format(date_create($data),"d/m/Y");
@@ -45,8 +45,8 @@ if ($linhas > 0) {
 
 // questionário p1 p2
 $sql = "SELECT * FROM aplicarProva WHERE '".date("Y-m-d", time())." 23:59:59' >= abertura AND idProfessor != '' AND idDisciplina = '$idDisciplina' AND bimestre IN (10,20)";
-$resultados = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($resultados);
+$resultados = mysql_query($sql);
+$linhas = mysql_num_rows($resultados);
 
 if ($linhas > 0) {
     for ($i = 0; $i < $linhas; $i++) {
@@ -57,12 +57,12 @@ if ($linhas > 0) {
         $data   = mysql_result($resultados, $i, "fechamento");
         $bim    = mysql_result($resultados, $i, "bimestre");
 
-        $result = mysqli_query($conexao, "SELECT idaluno FROM lista_resposta 
+        $result = mysql_query("SELECT idaluno FROM lista_resposta 
           WHERE idaluno = '$idAluno' AND idprova = '$idProva'");
 
         $status = "Responder"; 
 
-        if (mysqli_num_rows($result) > 0) $status = "Ver resultado";
+        if (mysql_num_rows($result) > 0) $status = "Ver resultado";
         else if (strtotime(date("Y-m-d")) > strtotime($data)) $status = "Prazo excedido";
 
         $date = date_format(date_create($data),"d/m/Y");

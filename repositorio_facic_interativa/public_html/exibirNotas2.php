@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -28,7 +28,7 @@ session_start();
 
 
                     <?php
-                    include "LoginRestrito/conexao.php";
+                    include "conexao.php";
                     $seguranca = new Seguranca();
                     if($_SESSION["tipo"] == "professor"){
                     
@@ -44,8 +44,8 @@ session_start();
 select l.idDisciplina,d.disciplina from listadisciplina l,disciplina d where l.idAluno = '$idAluno' and l.idDisciplina = d.idDisciplina AND d.semestre ='".$_SESSION['semestre']."'";
                 }
                     //echo $sqlDisciplina;
-                     $resultDisciplina = mysqli_query($conexao, $sqlDisciplina);
-                    $linhasDisciplina = mysqli_num_rows($resultDisciplina);
+                     $resultDisciplina = mysql_query($sqlDisciplina);
+                    $linhasDisciplina = mysql_num_rows($resultDisciplina);
                     
                     
                     if ($linhasDisciplina > 0) {
@@ -63,8 +63,8 @@ select l.idDisciplina,d.disciplina from listadisciplina l,disciplina d where l.i
                             . "<td>Nota</td>"
                                     . "<td>Correção</td></tr>";
                             $sql2 = "select aula.descricao,date_format(atividade.data,'%d/%m/%Y')as dataAula,atividade.nota,atividade.retorno from atividade,aula where atividade.idaluno = '$idAluno' and atividade.iddisciplina = '$idDisciplina' and atividade.idaula = aula.idaula";
-                            $result2 = mysqli_query($conexao, $sql2);
-                            $linhas2 = mysqli_num_rows($result2);
+                            $result2 = mysql_query($sql2);
+                            $linhas2 = mysql_num_rows($result2);
                             if ($linhas2 > 0) {
                                 
                                 for ($n = 0; $n < $linhas2; $n++) {

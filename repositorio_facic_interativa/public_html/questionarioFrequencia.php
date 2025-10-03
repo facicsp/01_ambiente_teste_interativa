@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -15,7 +15,7 @@ session_start();
         if (isset($_SESSION["usuario"])) {
             if ($_SESSION["tipo"] == "administrador") {
                 include "topo.php";
-                include "LoginRestrito/conexao.php";
+                include "conexao.php";
                 $seguranca = new Seguranca();
 
                 if (isset($_POST["id"])) {
@@ -25,9 +25,9 @@ session_start();
                   $idDisciplina = $_SESSION["disciplinaFreq"];
                 }
 
-                $result = mysqli_query($conexao, "SELECT disciplina, idTurma FROM disciplina WHERE idDisciplina = '$idDisciplina'");
+                $result = mysql_query("SELECT disciplina, idTurma FROM disciplina WHERE idDisciplina = '$idDisciplina'");
 
-                if (mysqli_num_rows($result)>0) {
+                if (mysql_num_rows($result)>0) {
                   $idTurma = mysql_result($result, 0, "idTurma");
                   $nomeDisciplina = mysql_result($result, 0, "disciplina");
                 } else exit("Ops! Houve algum erro");
@@ -37,7 +37,7 @@ session_start();
                   $abertura   = $seguranca->antisql($_POST["txtAbertura"]);
                   $fechamento = $seguranca->antisql($_POST["txtFechamento"]);
 
-                  mysqli_query($conexao, "INSERT INTO aplicarprova (abertura, fechamento, idDisciplina, idTurma, bimestre) VALUES
+                  mysql_query("INSERT INTO aplicarprova (abertura, fechamento, idDisciplina, idTurma, bimestre) VALUES
                                 ('$abertura', '$fechamento', '$idDisciplina', '$idTurma', '0')");
                                 
                   echo "<script>alert('Gravação realizada com sucesso!');</script>";
@@ -49,7 +49,7 @@ session_start();
                   $fechamento     = $seguranca->antisql($_POST["txtFechamento"]);
                   $idAplicarProva = $seguranca->antisql($_POST["txtId"]);
 
-                  mysqli_query($conexao, "UPDATE aplicarprova SET abertura = '$abertura', fechamento = '$fechamento' 
+                  mysql_query("UPDATE aplicarprova SET abertura = '$abertura', fechamento = '$fechamento' 
                                 WHERE idAplicarProva = '$idAplicarProva'"); 
 
                   echo "<script>alert('Gravação realizada com sucesso!');</script>";
@@ -59,7 +59,7 @@ session_start();
                 if (isset($_POST["operacao"]) && $_POST["operacao"] == "delete") {
                   $idAplicarProva = $seguranca->antisql($_POST["txtId"]);
 
-                  mysqli_query($conexao, "DELETE FROM aplicarprova WHERE idAplicarProva = '$idAplicarProva'"); 
+                  mysql_query("DELETE FROM aplicarprova WHERE idAplicarProva = '$idAplicarProva'"); 
                                                                
                   echo "<script>alert('Gravação realizada com sucesso!');</script>";
                 }
@@ -105,8 +105,8 @@ session_start();
         </center>
 
         <?php
-            $result = mysqli_query($conexao, "SELECT * FROM aplicarprova WHERE idDisciplina = '$idDisciplina' AND idTurma = '$idTurma' AND bimestre = 0");
-            $linhas = mysqli_num_rows($result);
+            $result = mysql_query("SELECT * FROM aplicarprova WHERE idDisciplina = '$idDisciplina' AND idTurma = '$idTurma' AND bimestre = 0");
+            $linhas = mysql_num_rows($result);
 
             if ($linhas > 0) {
               echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>

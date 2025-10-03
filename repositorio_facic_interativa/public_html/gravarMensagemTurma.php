@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,7 +14,7 @@ session_start();
             if ($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "professor") {
                 //conteudo do site
                 include "topo.php";
-                include 'LoginRestrito/conexao.php';
+                include 'conexao.php';
                 $seguranca = new Seguranca();
                 $assunto = $seguranca->antisql($_POST["txtAssunto"]);
                 $mensagem = $seguranca->antisql($_POST["txtMensagem"]);
@@ -27,7 +27,7 @@ session_start();
                 if ($idTurma > 0) {
                     $sql = "INSERT INTO mensagemturma VALUES(null,'$assunto','$mensagem','$data','$idTurma','$idProfessor')";
                     //echo $sql;
-                    mysqli_query($conexao, $sql);
+                    mysql_query($sql);
                     echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'dadosTurma.php';

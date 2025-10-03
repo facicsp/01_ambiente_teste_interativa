@@ -115,7 +115,10 @@ new Vue({
                     method: "post",
                     url: "gravarProva2.php",
                     data: form,
-                    headers: { "Content-Type": "multipart/form-data" },
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        "X-Requested-With": "XMLHttpRequest"
+                    },
                 })
                     //   .post('gravarProva2.php', { ...body })
                     .then(result => {

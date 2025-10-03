@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 session_start();
 
@@ -8,9 +8,9 @@ if (isset($_SESSION["usuario"])) {
     $idAtividade = $_GET["idAtividade"];
     $idAluno = $_GET["idAluno"];
 
-    include 'LoginRestrito/conexao.php';
+    include 'conexao.php';
 
-    mysqli_query($conexao, "UPDATE atividade SET arquivo_correcao='' WHERE idAtividade = '$idAtividade' AND idAluno = '$idAluno'");
+    mysql_query("UPDATE atividade SET arquivo_correcao='' WHERE idAtividade = '$idAtividade' AND idAluno = '$idAluno'");
 }
 
 

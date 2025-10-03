@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 
 
@@ -15,20 +15,20 @@ session_start();
         if (isset($_SESSION["usuario"])) {
             if ($_SESSION["tipo"] == "administrador") {
                 //conteudo do site
-                include "LoginRestrito/conexao.php";
+                include "conexao.php";
                 include "topo.php";
                 $seguranca = new Seguranca();
                 
                 if (isset($_POST['action']) && $_POST['action'] == "enviado") {
                     $idProfessor = $seguranca->antisql($_POST['txtProfessor']);
                     $idTurma = $seguranca->antisql($_POST['txtTurma']);
-                    mysqli_query($conexao, "INSERT INTO coordenador VALUES (NULL, '$idProfessor', '$idTurma')");
+                    mysql_query("INSERT INTO coordenador VALUES (NULL, '$idProfessor', '$idTurma')");
                     echo "<script>alert('Salvo com sucesso!');</script>";
                 }
 
                 if (isset($_POST['operacao']) && $_POST['operacao'] == "excluir") {
                     $idCoordenador = $seguranca->antisql($_POST['id']);
-                    mysqli_query($conexao, "DELETE FROM coordenador WHERE idCoordenador = '$idCoordenador'");
+                    mysql_query("DELETE FROM coordenador WHERE idCoordenador = '$idCoordenador'");
                     echo "<script>alert('Excluído com sucesso!');</script>";
                 }
                 ?>
@@ -55,8 +55,8 @@ session_start();
                                                 <select name="txtProfessor" required>
                                                     <option value="">Selecione um Professor</option>
                                                     <?php
-                                                        $result = mysqli_query($conexao, "SELECT idProfessor, nome FROM professor");
-                                                        for ($i=0; $i < mysqli_num_rows($result); $i++) {
+                                                        $result = mysql_query("SELECT idProfessor, nome FROM professor");
+                                                        for ($i=0; $i < mysql_num_rows($result); $i++) {
                                                             $idProfessor = mysql_result($result, $i, "idProfessor");
                                                             $nome = mysql_result($result, $i, "nome");
                                                             echo "<option value='$idProfessor'>$nome</option>";
@@ -73,8 +73,8 @@ session_start();
                                                 <select name="txtTurma" required>
                                                     <option value="">Selecione uma turma</option>
                                                     <?php
-                                                        $result = mysqli_query($conexao, "SELECT idTurma, turma FROM turma WHERE semestre = '".$_SESSION['semestre']."'");
-                                                        for ($i=0; $i < mysqli_num_rows($result); $i++) {
+                                                        $result = mysql_query("SELECT idTurma, turma FROM turma WHERE semestre = '".$_SESSION['semestre']."'");
+                                                        for ($i=0; $i < mysql_num_rows($result); $i++) {
                                                             $idTurma = mysql_result($result, $i, "idTurma");
                                                             $turma = mysql_result($result, $i, "turma");
                                                             echo "<option value='$idTurma'>$turma</option>";
@@ -107,10 +107,10 @@ session_start();
                             <?php
             }
                             
-                            $resultados = mysqli_query($conexao, "SELECT idCoordenador, turma, nome FROM coordenador 
+                            $resultados = mysql_query("SELECT idCoordenador, turma, nome FROM coordenador 
                                                         LEFT JOIN professor ON professor.idProfessor = coordenador.idProfessor 
                                                         LEFT JOIN turma ON turma.idTurma = coordenador.idTurma");
-                            $linhas = mysqli_num_rows($resultados);
+                            $linhas = mysql_num_rows($resultados);
 
                             if ($linhas > 0) {
                                 echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>

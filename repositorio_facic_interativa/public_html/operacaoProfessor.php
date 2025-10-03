@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -15,7 +15,7 @@ session_start();
                 //conteudo do site
                 include "topo.php";
 
-                include 'LoginRestrito/conexao.php';
+                include 'conexao.php';
                 $seguranca = new Seguranca();
                 $operacao = $seguranca->antisql($_POST["operacao"]);
                 $id = $seguranca->antisql($_POST["id"]);
@@ -29,7 +29,7 @@ session_start();
                     } else {
                         $sql = "UPDATE professor SET nome = '$nome',email='$email',senha=md5('$senha') WHERE idProfessor = $id";
                     }
-                    mysqli_query($conexao, $sql);
+                    mysql_query($sql);
                     echo "<script>
     alert('Alteração realizada com sucesso!');
     window.location='cadastroProfessor.php';
@@ -44,7 +44,7 @@ session_start();
                     }else{
 
                     $sql = "DELETE FROM professor WHERE idprofessor = $id";
-                    mysqli_query($conexao, $sql);
+                    mysql_query($sql);
                     echo "<script>
     alert('Exclusão realizada com sucesso!');
     window.location='cadastroProfessor.php';

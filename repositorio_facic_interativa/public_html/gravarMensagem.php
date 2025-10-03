@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,7 +14,7 @@ if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "professor" || $_SESSION["tipo"] == "aluno"){
       //conteudo do site
      include "topo.php";
-      include 'LoginRestrito/conexao.php';
+      include 'conexao.php';
       $seguranca = new Seguranca();
       $mensagem = $seguranca->antisql($_POST["txtMensagem"]);
       $idContato = $seguranca->antisql($_POST["idContato"]);
@@ -22,9 +22,9 @@ if (isset($_SESSION["usuario"])) {
       date_default_timezone_set('America/Sao_Paulo');
       $data = Date("Y-m-d");
       
-    mysqli_query($conexao, $sql);
+    mysql_query($sql);
     $sql = "INSERT INTO mensagem VALUES(null,'$mensagem','$data','$tipo','nao','$idContato')";
-    mysqli_query($conexao, $sql);
+    mysql_query($sql);
 echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'mensagens.php';

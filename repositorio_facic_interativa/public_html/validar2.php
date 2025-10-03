@@ -1,7 +1,7 @@
-﻿
+
 <?php
     session_start();
-    include "LoginRestrito/conexao.php";
+    include "conexao.php";
 $seguranca = new Seguranca();
 
 $_SESSION["semestre"] = '2020/1';
@@ -22,8 +22,8 @@ if($tipo == "aluno"){
         . "WHERE ra='$usuario' "
         . "AND senha = md5('$senha') AND tipo='aluno'";
     }
-$resultados = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($resultados);
+$resultados = mysql_query($sql);
+$linhas = mysql_num_rows($resultados);
 if($linhas > 0 && is_numeric($usuario)) {
     $idAluno = mysql_result($resultados, 0,"idUsuario");
     $dias = mysql_result($resultados, 0, "dias");
@@ -42,15 +42,15 @@ if($linhas > 0 && is_numeric($usuario)) {
     date_default_timezone_set('America/Sao_Paulo');
     $data =  date("Y-m-d");
     $sql = "UPDATE usuario SET ultimoacesso = '$data' WHERE idUsuario = '$idAluno'";
-    mysqli_query($conexao, $sql);
+    mysql_query($sql);
     
 $sql = "UPDATE usuario SET acesso = (acesso+1) WHERE idUsuario = '$idAluno'";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 
 //gravando dados de acesso
 $hora = date("H:i");
 $sql = "INSERT INTO acesso VALUES(null,'$idAluno','$data','$hora','$hora')";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 echo "<script>window.location='index.php';</script>";
 }else{
 echo "<script>alert('Dados incorretos.');"
@@ -71,8 +71,8 @@ else if($tipo == "professor"){
         . "WHERE email='$usuario' "
         . "AND senha = md5('$senha')";
     }
-$resultados = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($resultados);
+$resultados = mysql_query($sql);
+$linhas = mysql_num_rows($resultados);
 if($linhas > 0){
     
     $idProfessor = mysql_result($resultados, 0,"idProfessor");
@@ -85,17 +85,17 @@ date_default_timezone_set('America/Sao_Paulo');
 $data =  date("Y-m-d");
 $hora = date("H:i");
 $sql = "INSERT INTO acessoprofessor VALUES(null,'$idProfessor','$data','$hora','$hora')";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 
     
     
-    $result = mysqli_query($conexao, "SELECT DISTINCT professor.idProfessor, nome, email FROM coordenador 
+    $result = mysql_query("SELECT DISTINCT professor.idProfessor, nome, email FROM coordenador 
     LEFT JOIN disciplina ON disciplina.idTurma = coordenador.idTurma 
     LEFT JOIN professor ON professor.idProfessor = disciplina.idProfessor 
     WHERE coordenador.idProfessor = '$idProfessor' AND professor.idProfessor != '$idProfessor'");
     
     
-    $linhas = mysqli_num_rows($result);
+    $linhas = mysql_num_rows($result);
     if ($linhas > 0) {
         $cordenados = [];
         for ($i=0; $i < $linhas; $i++) { 
@@ -133,8 +133,8 @@ else if($tipo == "administrador"){
         . "WHERE email='$usuario' "
         . "AND senha = md5('$senha') AND tipo = 'administrador'";
     }
-$resultados = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($resultados);
+$resultados = mysql_query($sql);
+$linhas = mysql_num_rows($resultados);
 if($linhas > 0){
     $_SESSION["usuario"]=$usuario;
     $_SESSION["tipo"] = $tipo;

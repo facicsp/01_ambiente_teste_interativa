@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -48,31 +48,31 @@ session_start();
             <h2 id="nota"></h2>
             
             <?php
-            include "LoginRestrito/conexao.php";
+            include "conexao.php";
 
             $seguranca = new Seguranca();
             $idAplicar = $seguranca->antisql($_POST["id"]);
 
 
             $sql = "SELECT * FROM aplicarprova WHERE idDisciplina = '$idDisciplina' AND idAplicarProva = '$idAplicar'";
-            $resultados = mysqli_query($conexao, $sql);
-            $linhas = mysqli_num_rows($resultados);
+            $resultados = mysql_query($sql);
+            $linhas = mysql_num_rows($resultados);
 
-            if (mysqli_num_rows($resultados) == 1) {
+            if (mysql_num_rows($resultados) == 1) {
               $data = mysql_result($resultados, 0, 'data');
               $idProva = mysql_result($resultados, 0, 'idProva');
 
-              $result = mysqli_query($conexao, "SELECT * FROM lista_resposta 
+              $result = mysql_query("SELECT * FROM lista_resposta 
                 LEFT JOIN questao2 ON questao2.idQuestao = lista_resposta.idQuestao 
                 WHERE lista_resposta.idprova = '$idProva' AND idaluno = '$idAluno'");
 
 
-              if (mysqli_num_rows($result) == 0) {
+              if (mysql_num_rows($result) == 0) {
                 echo "<script>window.location = 'responder.php';</script>"; 
                 exit;
               }
 
-              for ($i=0; $i<mysqli_num_rows($result); $i++) {
+              for ($i=0; $i<mysql_num_rows($result); $i++) {
                 $descricao = htmlspecialchars(mysql_result($result, $i, 'descricao'));
                 $resposta  = htmlspecialchars(mysql_result($result, $i, 'resposta' ));
                 $correcao  = mysql_result($result, $i, 'correcao');
@@ -89,8 +89,8 @@ session_start();
                 if ($tipo == "dissertativa") {
                   echo "<p><b>Resposta: &nbsp; </b> $resposta</p>";
                 } else {
-                  $resultAlt = mysqli_query($conexao, "SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
-                  for ($j=0; $j<mysqli_num_rows($resultAlt); $j++) { 
+                  $resultAlt = mysql_query("SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
+                  for ($j=0; $j<mysql_num_rows($resultAlt); $j++) { 
                     $idalternativa = mysql_result($resultAlt, $j, 'idalternativa');
                     $alternativa   = htmlspecialchars(mysql_result($resultAlt, $j, 'alternativa'));
                     $correta       = mysql_result($resultAlt, $j, 'correta');

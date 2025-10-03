@@ -1,4 +1,4 @@
-﻿<?php
+<?php
         session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -60,15 +60,15 @@
             if($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "professor"){
                 //conteudo do site
                 include "topo.php";
-                include "LoginRestrito/conexao.php";
+                include "conexao.php";
                 $seguranca = new Seguranca();
                 $idAula = $seguranca->antisql($_POST["id"]);
                 $sql = "select aula.*,disciplina.disciplina,turma.turma from aula,disciplina,turma
 where idAula = '$idAula'
 and aula.idDisciplina = disciplina.idDisciplina
 and aula.idTurma = turma.idTurma";
-                $resultados = mysqli_query($conexao, $sql);
-                $linhas = mysqli_num_rows($resultados);
+                $resultados = mysql_query($sql);
+                $linhas = mysql_num_rows($resultados);
                 if ($linhas > 0) {
 
                     for ($i = 0; $i < $linhas; $i++) {
@@ -186,8 +186,8 @@ and aula.idTurma = turma.idTurma";
                                                     <?php echo "<option value='$idTurma'>$turma</option>"; ?>
                                                     <?php
                                                     $sql = "SELECT * FROM turma WHERE semestre = '".$_SESSION['semestre']."' ORDER BY turma";
-                                                    $resultados = mysqli_query($conexao, $sql);
-                                                    $linhas = mysqli_num_rows($resultados);
+                                                    $resultados = mysql_query($sql);
+                                                    $linhas = mysql_num_rows($resultados);
                                                     if ($linhas > 0) {
                                                         for ($i = 0; $i < $linhas; $i++) {
                                                             $idturma = mysql_result($resultados, $i, "idturma");
@@ -215,8 +215,8 @@ and aula.idTurma = turma.idTurma";
                                             }else{
                                                 $sql = "SELECT * FROM disciplina ORDER BY disciplina";
                                             }echo $sql;
-                                                    $resultados = mysqli_query($conexao, $sql);
-                                                    $linhas = mysqli_num_rows($resultados);
+                                                    $resultados = mysql_query($sql);
+                                                    $linhas = mysql_num_rows($resultados);
                                                     if ($linhas > 0) {
                                                         for ($i = 0; $i < $linhas; $i++) {
                                                             $idDisciplina = mysql_result($resultados, $i, "idDisciplina");

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -18,7 +18,7 @@ session_start();
                     $idProfessor = $_SESSION["id"];
                 }
                 include "topo.php";
-                include "LoginRestrito/conexao.php";
+                include "conexao.php";
                 $seguranca = new Seguranca();
                 $idDisciplina = $seguranca->antisql($_GET["id"]);
                 $disciplina = $_SESSION["disciplina"][$idDisciplina];
@@ -39,8 +39,8 @@ session_start();
                     $sql = "select u.nome,u.acesso from usuario u,matricula m
 where m.idTurma IN(select idTurma from disciplina where idDisciplina = '$idDisciplina')
 AND m.idAluno = u.idUsuario ORDER BY u.nome";
-                    $result = mysqli_query($conexao, $sql);
-                    $linhas = mysqli_num_rows($result);
+                    $result = mysql_query($sql);
+                    $linhas = mysql_num_rows($result);
                     //$quantidadeAulas = $linhas;
                     //echo $sql;
                       echo "<table border='1' align='center'>"
@@ -57,14 +57,14 @@ AND m.idAluno = u.idUsuario ORDER BY u.nome";
                     
                     //adaptados
                     $sql = "select idAluno from listadisciplina WHERE listadisciplina.idDisciplina = '$idDisciplina'";
-                    $result = mysqli_query($conexao, $sql);
-                    $linhas = mysqli_num_rows($result);
+                    $result = mysql_query($sql);
+                    $linhas = mysql_num_rows($result);
                     
                     if ($linhas > 0) {
                         for($i=0;$i<$linhas;$i++){
                             
                             $idUsuario = mysql_result($result, $i, "idAluno");
-                            $resultUsuario = mysqli_query($conexao, "SELECT nome, acesso FROM usuario WHERE idUsuario = $idUsuario");
+                            $resultUsuario = mysql_query("SELECT nome, acesso FROM usuario WHERE idUsuario = $idUsuario");
                             
                             $nome = mysql_result($resultUsuario, 0, "nome");
                             $acesso = mysql_result($resultUsuario, 0, "acesso");
@@ -78,8 +78,8 @@ AND m.idAluno = u.idUsuario ORDER BY u.nome";
                         
                         /*$sql = "select frequencia.*,usuario.nome from frequencia,usuario where iddisciplina = '$idDisciplina' and frequencia.idaluno = usuario.idusuario group by usuario.nome order by nome,data";
                         //echo $sql;
-                        $result = mysqli_query($conexao, $sql);
-                        $linhas = mysqli_num_rows($result);
+                        $result = mysql_query($sql);
+                        $linhas = mysql_num_rows($result);
                         if ($linhas > 0) {
                             $porcentagem = 100 / $quantidadeAulas;
                             for ($i = 0; $i < $linhas; $i++) {

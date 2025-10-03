@@ -1,6 +1,6 @@
-﻿<?php 
+<?php 
   session_start(); 
-  include 'LoginRestrito/conexao.php';
+  include './conexao.php';
   
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -86,14 +86,14 @@
             
             $idProva = $seguranca->antisql($_GET['id']);
             
-            $result = mysqli_query($conexao, "SELECT * FROM questao WHERE idProva = '$idProva'");
+            $result = mysql_query("SELECT * FROM questao WHERE idProva = '$idProva'");
             
-            if (mysqli_num_rows($result) == 0) {
+            if (mysql_num_rows($result) == 0) {
                 echo "<script>window.location = 'visualizarProvas.php?$idProva';</script>"; 
                 exit;
             }
             
-            for ($i=0; $i<mysqli_num_rows($result); $i++) {
+            for ($i=0; $i<mysql_num_rows($result); $i++) {
                 $descricao = mysql_result($result, $i, 'descricao');
                 $correta = mysql_result($result, $i, 'correta');
                 $idQuestao = mysql_result($result, $i, 'idQuestao');
@@ -128,8 +128,8 @@
             else $where = "";
             
             
-            $result = mysqli_query($conexao, "SELECT * FROM prova $where");
-            $linhas = mysqli_num_rows($result);
+            $result = mysql_query("SELECT * FROM prova $where");
+            $linhas = mysql_num_rows($result);
             
             echo '<table border="0" align="center" id="consulta" cellpadding="5" cellspacing="0"><tr><td>Código</td><td>Título</td><td>Operações</td></tr>';
     
@@ -138,7 +138,7 @@
                 $titulo  = mysql_result($result, $i, "titulo");
                 $titulo  = $titulo != "" ? $titulo : "Sem título";
     
-                $resultQuestoes = mysqli_query($conexao, "SELECT COUNT(*) AS questoes FROM questao WHERE idProva = $idProva");
+                $resultQuestoes = mysql_query("SELECT COUNT(*) AS questoes FROM questao WHERE idProva = $idProva");
                 
                 if (mysql_result($resultQuestoes, 0, "questoes") > 9) {
                     echo "<tr>

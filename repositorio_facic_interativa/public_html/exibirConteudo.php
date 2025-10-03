@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,7 +22,7 @@ session_start();
         <div class="dados">
             <div class="barratitulo"><h1>Conteúdo</h1></div>
                         <?php
-                        include "LoginRestrito/conexao.php";
+                        include "conexao.php";
                         $seguranca = new Seguranca();
                         $idAula = $seguranca->antisql($_GET["id"]);
                         $idAula = $_SESSION["idAula"][$idAula];
@@ -33,8 +33,8 @@ session_start();
                             $sql = "SELECT aula.* FROM aula WHERE nome LIKE '%$consulta%' ORDER BY idAula DESC";
                         }
                         //echo $sql;
-                        $resultados = mysqli_query($conexao, $sql);
-                        $linhas = mysqli_num_rows($resultados);
+                        $resultados = mysql_query($sql);
+                        $linhas = mysql_num_rows($resultados);
                         if ($linhas > 0) {
                            
                             for ($i = 0; $i < $linhas; $i++) {
@@ -62,8 +62,8 @@ session_start();
                                 }
                                 echo "<div style='width:100%;'>";
                                 $sqlConteudo = "SELECT * FROM conteudo WHERE idAula = '$idAula'";
-                                $resultadoConteudo = mysqli_query($conexao, $sqlConteudo);
-                                $linhaConteudo = mysqli_num_rows($resultadoConteudo);
+                                $resultadoConteudo = mysql_query($sqlConteudo);
+                                $linhaConteudo = mysql_num_rows($resultadoConteudo);
                                 echo "<div class='barratitulo'><h1>Arquivos</h1></div>";
                                 if($linhaConteudo > 0){
                                 for($n=0;$n < $linhaConteudo;$n++){
@@ -80,7 +80,7 @@ session_start();
                                 
                                 echo "<hr><div class='conteudo'>$conteudo</div>";
                                 $sql = "SELECT d.idDisciplina,d.disciplina from disciplina d,aula a WHERE a.idAula = $idAula AND a.idDisciplina = d.idDisciplina";
-                                $result = mysqli_query($conexao, $sql);
+                                $result = mysql_query($sql);
                                 $idDisciplina = mysql_result($result, 0, "idDisciplina");
                                 $disciplina = mysql_result($result, 0, "disciplina");
                                 echo "<div style='float:left;width:5%;margin-left:5%;'>"

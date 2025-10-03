@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -85,7 +85,7 @@ session_start();
                     </a>
 
                     <!-- minhabiblioteca.php -->
-                    <a href="https://www.google.com/url?q=https://dliportal.zbra.com.br/Login.aspx?key%3DFASC&sa=D&source=apps-viewer-frontend&ust=1735346164602927&usg=AOvVaw2BLW8UyVO9FNEeqQmfhFez&hl=pt-BR"
+                    <a href="https://www.google.com/url?q=https://dliportal.zbra.com.br/Login.aspx?key%3DFACIC&sa=D&source=apps-viewer-frontend&ust=1735346164602927&usg=AOvVaw2BLW8UyVO9FNEeqQmfhFez&hl=pt-BR"
                         target="_blank">
                         <img src="imagens/minhabiblioteca.svg">
                     </a>
@@ -101,11 +101,11 @@ session_start();
 
                 <div id="periodicos" style="padding-bottom: 100px">
                     <?php
-                    include 'LoginRestrito/conexao.php';
+                    include './conexao.php';
 
                     $sql = "SELECT p.*,a.area from periodico p,area a WHERE p.idarea = a.idarea ORDER BY a.area,p.titulo";
-                    $result = mysqli_query($conexao, $sql);
-                    $linhas = mysqli_num_rows($result);
+                    $result = mysql_query($sql);
+                    $linhas = mysql_num_rows($result);
 
                     if ($linhas > 0) {
 
@@ -137,16 +137,16 @@ session_start();
 
                     echo "<div id='repositorio' style='display:none;float:left;width:100%; padding-bottom: 100px'>";
                     //Exibir os repositórios
-                    mysqli_query($conexao, "SET NAMES 'utf8'");
-                    mysqli_query($conexao, 'SET character_set_connection=utf8');
-                    mysqli_query($conexao, 'SET character_set_client=utf8');
-                    mysqli_query($conexao, 'SET character_set_results=utf8');
+                    mysql_query("SET NAMES 'utf8'");
+                    mysql_query('SET character_set_connection=utf8');
+                    mysql_query('SET character_set_client=utf8');
+                    mysql_query('SET character_set_results=utf8');
                     $sql = "SELECT f.id, titulo, subtitulo, autor, arquivo, classificacao, i.nome AS instituicao from formulario f
 LEFT JOIN classificacao c ON c.id = f.id_classificacao 
 LEFT JOIN instituicoes i ON i.id = f.instituicao 
 ORDER BY titulo";
-                    $result = mysqli_query($conexao, $sql);
-                    $linhas = mysqli_num_rows($result);
+                    $result = mysql_query($sql);
+                    $linhas = mysql_num_rows($result);
                     $areaauxiliar = "";
                     if ($linhas > 0) {
 

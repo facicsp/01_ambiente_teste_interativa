@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -14,7 +14,7 @@
                 include "topo.php";
                 include './Util.php';
                 $util = new Util();
-                include 'LoginRestrito/conexao.php';
+                include './conexao.php';
                 ?>
 <div class="principal grid-80 prefix-10 suffix-10">
                     <div id="titulo" class="grid-100 titulo">
@@ -48,8 +48,8 @@
                             $consulta = $_GET["txtConsulta"];
                             
                             $sql = "SELECT * FROM categoria WHERE categoria.categoria LIKE '%$consulta%' ";
-                            $resultados = mysqli_query($conexao, $sql);
-                            $linhas = mysqli_num_rows($resultados);
+                            $resultados = mysql_query($sql);
+                            $linhas = mysql_num_rows($resultados);
                             if ($linhas > 0) {
                       
                                 echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>

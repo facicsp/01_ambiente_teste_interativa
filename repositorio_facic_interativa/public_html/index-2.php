@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -196,7 +196,7 @@ session_start();
             $cores[7]="#cc0033";
             $cores[8]="#009966";
             $cores[9]="#3366ff";
-            include "LoginRestrito/conexao.php";
+            include "conexao.php";
             $seguranca = new Seguranca();
             $idAluno = $seguranca->antisql($_SESSION["id"]);
 
@@ -204,8 +204,8 @@ session_start();
 where idturma in(select idturma from matricula where idaluno = '$idAluno') 
 AND disciplina.idProfessor = professor.idProfessor AND semestre = '$semestre'";
             //echo $sql;
-            $result = mysqli_query($conexao, $sql);
-            $linhas = mysqli_num_rows($result);
+            $result = mysql_query($sql);
+            $linhas = mysql_num_rows($result);
             
             $indice = 0;
             
@@ -240,8 +240,8 @@ AND listadisciplina.idDisciplina = disciplina.idDisciplina
 AND listadisciplina.idAluno = usuario.idUsuario
 AND disciplina.idProfessor = professor.idProfessor AND semestre = '$semestre'";
             
-            $result = mysqli_query($conexao, $sql);
-            $linhas = mysqli_num_rows($result);
+            $result = mysql_query($sql);
+            $linhas = mysql_num_rows($result);
             if ($linhas > 0) {
                 for ($i = 0; $i < $linhas; $i++) {
                     $idDisciplina = mysql_result($result, $i, "idDisciplina");
@@ -263,8 +263,8 @@ AND disciplina.idProfessor = professor.idProfessor AND semestre = '$semestre'";
             <div class="barratitulo"><h1>Novidades e Dicas</h1></div>
             <?php
                 $sqlNoticia = "select idnoticia,titulo from noticia WHERE tipo = 'Mural' AND idDisciplina IN ($listaDisciplinas) ORDER BY idnoticia DESC"; //order by rand() limit 3
-            $resultNoticia = mysqli_query($conexao, $sqlNoticia);
-            $linhasNoticia = mysqli_num_rows($resultNoticia);
+            $resultNoticia = mysql_query($sqlNoticia);
+            $linhasNoticia = mysql_num_rows($resultNoticia);
             if ($linhasNoticia > 0) {
                 for ($i = 0; $i < $linhasNoticia; $i++) {
                     $idNoticia = mysql_result($resultNoticia, $i, "idnoticia");
@@ -292,8 +292,8 @@ AND disciplina.idProfessor = professor.idProfessor AND semestre = '$semestre'";
             //tipo = 'Aviso'  AND
             $sqlNoticia = "select idnoticia,titulo,tipo from noticia WHERE (tipo != 'Mural') AND (idDisciplina IN ($listaDisciplinas) OR idDisciplina = '0') ORDER BY idnoticia DESC"; //order by rand() limit 3
             //echo $sqlNoticia;
-            $resultNoticia = mysqli_query($conexao, $sqlNoticia);
-            $linhasNoticia = mysqli_num_rows($resultNoticia);
+            $resultNoticia = mysql_query($sqlNoticia);
+            $linhasNoticia = mysql_num_rows($resultNoticia);
             if ($linhasNoticia > 0) {
                 for ($i = 0; $i < $linhasNoticia; $i++) {
                     $idNoticia = mysql_result($resultNoticia, $i, "idnoticia");
@@ -316,8 +316,8 @@ AND disciplina.idProfessor = professor.idProfessor AND semestre = '$semestre'";
         <div class="barratitulo"><h1>Mensagens Turma</h1></div>
         <?php
         $sql = "select mensagemturma.*, date_format(data,'%d/%m/%Y')as datamensagem,professor.nome from mensagemturma, professor where idturma ='$idTurma' and mensagemturma.idprofessor = professor.idprofessor ORDER BY idMensagemTurma DESC";
-        $result = mysqli_query($conexao, $sql);
-        $linhas = mysqli_num_rows($result);
+        $result = mysql_query($sql);
+        $linhas = mysql_num_rows($result);
         if ($linhas > 0) {
 
             for ($i = 0; $i < $linhas; $i++) {

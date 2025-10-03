@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 
 function getLetra($numero){
@@ -35,7 +35,7 @@ function getLetra($numero){
 if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "aluno"){
 
-    include 'LoginRestrito/conexao.php';
+    include 'conexao.php';
     $seguranca = new Seguranca();
 
     $idQuestoes = $_POST["txtIdQuestao"];
@@ -44,8 +44,8 @@ if (isset($_SESSION["usuario"])) {
     $idAluno    = $_SESSION['id'];
     $html = "";
     //exit("SELECT * FROM lista_respostas WHERE idaluno = '$idAluno' AND idprova = '$idProva'");
-    $_result = mysqli_query($conexao, "SELECT * FROM lista_resposta WHERE idaluno = '$idAluno' AND idprova = '$idProva'");
-    if (mysqli_num_rows($_result) > 0) exit("Ops! Você já enviou essa prova.");
+    $_result = mysql_query("SELECT * FROM lista_resposta WHERE idaluno = '$idAluno' AND idprova = '$idProva'");
+    if (mysql_num_rows($_result) > 0) exit("Ops! Você já enviou essa prova.");
     
     for ($i=0; $i<sizeof($idQuestoes); $i++) {
       
@@ -53,7 +53,7 @@ if (isset($_SESSION["usuario"])) {
       $resposta  = $seguranca->antisql($respostas[$i]);
       // $tipo      = $tipos[$i];
 
-      $resultQuestao = mysqli_query($conexao, "SELECT * FROM questao2 WHERE idQuestao = '$idQuestao'");
+      $resultQuestao = mysql_query("SELECT * FROM questao2 WHERE idQuestao = '$idQuestao'");
       $descricao     = htmlspecialchars(mysql_result($resultQuestao, 0, "descricao"));
       $tipo          = mysql_result($resultQuestao, 0, "tipo");
       $peso          = mysql_result($resultQuestao, 0, "peso");
@@ -63,10 +63,10 @@ if (isset($_SESSION["usuario"])) {
       $nota = '';
 
       if ($tipo === "objetiva") {
-        $result = mysqli_query($conexao, "SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
+        $result = mysql_query("SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
         $nota = 0;
 
-        for ($j=0; $j < mysqli_num_rows($result); $j++) { 
+        for ($j=0; $j < mysql_num_rows($result); $j++) { 
           $idAlternativa = mysql_result($result, $j, "idalternativa");
           $alternativa = htmlspecialchars(mysql_result($result, $j, "alternativa"));
           $correta = mysql_result($result, $j, "correta");
@@ -81,15 +81,15 @@ if (isset($_SESSION["usuario"])) {
 
       $html .= "<hr>";
 
-      mysqli_query($conexao, "INSERT INTO lista_resposta VALUES(NULL, '$resposta', '$nota', '$idProva', '$idQuestao', '$idAluno')");
+      mysql_query("INSERT INTO lista_resposta VALUES(NULL, '$resposta', '$nota', '$idProva', '$idQuestao', '$idAluno')");
     }
 
     $assunto = "Confirmação de envio de prova";
-    $conteudo = "FASC INTERATIVA";
+    $conteudo = "FACIC INTERATIVA";
     $header  = "Content-type: text/html; charset=iso-8859-1\n";
-    $header .= "From: FASC INTERATIVA<sistemafacic@ava24horas.com>";
+    $header .= "From: FACIC INTERATIVA<sistemafacic@ava24horas.com>";
 
-    $result = mysqli_query($conexao, "SELECT email FROM usuario WHERE idUsuario = '$idAluno'");
+    $result = mysql_query("SELECT email FROM usuario WHERE idUsuario = '$idAluno'");
     $email = mysql_result($result, 0, "email");
 
     $destinatario = ("$email");

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -15,21 +15,21 @@ if (isset($_SESSION["usuario"])) {
       //conteudo do site
 include "topo.php";
 
-include 'LoginRestrito/conexao.php';
+include 'conexao.php';
 $operacao = $_POST["operacao"];
 $id = $_POST["id"];
 
 if($operacao == 'alterar'){
 $descricao = $_POST["txtDescricao"];
 $sql="UPDATE curso SET descricao = '$descricao' WHERE idcurso = $id";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 echo "<script>
     alert('Alteração realizada com sucesso!');
     window.location='cadastroCurso.php';
 </script>";
 }else if($operacao == 'excluir'){
 $sql = "DELETE FROM curso WHERE idcurso = $id";
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 echo "<script>
     alert('Exclusão realizada com sucesso!');
     window.location='cadastroCurso.php';

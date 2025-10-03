@@ -1,6 +1,6 @@
-﻿<?php
+<?php
   session_start();
-  include 'LoginRestrito/conexao.php';
+  include './conexao.php';
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -79,11 +79,68 @@
 
             $idProva = $seguranca->antisql($_GET['id']);
 
-            $result = mysqli_query($conexao, "SELECT * FROM questao2 WHERE idProva = '$idProva'");
+            // Buscar informações da prova
+            $resultProva = mysql_query("SELECT * FROM prova WHERE idProva = '$idProva'");
+            if (mysql_num_rows($resultProva) == 0) exit("<script>alert('Prova não encontrada!'); window.location = 'visualizarProvas2.php';</script>");
 
-            if (mysqli_num_rows($result) == 0) exit("<script>window.location = 'visualizarProvas2.php?';</script>");
+            $tituloProva = mysql_result($resultProva, 0, 'titulo');
+            $idProfessorProva = mysql_result($resultProva, 0, 'idProfessor');
 
-            for ($i=0; $i<mysqli_num_rows($result); $i++) {
+            // Processar atualização do título (se foi submetido)
+            if (isset($_POST['atualizar_titulo']) && isset($_POST['novo_titulo'])) {
+                $novoTitulo = $seguranca->antisql($_POST['novo_titulo']);
+
+                // Verificar permissão
+                if ($idProfessorProva == $_SESSION['id'] || $_SESSION["tipo"] == "administrador") {
+                    $queryUpdate = "UPDATE prova SET titulo = '$novoTitulo' WHERE idProva = '$idProva'";
+                    if (mysql_query($queryUpdate)) {
+                        $tituloProva = $novoTitulo;
+                        echo "<script>
+                            alert('Título atualizado com sucesso!');
+                            window.location = 'visualizarProvas2.php?id=$idProva';
+                        </script>";
+                    } else {
+                        echo "<div style='background:#f8d7da;padding:15px;margin:10px 0;border-radius:5px;color:#721c24;'>
+                            <strong>❌ Erro ao atualizar título:</strong> " . mysql_error() . "
+                        </div>";
+                    }
+                } else {
+                    echo "<div style='background:#fff3cd;padding:15px;margin:10px 0;border-radius:5px;color:#856404;'>
+                        <strong>⚠️ Aviso:</strong> Você não tem permissão para editar esta prova.
+                    </div>";
+                }
+            }
+
+            // Formulário de edição do título
+            echo "<div style='background:#f8f9fa;padding:20px;margin:20px 0;border-radius:8px;border:2px solid #dee2e6;'>
+                <form method='post' action='visualizarProvas2.php?id=$idProva' style='display:flex;align-items:center;gap:10px;'>
+                    <label style='font-weight:bold;color:#495057;margin:0;'>Título da Prova:</label>
+                    <input type='text' name='novo_titulo' value='" . htmlspecialchars($tituloProva) . "'
+                           style='flex:1;padding:10px;border:2px solid #ced4da;border-radius:5px;font-size:16px;'
+                           required>
+                    <button type='submit' name='atualizar_titulo'
+                            style='background:#28a745;color:white;border:none;padding:10px 20px;border-radius:5px;font-weight:bold;cursor:pointer;font-size:14px;'>
+                        💾 SALVAR
+                    </button>
+                </form>
+                <small style='color:#6c757d;display:block;margin-top:8px;'>
+                    <strong>ID da Prova:</strong> #$idProva &nbsp;|&nbsp;
+                    <strong>Professor:</strong> " . ($idProfessorProva == $_SESSION['id'] ? 'Você' : "ID $idProfessorProva") . "
+                </small>
+            </div>";
+
+            $result = mysql_query("SELECT * FROM questao2 WHERE idProva = '$idProva'");
+
+            if (mysql_num_rows($result) == 0) {
+                echo "<div style='background:#fff3cd;padding:20px;margin:20px 0;border-radius:8px;color:#856404;text-align:center;'>
+                    <strong>⚠️ Esta prova não possui questões cadastradas.</strong><br>
+                    <a href='cadastroProva2.php' style='color:#004085;'>Clique aqui para adicionar questões</a>
+                </div>";
+                echo "</div></body></html>";
+                exit;
+            }
+
+            for ($i=0; $i<mysql_num_rows($result); $i++) {
                 $descricao = htmlspecialchars(mysql_result($result, $i, 'descricao'));
                 $idQuestao = mysql_result($result, $i, 'idQuestao');
                 $tipo = mysql_result($result, $i, 'tipo');
@@ -94,8 +151,8 @@
                 echo "<p><b>".($i+1).") <span style='color: red'>#$idQuestao</span></b> &nbsp; $descricao</p>";
 
                 if ($tipo == 'objetiva') {
-                    $resultAlt = mysqli_query($conexao, "SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
-                    for ($ialt=0; $ialt < mysqli_num_rows($resultAlt); $ialt++) {
+                    $resultAlt = mysql_query("SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
+                    for ($ialt=0; $ialt < mysql_num_rows($resultAlt); $ialt++) {
                         $alternativa = htmlspecialchars(mysql_result($resultAlt, $ialt, 'alternativa'));
                         $correta = mysql_result($resultAlt, $ialt, 'correta');
 
@@ -113,9 +170,9 @@
             if ($_SESSION["tipo"] == "professor") $where = "WHERE prova.idProfessor = " . $_SESSION["id"];
             else $where = "";
 
-            $result = mysqli_query($conexao, "SELECT prova.idProva, prova.titulo, aplicarprova.idAplicarProva FROM prova
+            $result = mysql_query("SELECT prova.idProva, prova.titulo, aplicarprova.idAplicarProva FROM prova
               LEFT JOIN aplicarprova ON aplicarprova.idProva = prova.idProva $where");
-            $linhas = mysqli_num_rows($result);
+            $linhas = mysql_num_rows($result);
 
             echo '<table border="0" align="center" id="consulta" cellpadding="5" cellspacing="0"><tr><td>Código</td><td>Título</td><td colspan="3">Operações</td></tr>';
 
@@ -125,7 +182,7 @@
                 $aplicado = mysql_result($result, $i, "idAplicarProva");
                 $titulo   = $titulo != "" ? $titulo : "Sem título";
 
-                $resultQuestoes = mysqli_query($conexao, "SELECT COUNT(*) AS questoes FROM questao2 WHERE idProva = $idProva");
+                $resultQuestoes = mysql_query("SELECT COUNT(*) AS questoes FROM questao2 WHERE idProva = $idProva");
                 if (mysql_result($resultQuestoes, 0, "questoes") > 0) {
 
                   $excluir = "<td>--</td>";

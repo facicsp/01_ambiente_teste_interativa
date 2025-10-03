@@ -1,6 +1,6 @@
-﻿<?php 
+<?php 
 
-include "LoginRestrito/conexao.php";
+include "conexao.php";
 
 
 // INSERT INTO turma (turma, idCurso, ativo) VALUES ('', '', 'sim');
@@ -34,7 +34,7 @@ foreach ($data as $row) {
     $prefixo_turma = explode(' ', $turma)[0];
     $data = date('Y-m-d');
     
-    $result = mysqli_query($conexao, "SELECT idUsuario FROM usuario WHERE ra = '$ra'");
+    $result = mysql_query("SELECT idUsuario FROM usuario WHERE ra = '$ra'");
     
     if (!in_array($turma, $aux)) {
         echo $turma;
@@ -56,7 +56,7 @@ foreach ($data as $row) {
 
 
     // // CADASTRA OS ALUNOS NÃO CADASTRADOS
-    // if (mysqli_num_rows($result) == 0) { 
+    // if (mysql_num_rows($result) == 0) { 
     //     echo ("INSERT INTO usuario (ra, nome, cidade, nascimento, email, celular, tipo, senha) 
     //         VALUES ('$ra', '$nome', '$cidade', '$nascimento', '$email', '$celular', 'aluno', '$senha')");
     //     echo "<br>";

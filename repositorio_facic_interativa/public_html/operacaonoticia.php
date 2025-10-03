@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@
                 //conteudo do site
                 
                 
-include 'LoginRestrito/conexao.php';
+include 'conexao.php';
  
 $seguranca = new Seguranca();
 
@@ -28,13 +28,13 @@ $Texto = $_POST["elm1"];
 $Data = $seguranca->antisql($_POST["txtData"]);
 $Iddisciplina = $seguranca->antisql($_POST["txtIddisciplina"]);
 $Status = $seguranca->antisql($_POST["txtStatus"]);
-$sql = "UPDATE noticia SET tipo = '$Tipo',titulo = '$Titulo',texto = '$Texto',data = '$Data',iddisciplina = '$Iddisciplina',status = '$Status' WHERE idnoticia = '$id'";mysqli_query($conexao, $sql);
+$sql = "UPDATE noticia SET tipo = '$Tipo',titulo = '$Titulo',texto = '$Texto',data = '$Data',iddisciplina = '$Iddisciplina',status = '$Status' WHERE idnoticia = '$id'";mysql_query($sql);
 //echo $sql;
 echo "<script>
 alert('Alteração realizada com sucesso!');
 window.location = 'cadastromural.php';
 </script>";}else if($operacao == 'excluir'){
-$sql = "DELETE FROM noticia WHERE idnoticia = $id";mysqli_query($conexao, $sql);
+$sql = "DELETE FROM noticia WHERE idnoticia = $id";mysql_query($sql);
 echo "<script>
 alert('Exclusão realizada com sucesso!');
 window.location = 'cadastromural.php';

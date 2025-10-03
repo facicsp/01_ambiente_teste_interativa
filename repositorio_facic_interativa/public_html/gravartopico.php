@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -13,7 +13,7 @@
                 //conteudo do site
 
 
-                include 'LoginRestrito/conexao.php';
+                include 'conexao.php';
 
                 $seguranca = new Seguranca();
                 $idUsuario = $_SESSION["id"];
@@ -32,7 +32,7 @@
 
                     if($IdDisciplina != 0){
                         $sqlProfessor = "SELECT idProfessor,idTurma FROM disciplina WHERE idDisciplina = '$IdDisciplina'";
-                        $result = mysqli_query($conexao, $sqlProfessor);
+                        $result = mysql_query($sqlProfessor);
                         $IdDirecionado = mysql_result($result, 0, "idProfessor");
                         $IdTurma = mysql_result($result, 0, "idTurma");
                     }
@@ -40,14 +40,14 @@
                 
                 $sql = "INSERT INTO topico VALUES(null,'$idUsuario','$tipo','$Titulo','$Conteudo','$Status','$IdDirecionado','$IdTurma','$IdDisciplina')";
                 // echo $sql;
-                mysqli_query($conexao, $sql);
+                mysql_query($sql);
 
                 $idTopico = mysql_insert_id($conexao);
 
                 if ($avaliativo) {
                     $bimestre = $seguranca->antisql($_POST['txtBimestre']);
 
-                    mysqli_query($conexao, "INSERT INTO forumavaliacao VALUES (NULL, $IdDisciplina, $idTopico, $bimestre)");
+                    mysql_query("INSERT INTO forumavaliacao VALUES (NULL, $IdDisciplina, $idTopico, $bimestre)");
                 }
                 
                 echo "<script>

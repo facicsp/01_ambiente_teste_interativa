@@ -1,10 +1,10 @@
-﻿<?php
+<?php
 session_start();
 
 if (isset($_SESSION["usuario"])) {
     if ($_SESSION["tipo"] == "aluno" || $_SESSION["tipo"] == "professor") {
         
-        include 'LoginRestrito/conexao.php';
+        include './conexao.php';
         $seguranca = new Seguranca();
 
         $tipoEscritor = $seguranca->antisql($_SESSION["tipo"]);
@@ -23,11 +23,11 @@ if (isset($_SESSION["usuario"])) {
 
         if ($tipoEscritor == "aluno") {
             if ($tipoGrupo == "curso" || $tipoGrupo == "turma") {
-                $result = mysqli_query($conexao, "SELECT turma.idTurma, turma.idCurso FROM matricula
+                $result = mysql_query("SELECT turma.idTurma, turma.idCurso FROM matricula
                     LEFT JOIN turma ON turma.idTurma = matricula.idTurma
                     WHERE idaluno = '$idEscritor' AND ativo = 'sim' AND semestre = '$semestre'");
     
-                if (mysqli_num_rows($result) > 0) {
+                if (mysql_num_rows($result) > 0) {
                     $idGrupo = mysql_result($result, 0, ($tipoGrupo == "turma" ? "idTurma" : "idCurso"));
                 }
             } else if (isset($_POST["professor"])) {
@@ -105,7 +105,7 @@ if (isset($_FILES["anexo"])) {
 
 
         if ($erro == false) {
-            mysqli_query($conexao, "INSERT INTO mensagens VALUES (NULL, '$idEscritor', '$tipoEscritor', '$idGrupo', '$tipoGrupo', '$mensagem', DEFAULT, $idAluno, $anexo)");
+            mysql_query("INSERT INTO mensagens VALUES (NULL, '$idEscritor', '$tipoEscritor', '$idGrupo', '$tipoGrupo', '$mensagem', DEFAULT, $idAluno, $anexo)");
         }
 
         echo json_encode([

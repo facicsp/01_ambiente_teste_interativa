@@ -1,12 +1,12 @@
-﻿<?php
+<?php
 session_start();
-include "LoginRestrito/conexao.php";
+include "conexao.php";
 $seguranca = new Seguranca();
 
 if (isset($_GET["ra"])) {
     $ra = $seguranca->antisql($_GET["ra"]);
-    $result = mysqli_query($conexao, "SELECT ra FROM usuario WHERE ra = '$ra'");
-    echo mysqli_num_rows($result) > 0 ? "1" : "0";
+    $result = mysql_query("SELECT ra FROM usuario WHERE ra = '$ra'");
+    echo mysql_num_rows($result) > 0 ? "1" : "0";
     exit();
 }
 
@@ -250,8 +250,8 @@ if (isset($_SESSION["usuario"])) {
                                             <?php
                                             $sql = "SELECT * FROM turma WHERE semestre = '". $_SESSION['semestre']."' ORDER BY turma";
                                             echo $sql;
-                                            $resultados = mysqli_query($conexao, $sql);
-                                            $linhas = mysqli_num_rows($resultados);
+                                            $resultados = mysql_query($sql);
+                                            $linhas = mysql_num_rows($resultados);
                                             if ($linhas > 0) {
                                                 for ($i = 0; $i < $linhas; $i++) {
                                                     $idTurma = mysql_result($resultados, $i, "idTurma");
@@ -294,8 +294,8 @@ if (isset($_SESSION["usuario"])) {
         
         $sql = "SELECT idUsuario,nome,tipo,ra FROM usuario WHERE $condicao LIMIT 1000";
         //echo $sql;
-        $resultados = mysqli_query($conexao, $sql);
-        $linhas = mysqli_num_rows($resultados);
+        $resultados = mysql_query($sql);
+        $linhas = mysql_num_rows($resultados);
         if ($linhas > 0) {
             echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>
                 <tr>

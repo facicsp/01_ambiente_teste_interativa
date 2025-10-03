@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -16,13 +16,13 @@ if (isset($_SESSION["usuario"])) {
     if($_SESSION["tipo"] == "administrador" || $_SESSION["tipo"] == "aluno"){
       //atividade do site
       include "topo.php";
-      include 'LoginRestrito/conexao.php';
+      include 'conexao.php';
       $seguranca = new Seguranca();
       $idAula = $seguranca->antisql($_SESSION["idAulaGeral"]);
       $idAluno = $seguranca->antisql($_SESSION["id"]);
       $sqlAtividade = "SELECT idAtividade FROM atividade WHERE idAula='$idAula'";
-      $result = mysqli_query($conexao, $sqlAtividade);
-      $linhas = mysqli_num_rows($result);
+      $result = mysql_query($sqlAtividade);
+      $linhas = mysql_num_rows($result);
       $nomeArquivo = "";
       if($linhas > 0){
           $linhas++;
@@ -43,12 +43,12 @@ $idAluno = $_SESSION["id"];
 $idDisciplina = $_SESSION["disciplina"];
 $sql = "INSERT INTO atividade VALUES(null,'$titulo','','$idAula','$idAluno','$data','$hora','$obs','$idDisciplina','0','','')";
 //echo $sql;
-if(mysqli_query($conexao, $sql)){
+if(mysql_query($sql)){
 
-    $result = mysqli_query($conexao, "SELECT idAtividade FROM atividade WHERE idAula = '$idAula' AND idAluno = '$idAluno' 
+    $result = mysql_query("SELECT idAtividade FROM atividade WHERE idAula = '$idAula' AND idAluno = '$idAluno' 
         AND idDisciplina = '$idDisciplina' AND hora = '$hora' ORDER BY idAtividade DESC LIMIT 1");
     
-    if (mysqli_num_rows($result) == 1) {
+    if (mysql_num_rows($result) == 1) {
 
         $idAtividade = mysql_result($result, 0, "idAtividade");
         $_SESSION["idAtividade"] = $idAtividade;
@@ -67,7 +67,7 @@ if(mysqli_query($conexao, $sql)){
     }
 
 }else{
-    echo mysqli_error($conexao);
+    echo mysql_error();
 }
 
       }else{
@@ -94,11 +94,11 @@ $idAluno = $_SESSION["id"];
 $idDisciplina = $_SESSION["disciplina"];
 $sql = "INSERT INTO atividade VALUES(null,'$titulo','$uploadarq','$idAula','$idAluno','$data','$hora','$obs','$idDisciplina','0','','')";
 //echo $sql;
-if(mysqli_query($conexao, $sql)){
-    $result = mysqli_query($conexao, "SELECT idAtividade FROM atividade WHERE idAula = '$idAula' AND idAluno = '$idAluno' 
+if(mysql_query($sql)){
+    $result = mysql_query("SELECT idAtividade FROM atividade WHERE idAula = '$idAula' AND idAluno = '$idAluno' 
     AND idDisciplina = '$idDisciplina' AND hora = '$hora' ORDER BY idAtividade DESC LIMIT 1");
 
-if (mysqli_num_rows($result) == 1) {
+if (mysql_num_rows($result) == 1) {
 
     $idAtividade = mysql_result($result, 0, "idAtividade");
     $_SESSION["idAtividade"] = $idAtividade;
@@ -116,7 +116,7 @@ if (mysqli_num_rows($result) == 1) {
     </script>";
 }
 }else{
-    echo mysqli_error($conexao);
+    echo mysql_error();
 }
 
 }else{

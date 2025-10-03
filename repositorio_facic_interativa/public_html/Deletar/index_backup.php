@@ -59,7 +59,7 @@
     margin: 10px;
 ">Ver relatório</a></div>
     
-<img src="/imagens/relatorio-fasc.jpeg" style="width: 100%;height: 100%;object-fit: contain;">
+<img src="/imagens/relatorio-facic.jpeg" style="width: 100%;height: 100%;object-fit: contain;">
     
     
 </div>
@@ -399,5 +399,5 @@ AND disciplina.idProfessor = professor.idProfessor AND semestre = '$semestre'";
     . "</script>";
 }
   
-  echo "<script>(function() { document.title = 'FASC INTERATIVA' })()</script>";
+  echo "<script>(function() { document.title = 'FACIC INTERATIVA' })()</script>";
 ?>

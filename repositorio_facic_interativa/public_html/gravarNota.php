@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -16,7 +16,7 @@ session_start();
             if ($_SESSION["tipo"] == "professor") {
                 $idAluno = $_SESSION["id"];
                 include "topo.php";
-                include "LoginRestrito/conexao.php";
+                include "conexao.php";
                 $seguranca = new Seguranca();
                 $idDisciplina = $seguranca->antisql($_POST["disciplina"]);
                 $registros = $seguranca->antisql($_POST["registros"]);
@@ -25,7 +25,7 @@ session_start();
                     $nota[$i] = $seguranca->antisql($_POST["txtNota$i"]);
                     $idAluno[$i] = $seguranca->antisql($_POST["idAluno$i"]);
                     $sql = "INSERT INTO nota VALUES(null,'$nota[$i]','$tipo','$idAluno[$i]','$idDisciplina')";
-                    mysqli_query($conexao, $sql);
+                    mysql_query($sql);
                     
                 }
                 echo "<script>

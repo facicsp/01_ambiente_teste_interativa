@@ -1,0 +1,89 @@
+[2025-10-01 23:15:47] ========================================
+[2025-10-01 23:15:47] INÍCIO DO PROCESSAMENTO - gravarProva2_LOG.php
+[2025-10-01 23:15:47] ========================================
+[2025-10-01 23:15:47] 1. VERIFICAÇÃO DE SESSÃO
+[2025-10-01 23:15:47] Session ID: 87d7aeouhdqcaf6hhh9rjn9593
+[2025-10-01 23:15:47] Session usuario: adamfuzy@gmail.com
+[2025-10-01 23:15:47] Session tipo: professor
+[2025-10-01 23:15:47] Session id: 195
+[2025-10-01 23:15:47] Session idProva: 18111
+[2025-10-01 23:15:47] ✅ Sessão validada com sucesso
+[2025-10-01 23:15:47] 
+2. DADOS RECEBIDOS
+[2025-10-01 23:15:47] Método: POST
+[2025-10-01 23:15:47] Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryoM8mjLGZIKhTKXoP
+[2025-10-01 23:15:47] 
+--- Array ---
+[2025-10-01 23:15:47] Array
+(
+    [idProva] => false
+    [titulo] => 121221
+    [descricao] => 12212121
+    [correta] => 0
+    [peso] => 1
+    [tipo] => objetiva
+    [0] => 2121
+    [1] => 212121
+)
+
+[2025-10-01 23:15:47] 
+--- Array ---
+[2025-10-01 23:15:47] Array
+(
+)
+
+[2025-10-01 23:15:47] 
+--- RAW INPUT ---
+[2025-10-01 23:15:47] Tamanho: 0 bytes
+[2025-10-01 23:15:47] Primeiros 500 caracteres: 
+[2025-10-01 23:15:47] 
+3. INCLUIR DEPENDÊNCIAS
+[2025-10-01 23:15:47] Incluindo conexao.php...
+[2025-10-01 23:15:47] ✅ Classe Seguranca carregada
+[2025-10-01 23:15:47] ID Professor: 195
+[2025-10-01 23:15:47] 
+4. VALIDAÇÃO DE DADOS
+[2025-10-01 23:15:47] ✅ Título: 121221
+[2025-10-01 23:15:47] ✅ Descrição: 12212121...
+[2025-10-01 23:15:47] 
+5. SANITIZAÇÃO DE DADOS
+[2025-10-01 23:15:47] Título sanitizado: 121221
+[2025-10-01 23:15:47] Tipo: objetiva
+[2025-10-01 23:15:47] Peso: 1
+[2025-10-01 23:15:47] Correta: 0
+[2025-10-01 23:15:47] ID Prova passado: false
+[2025-10-01 23:15:47] 
+6. GERENCIAMENTO DA PROVA
+[2025-10-01 23:15:47] ✅ Usando prova existente da sessão: 18111
+[2025-10-01 23:15:47] 
+7. PROCESSAMENTO DE ALTERNATIVAS
+[2025-10-01 23:15:47] Alternativa 0: 2121...
+[2025-10-01 23:15:47] Alternativa 1: 212121...
+[2025-10-01 23:15:47] Total de alternativas: 2
+[2025-10-01 23:15:47] Validando questão objetiva...
+[2025-10-01 23:15:47] ✅ Questão objetiva validada - Alternativa correta: 0
+[2025-10-01 23:15:47] 
+8. INSERÇÃO DA QUESTÃO
+[2025-10-01 23:15:47] Query INSERT questão: INSERT INTO questao2 VALUES (NULL, '12212121', 'objetiva', '1', '18111', NULL)
+[2025-10-01 23:15:47] ✅ Questão inserida com sucesso
+[2025-10-01 23:15:47] Query SELECT questão: SELECT idQuestao FROM questao2 WHERE descricao = '12212121' AND tipo = 'objetiva' AND idProva = '18111' ORDER BY idQuestao DESC LIMIT 1
+[2025-10-01 23:15:47] ✅ ID da questão recuperado: 2327096
+[2025-10-01 23:15:47] 
+9. INSERÇÃO DAS ALTERNATIVAS
+[2025-10-01 23:15:47] Query INSERT alternativa 0: INSERT INTO alternativa VALUES (NULL, '2121', 'sim', '2327096')
+[2025-10-01 23:15:47] ✅ Alternativa 0 inserida com sucesso
+[2025-10-01 23:15:47] Query INSERT alternativa 1: INSERT INTO alternativa VALUES (NULL, '212121', 'nao', '2327096')
+[2025-10-01 23:15:47] ✅ Alternativa 1 inserida com sucesso
+[2025-10-01 23:15:47] 
+10. PROCESSAMENTO DE ANEXO
+[2025-10-01 23:15:47] Nenhum anexo enviado
+[2025-10-01 23:15:47] 
+11. FINALIZAÇÃO
+[2025-10-01 23:15:47] ✅✅✅ SUCESSO TOTAL - Questão salva com ID: 2327096
+[2025-10-01 23:15:47] Retornando ID da prova: 18111
+[2025-10-01 23:15:47] ========================================
+[2025-10-01 23:15:47] FIM DO PROCESSAMENTO
+[2025-10-01 23:15:47] ========================================
+
+
+[2025-10-01 23:15:47] OUTPUT CAPTURADO: <script>(function() { document.title = 'FACIC INTERATIVA' })()</script>{"success":true,"idProva":"18111","idQuestao":"2327096","log":"log_gravar_prova_2025-10-01_23-15-47.txt","message":"Quest\u00e3o salva com sucesso! Veja o log em: log_gravar_prova_2025-10-01_23-15-47.txt"}

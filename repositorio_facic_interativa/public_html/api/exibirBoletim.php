@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     
 include 'hasAccess.php';
 
@@ -8,8 +8,8 @@ $idAluno = $seguranca->antisql($_REQUEST["id"]);
 $sqlDisciplina = "SELECT disciplina.disciplina, disciplina.idDisciplina, boletim.* FROM boletim 
     INNER JOIN disciplina ON disciplina.idDisciplina = boletim.idDisciplina WHERE boletim.idaluno = '$idAluno' AND disciplina.semestre = '". SEMESTRE ."'";
     
-$resultDisciplina = mysqli_query($conexao, $sqlDisciplina);
-$linhasDisciplina = mysqli_num_rows($resultDisciplina);
+$resultDisciplina = mysql_query($sqlDisciplina);
+$linhasDisciplina = mysql_num_rows($resultDisciplina);
 
 if ($linhasDisciplina > 0) {
 

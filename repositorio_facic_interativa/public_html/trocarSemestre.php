@@ -1,8 +1,8 @@
-﻿<?php
+<?php
 
 session_start();
 
-include "LoginRestrito/conexao.php";
+include "conexao.php";
 $seguranca = new Seguranca();
 
 $_SESSION['semestre'] = $seguranca->antisql($_GET["semestre"]);

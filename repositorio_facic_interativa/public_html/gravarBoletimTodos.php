@@ -1,10 +1,10 @@
-﻿<?php
+<?php
 
 session_start();
 
 if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "professor") {
       
-  include "LoginRestrito/conexao.php";
+  include "conexao.php";
   $seguranca = new Seguranca();
   $dados = $_REQUEST["dados"];
   $retorno = "ok";
@@ -20,7 +20,7 @@ if (isset($_SESSION["usuario"]) && $_SESSION["tipo"] == "professor") {
         $sql = "UPDATE boletim SET bimestre1 = '$bimestre1', bimestre2 = '$bimestre2', 
             exame = '$exame', sub = '$sub' WHERE idBoletim = '$idBoletim'";
 
-        if (!mysqli_query($conexao, $sql)){
+        if (!mysql_query($sql)){
             $retorno = "erro";   
         }
     }

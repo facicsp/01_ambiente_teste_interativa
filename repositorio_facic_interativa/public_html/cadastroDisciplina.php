@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,7 +22,7 @@ session_start();
         if ($_SESSION["tipo"] == "administrador") {
             //conteudo do site
             include "topo.php";
-            include 'LoginRestrito/conexao.php';
+            include 'conexao.php';
     ?>
 
 
@@ -71,8 +71,8 @@ session_start();
                                                 <?php
                                                 $sql        = "SELECT * FROM professor ORDER BY nome";
                                                 // echo $sql;
-                                                $resultados = mysqli_query($conexao, $sql);
-                                                $linhas     = mysqli_num_rows($resultados);
+                                                $resultados = mysql_query($sql);
+                                                $linhas     = mysql_num_rows($resultados);
                                                 if ($linhas > 0) {
                                                     for ($i = 0; $i < $linhas; $i++) {
                                                         $idProfessor = mysql_result($resultados, $i, "idProfessor");
@@ -116,8 +116,8 @@ session_start();
                                                 <?php
                                                 $sql = "SELECT * FROM turma WHERE semestre = '" . $_SESSION['semestre'] . "' ORDER BY turma";
                                                 echo $sql;
-                                                $resultados = mysqli_query($conexao, $sql);
-                                                $linhas     = mysqli_num_rows($resultados);
+                                                $resultados = mysql_query($sql);
+                                                $linhas     = mysql_num_rows($resultados);
                                                 if ($linhas > 0) {
                                                     for ($i = 0; $i < $linhas; $i++) {
                                                         $idTurma = mysql_result($resultados, $i, "idTurma");
@@ -162,8 +162,8 @@ session_start();
                                         <?php
                                         $sql = "SELECT * FROM turma WHERE semestre = '" . $_SESSION['semestre'] . "' ORDER BY turma";
                                         echo $sql;
-                                        $resultados = mysqli_query($conexao, $sql);
-                                        $linhas     = mysqli_num_rows($resultados);
+                                        $resultados = mysql_query($sql);
+                                        $linhas     = mysql_num_rows($resultados);
                                         if ($linhas > 0) {
                                             for ($i = 0; $i < $linhas; $i++) {
                                                 $idTurma = mysql_result($resultados, $i, "idTurma");
@@ -199,8 +199,8 @@ session_start();
 
                             $sql        = "select disciplina.*,professor.nome,turma.turma from disciplina,professor,turma where disciplina.idprofessor = professor.idprofessor AND disciplina.idTurma = turma.idTurma AND disciplina.disciplina LIKE '%$consulta%' AND disciplina.semestre = '" . $_SESSION['semestre'] . "' $turma";
                             //echo $sql;
-                            $resultados = mysqli_query($conexao, $sql);
-                            $linhas     = mysqli_num_rows($resultados);
+                            $resultados = mysql_query($sql);
+                            $linhas     = mysql_num_rows($resultados);
                             if ($linhas > 0) {
                                 echo "<table border='0' align='center' id='consulta' class='table' cellpadding='5' cellspacing='0'><tr>
                                         <td style='width:25%;'>Disciplina</td>
@@ -244,8 +244,8 @@ session_start();
                         <select name="txtProfessor" style="font-size: 8px;">
                             <?php
                                     $sql2 = "SELECT idProfessor,nome FROM professor ORDER BY nome";
-                                    $resultados2 = mysqli_query($conexao, $sql2);
-                                    $linhas2     = mysqli_num_rows($resultados2);
+                                    $resultados2 = mysql_query($sql2);
+                                    $linhas2     = mysql_num_rows($resultados2);
                                     echo "<option value='$idProfessor'>$nome</option>";
                                     for ($n = 0; $n < $linhas2; $n++) {
                                         $idProfessor2 = mysql_result($resultados2, $n, "idProfessor");
@@ -262,10 +262,10 @@ session_start();
                         <select name="txtProfessorAuxiliar" style="font-size: 8px;">
                             <option value="0">::Escolha um Professor Auxiliar::</option>
                             <?php
-                                    $resultAux = mysqli_query($conexao, "SELECT professor.idProfessor, nome FROM relacao_professor_auxiliar 
+                                    $resultAux = mysql_query("SELECT professor.idProfessor, nome FROM relacao_professor_auxiliar 
                                         LEFT JOIN professor ON professor.idProfessor = relacao_professor_auxiliar.idProfessor 
                                         WHERE idDisciplina = '$id'");
-                                    $linhasAux = mysqli_num_rows($resultAux);
+                                    $linhasAux = mysql_num_rows($resultAux);
 
                                     if ($linhasAux > 0) {
                                         $idProfessorAux  = mysql_result($resultAux, 0, "idProfessor");
@@ -295,8 +295,8 @@ session_start();
 
                                     $sql2        = "SELECT idTurma,turma FROM turma ORDER BY turma";
                                     //echo $sql;
-                                    $resultados2 = mysqli_query($conexao, $sql2);
-                                    $linhas2     = mysqli_num_rows($resultados2);
+                                    $resultados2 = mysql_query($sql2);
+                                    $linhas2     = mysql_num_rows($resultados2);
                                     echo "<option value='$idTurma'>$turma</option>";
                                     for ($n = 0; $n < $linhas2; $n++) {
                                         $idTurma2 = mysql_result($resultados2, $n, "idTurma");

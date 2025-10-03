@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <title></title>
@@ -15,7 +15,7 @@
         if (isset($_SESSION["usuario"])) {
             if ($_SESSION["tipo"] == "aluno") {
                 //conteudo do site
-                include 'LoginRestrito/conexao.php';
+                include 'conexao.php';
                 include 'topo.php';
                 
 
@@ -36,8 +36,8 @@ where q.idDisciplina = '$idDisciplina'
 and q.idAluno = '$idAluno'
 and q.idResposta = r.idResposta
 and q.idPergunta = p.idPergunta";
-                $result = mysqli_query($conexao, $sql);
-                $linhas = mysqli_num_rows($result);
+                $result = mysql_query($sql);
+                $linhas = mysql_num_rows($result);
                 if($linhas > 0){
                     $corretas = 0;
                     $quantidade = $linhas;

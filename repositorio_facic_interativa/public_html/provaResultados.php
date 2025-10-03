@@ -1,6 +1,6 @@
-﻿<?php 
+<?php 
   session_start(); 
-  include 'LoginRestrito/conexao.php';
+  include './conexao.php';
   
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -47,8 +47,8 @@
             $idProfessor = $_SESSION["id"];
             
             $sql = "SELECT * FROM aplicarprova WHERE idProfessor = '$idProfessor' AND idAplicarProva = '$idAplicar'";
-            $resultados = mysqli_query($conexao, $sql);
-            $linhas = mysqli_num_rows($resultados);
+            $resultados = mysql_query($sql);
+            $linhas = mysql_num_rows($resultados);
             
             
             if ($linhas > 0) {
@@ -57,13 +57,12 @@
                 $idDisciplina = mysql_result($resultados, 0, 'idDisciplina');
                 $idTurma = mysql_result($resultados, 0, 'idTurma');
                 
-                $result = mysqli_query($conexao, "SELECT nome, ra, SUM(IF(questao.correta = respostas.resposta, 1, 0)) AS acertos FROM respostas 
+                $result = mysql_query("SELECT nome, ra, SUM(IF(questao.correta = respostas.resposta, 1, 0)) AS acertos FROM respostas 
                         LEFT JOIN questao ON questao.idQuestao = respostas.idQuestao 
                         LEFT JOIN usuario ON usuario.idUsuario = respostas.idAluno 
                         WHERE idProva = '$idProva' 
-                        GROUP BY idAluno
-                        ORDER BY nome ASC");
-                $linhas = mysqli_num_rows($result);
+                        GROUP BY idAluno");
+                $linhas = mysql_num_rows($result);
                 
                 echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0' width='950px' align='center'>
                   <tr>

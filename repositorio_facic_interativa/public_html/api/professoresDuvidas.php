@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 include 'hasAccess.php';
 
@@ -10,11 +10,11 @@ $sql = "SELECT p.idProfessor, p.nome FROM disciplina,professor p WHERE idTurma
       AND disciplina.idProfessor = p.idProfessor
       GROUP BY nome";
 
-$result = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($result);
+$result = mysql_query($sql);
+$linhas = mysql_num_rows($result);
 
 if($linhas > 0) {
-  while($row = mysqli_fetch_assoc($result)) {
+  while($row = mysql_fetch_assoc($result)) {
     $rows[] = $row;
   }
 } 
@@ -25,11 +25,11 @@ AND listadisciplina.idDisciplina = disciplina.idDisciplina
 AND listadisciplina.idAluno = usuario.idUsuario
 AND disciplina.idProfessor = professor.idProfessor AND semestre = '".SEMESTRE."'";
 
-$result = mysqli_query($conexao, $sql);
-$linhas = mysqli_num_rows($result);
+$result = mysql_query($sql);
+$linhas = mysql_num_rows($result);
 
 if($linhas > 0) {
-  while($row = mysqli_fetch_assoc($result)) {
+  while($row = mysql_fetch_assoc($result)) {
     $rows[] = $row;
   }
 } 

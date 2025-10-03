@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -13,7 +13,7 @@ session_start();
 if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "aluno" || $_SESSION["tipo"] == "professor"){
       //conteudo do site
-      include 'LoginRestrito/conexao.php';
+      include 'conexao.php';
       $seguranca = new Seguranca();
       $idUsuario = $_SESSION["id"];
       $comentario = $seguranca->antisql($_POST["txtComentario"]);
@@ -88,7 +88,7 @@ if ($erro != false) { $anexo = "NULL"; }
 
     //   echo "<script>console.log(\"$sql\");</script>";
 
-    mysqli_query($conexao, $sql);
+    mysql_query($sql);
 
 
     echo "<script>

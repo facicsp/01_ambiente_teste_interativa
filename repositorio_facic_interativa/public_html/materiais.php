@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,7 +22,7 @@ session_start();
                 <div class="dados">
                     <div class="barratitulo"><h1>Download de Materiais</h1></div>
                     <?php
-                    include "LoginRestrito/conexao.php";
+                    include "conexao.php";
                     $sql = "select idDisciplina,disciplina from disciplina where idTurma in(
 select matricula.idTurma from matricula,turma
 where idAluno = '$idAluno'
@@ -31,8 +31,8 @@ and disciplina.semestre = '".$_SESSION['semestre']."'
 AND turma.ativo ='sim') union
 select l.idDisciplina,d.disciplina from listadisciplina l,disciplina d where l.idAluno = '$idAluno' and l.idDisciplina = d.idDisciplina";
                     //echo $sql;
-                    $resultados = mysqli_query($conexao, $sql);
-                    $linhas = mysqli_num_rows($resultados);
+                    $resultados = mysql_query($sql);
+                    $linhas = mysql_num_rows($resultados);
                     if ($linhas > 0) {
                         for ($i = 0; $i < $linhas; $i++) {
                             $idDisciplina = mysql_result($resultados, $i, "idDisciplina");
@@ -41,8 +41,8 @@ select l.idDisciplina,d.disciplina from listadisciplina l,disciplina d where l.i
                             $sqlArquivo = "select c.titulo,c.arquivo from conteudo c,aula a
 where a.idDisciplina = '$idDisciplina'
 and c.idAula = a.idAula";
-                        $resultArquivo = mysqli_query($conexao, $sqlArquivo);
-                        $linhasArquivo = mysqli_num_rows($resultArquivo);
+                        $resultArquivo = mysql_query($sqlArquivo);
+                        $linhasArquivo = mysql_num_rows($resultArquivo);
                         if($linhasArquivo > 0){
                             for($n=0;$n<$linhasArquivo;$n++){
                             $titulo = mysql_result($resultArquivo, $n, "titulo");

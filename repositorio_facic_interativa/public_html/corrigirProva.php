@@ -1,6 +1,6 @@
-﻿<?php 
+<?php 
   session_start(); 
-  include 'LoginRestrito/conexao.php';
+  include './conexao.php';
   
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -41,16 +41,16 @@
             $idAplicarProva = $seguranca->antisql($_GET['id']);
             $idProva = $seguranca->antisql($_GET['idProva']);
 
-            $result = mysqli_query($conexao, "SELECT * FROM aplicarprova WHERE idProfessor = '$idProfessor' 
+            $result = mysql_query("SELECT * FROM aplicarprova WHERE idProfessor = '$idProfessor' 
               AND idAplicarProva = '$idAplicarProva' AND idProva = '$idProva'");
-            if (mysqli_num_rows($result) < 1) exit("Ops! Nenhum registro encontrado.");
+            if (mysql_num_rows($result) < 1) exit("Ops! Nenhum registro encontrado.");
           
-            $result = mysqli_query($conexao, "SELECT idlistaresposta, resposta, correcao, descricao, peso, nome, ra FROM lista_resposta 
+            $result = mysql_query("SELECT idlistaresposta, resposta, correcao, descricao, peso, nome, ra FROM lista_resposta 
               LEFT JOIN questao2 ON questao2.idQuestao = lista_resposta.idQuestao 
               LEFT JOIN usuario ON usuario.idUsuario = lista_resposta.idaluno 
-              WHERE questao2.tipo = 'dissertativa' AND lista_resposta.idprova = '$idProva' ORDER BY nome ASC, descricao ASC");
+              WHERE questao2.tipo = 'dissertativa' AND lista_resposta.idprova = '$idProva' ORDER BY correcao, descricao");
 
-            $linhas = mysqli_num_rows($result);
+            $linhas = mysql_num_rows($result);
             
             if ($linhas > 0) {
                 echo "<table border='0' align='center' id='consulta' cellpadding='5' cellspacing='0'>

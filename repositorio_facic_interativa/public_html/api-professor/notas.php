@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 include 'hasAccess.php';
 include '../funcaoNotas.php';
@@ -9,34 +9,34 @@ $idTurma = $seguranca->antisql($_REQUEST["idTurma"]);
 
 $sqlBoletim = "SELECT idAluno from matricula where idTurma = '$idTurma' 
   AND idAluno not in (select idAluno from boletim where idDisciplina = '$idDisciplina')";
-$resultBoletim = mysqli_query($conexao, $sqlBoletim);
-$linhasBoletim = mysqli_num_rows($resultBoletim);
+$resultBoletim = mysql_query($sqlBoletim);
+$linhasBoletim = mysql_num_rows($resultBoletim);
 
 if($linhasBoletim > 0) {
   for($n=0; $n<$linhasBoletim; $n++) {
     $idAluno = mysql_result($resultBoletim, $n, "idAluno");
     $sql = "INSERT INTO boletim VALUES(null,'$idAluno','$idDisciplina','0','0','0','0','0','0')";
-    mysqli_query($conexao, $sql);
+    mysql_query($sql);
   }
 }
 
 $sqlAdaptado = "SELECT idAluno from listadisciplina where idDisciplina = '$idDisciplina' 
   AND idAluno not in (select idAluno from boletim where idDisciplina = $idDisciplina)";
-$resultAdaptado = mysqli_query($conexao, $sqlAdaptado);
-$linhasAdaptado = mysqli_num_rows($resultAdaptado);
+$resultAdaptado = mysql_query($sqlAdaptado);
+$linhasAdaptado = mysql_num_rows($resultAdaptado);
 
 if($linhasAdaptado > 0) {
   for($n=0; $n<$linhasAdaptado; $n++) {
     $idAluno = mysql_result($resultAdaptado, $n, "idAluno");
     $sql = "INSERT INTO boletim VALUES(null,'$idAluno','$idDisciplina','0','0','0','0','0','0')";
-    mysqli_query($conexao, $sql);
+    mysql_query($sql);
   }
 }
 
 $sqlBoletim = "SELECT boletim.*,usuario.nome FROM boletim,usuario WHERE idDisciplina = '$idDisciplina' 
   AND boletim.idAluno = usuario.idUsuario ORDER BY usuario.nome";
-$resultBoletim = mysqli_query($conexao, $sqlBoletim);
-$linhasBoletim = mysqli_num_rows($resultBoletim);
+$resultBoletim = mysql_query($sqlBoletim);
+$linhasBoletim = mysql_num_rows($resultBoletim);
 
 if ($linhasBoletim > 0) {
   $rows = [];
@@ -86,14 +86,14 @@ if ($linhasBoletim > 0) {
 } else {
   $sqlAlunos = "SELECT u.idUsuario,u.nome FROM matricula m,usuario u WHERE m.idTurma = '$idTurma' 
     AND m.idAluno = u.idUsuario ORDER BY u.nome";
-  $resultadosAlunos = mysqli_query($conexao, $sqlAlunos);
-  $linhasAlunos = mysqli_num_rows($resultadosAlunos);
+  $resultadosAlunos = mysql_query($sqlAlunos);
+  $linhasAlunos = mysql_num_rows($resultadosAlunos);
 
   if ($linhasAlunos > 0) {
     for ($i = 0; $i < $linhasAlunos; $i++) {
       $idAluno = mysql_result($resultadosAlunos, $i, "idUsuario");
       $sql = "INSERT INTO boletim VALUES(null,'$idAluno','$idDisciplina','0','0','0','0','0','0')";
-      mysqli_query($conexao, $sql);
+      mysql_query($sql);
     }
 
     echo json_encode('novamente');

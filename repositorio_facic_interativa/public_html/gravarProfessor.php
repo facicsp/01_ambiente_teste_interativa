@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,14 +14,14 @@ if (isset($_SESSION["usuario"])) {
   if($_SESSION["tipo"] == "administrador"){
       //conteudo do site
 include "topo.php";
-      include 'LoginRestrito/conexao.php';
+      include 'conexao.php';
       $seguranca = new Seguranca();
 $nome = $seguranca->antisql($_POST["txtNome"]);
 $email = $seguranca->antisql($_POST["txtEmail"]);
 $senha = $seguranca->antisql($_POST["txtSenha"]);
 $sql = "INSERT INTO professor VALUES(null,'$nome','$email',md5('$senha'))";
 //echo $sql;
-mysqli_query($conexao, $sql);
+mysql_query($sql);
 echo "<script>
 alert('Gravação realizada com sucesso!');
 window.location = 'cadastroProfessor.php';

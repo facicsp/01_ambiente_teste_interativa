@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 include 'hasAccess.php';
 
@@ -40,7 +40,7 @@ $respostas = $_POST["respostas"];
 
 $html = "";
 
-$result  = mysqli_query($conexao, "SELECT idProva FROM aplicarprova WHERE idAplicarProva = '$idAplicar'");
+$result  = mysql_query("SELECT idProva FROM aplicarprova WHERE idAplicarProva = '$idAplicar'");
 $idProva = mysql_result($result, 0, "idProva");
 
 for ($i=0; $i<sizeof($respostas); $i++) {
@@ -48,7 +48,7 @@ for ($i=0; $i<sizeof($respostas); $i++) {
   $idQuestao = $respostas[$i]["idQuestao"];
   $resposta  = $respostas[$i]["resposta"];
 
-  $resultQuestao = mysqli_query($conexao, "SELECT * FROM questao2 WHERE idQuestao = '$idQuestao'");
+  $resultQuestao = mysql_query("SELECT * FROM questao2 WHERE idQuestao = '$idQuestao'");
   $descricao     = mysql_result($resultQuestao, 0, "descricao");
   $tipo          = mysql_result($resultQuestao, 0, "tipo");
   $peso          = mysql_result($resultQuestao, 0, "peso");
@@ -58,10 +58,10 @@ for ($i=0; $i<sizeof($respostas); $i++) {
   $nota = '';
 
   if ($tipo === "objetiva") {
-    $result = mysqli_query($conexao, "SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
+    $result = mysql_query("SELECT * FROM alternativa WHERE idQuestao = '$idQuestao'");
     $nota = 0;
 
-    for ($j=0; $j < mysqli_num_rows($result); $j++) { 
+    for ($j=0; $j < mysql_num_rows($result); $j++) { 
       $idAlternativa = mysql_result($result, $j, "idalternativa");
       $alternativa = mysql_result($result, $j, "alternativa");
       $correta = mysql_result($result, $j, "correta");
@@ -76,7 +76,7 @@ for ($i=0; $i<sizeof($respostas); $i++) {
 
   $html .= "<hr>";
 
-  mysqli_query($conexao, "INSERT INTO lista_resposta VALUES(NULL, '$resposta', '$nota', '$idProva', '$idQuestao', '$idAluno')");
+  mysql_query("INSERT INTO lista_resposta VALUES(NULL, '$resposta', '$nota', '$idProva', '$idQuestao', '$idAluno')");
 }
 
 $assunto = "Confirmação de envio de prova";
@@ -84,7 +84,7 @@ $conteudo = "FACIC INTERATIVA";
 $header  = "Content-type: text/html; charset=iso-8859-1\n";
 $header .= "From: FACIC INTERATIVA<sistemafacic@ava24horas.com>";
 
-$result = mysqli_query($conexao, "SELECT email FROM usuario WHERE idUsuario = '$idAluno'");
+$result = mysql_query("SELECT email FROM usuario WHERE idUsuario = '$idAluno'");
 $email = mysql_result($result, 0, "email");
 
 $mail = ("$email");

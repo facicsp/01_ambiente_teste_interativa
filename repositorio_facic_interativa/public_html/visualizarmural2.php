@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -15,7 +15,7 @@ session_start();
         if (isset($_SESSION["usuario"])) {
             if ($_SESSION["tipo"] == "professor" || $_SESSION["tipo"] == "aluno") {
                 include "topo.php";
-                include 'LoginRestrito/conexao.php';
+                include './conexao.php';
                 $seguranca = new Seguranca();
                 
                 echo "<form method='get' action='visualizarmural.php'>"
@@ -39,8 +39,8 @@ session_start();
                     $sql = "SELECT n.*,d.disciplina,p.nome,date_format(n.data,'%d/%m/%Y') as data2 FROM noticia n,disciplina d,professor p WHERE  n.iddisciplina = d.idDisciplina AND n.idprofessor = p.idProfessor AND p.idProfessor = '$idProfessor' ORDER BY n.idnoticia DESC";
                 }
                 //echo $sql;
-                $result = mysqli_query($conexao, $sql);
-                $linhas = mysqli_num_rows($result);
+                $result = mysql_query($sql);
+                $linhas = mysql_num_rows($result);
                 
                 if($linhas > 0){
                     for($i=0;$i<$linhas;$i++){

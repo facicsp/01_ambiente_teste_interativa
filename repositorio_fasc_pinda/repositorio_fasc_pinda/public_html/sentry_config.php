@@ -15,8 +15,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 \Sentry\init([
     'dsn' => 'https://3c1395059387c9e9dc5927c8f26361f8@o4510030147026944.ingest.us.sentry.io/4510030262960128',
-    'traces_sample_rate' => 0.2,
-    'profiles_sample_rate' => 0.1,
+    'traces_sample_rate' => 1.0,
+    'profiles_sample_rate' => 1.0,
 
     // Configurações específicas para sistema legado PHP/MySQL
     'error_types' => E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED,

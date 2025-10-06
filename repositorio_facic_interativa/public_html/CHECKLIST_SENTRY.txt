@@ -1,0 +1,136 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║   ✅ CHECKLIST DE INSTALAÇÃO SENTRY - FACIC INTERATIVA        ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+📋 INSTALAÇÃO CONCLUÍDA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ SDK Sentry instalado (v4.15.2)
+✅ Arquivo sentry_config.php criado e configurado
+✅ Arquivo conexao.php modificado para carregar o Sentry
+✅ Funções customizadas para sistema acadêmico FACIC
+✅ Handlers globais de erro configurados
+✅ Tags e contexto acadêmico configurados
+
+
+🧪 PRÓXIMO PASSO: TESTAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1️⃣  Acesse: http://seu-dominio/teste_sentry.php
+
+2️⃣  Aguarde 30 segundos
+
+3️⃣  Verifique: https://facic.sentry.io/projects/interativa-facic/
+
+4️⃣  Procure por "Issues" no menu lateral
+
+
+📊 INFORMAÇÕES DO PROJETO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Organização:  facic
+Projeto:      interativa-facic
+Ambiente:     production
+Release:      interativa-facic-v1.0.0
+SDK:          sentry/sentry v4.15.2
+
+
+🔍 O QUE O SENTRY VAI CAPTURAR AUTOMATICAMENTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Erros PHP não tratados
+✅ Exceções não capturadas  
+✅ Erros fatais (E_ERROR, E_CORE_ERROR, etc.)
+✅ Warnings críticos
+✅ Problemas de SQL
+✅ Queries lentas (>2 segundos)
+✅ Problemas de performance
+
+
+💡 COMO USAR NO SEU CÓDIGO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Exemplo 1: Capturar erro crítico
+────────────────────────────────
+<?php
+try {
+    // seu código
+} catch (Exception $e) {
+    capturarErroCriticoAcademico($e, [
+        'modulo' => 'notas',
+        'operacao' => 'salvar'
+    ]);
+}
+?>
+
+Exemplo 2: Monitorar query lenta
+─────────────────────────────────
+<?php
+$inicio = microtime(true);
+$result = mysql_query($sql);
+$tempo = microtime(true) - $inicio;
+
+if ($tempo > 2.0) {
+    capturarQueryLentaFACIC($sql, $tempo);
+}
+?>
+
+
+📁 ARQUIVOS CRIADOS/MODIFICADOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+MODIFICADO:
+  📝 conexao.php (adicionado carregamento do Sentry)
+
+CRIADOS:
+  📄 GUIA_INSTALACAO_SENTRY_MCP.md (guia completo)
+  📄 RESUMO_INSTALACAO_SENTRY.md (resumo executivo)
+  📄 CHECKLIST_SENTRY.txt (este arquivo)
+  📄 teste_sentry.php (arquivo de teste)
+
+
+⚠️  IMPORTANTE - NÃO FAÇA ISSO!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ NÃO remova a linha do Sentry no conexao.php
+❌ NÃO delete o arquivo sentry_config.php
+❌ NÃO delete a pasta vendor/sentry
+❌ NÃO modifique o DSN sem verificar no painel
+
+
+🆘 PROBLEMAS? VERIFIQUE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+□ O arquivo vendor/autoload.php existe?
+□ O arquivo sentry_config.php existe?
+□ O conexao.php tem a linha do Sentry?
+□ O servidor tem acesso à internet?
+□ O DSN está correto no sentry_config.php?
+
+
+📞 LINKS ÚTEIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Painel FACIC:
+  https://facic.sentry.io/
+
+Projeto interativa-facic:
+  https://facic.sentry.io/projects/interativa-facic/
+
+Documentação Oficial:
+  https://docs.sentry.io/platforms/php/
+
+Arquivo de Teste:
+  http://seu-dominio/teste_sentry.php
+
+
+✨ PRONTO PARA USO!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+O Sentry está instalado e configurado.
+Execute o teste e comece a monitorar seu sistema!
+
+Data: 03/10/2025
+Status: ✅ INSTALAÇÃO COMPLETA

@@ -1,6 +1,17 @@
 <?php
   date_default_timezone_set('America/Sao_Paulo');
   
+  // ============================================
+  // INICIALIZAÇÃO DO SENTRY - FACIC INTERATIVA - DESATIVADO TEMPORARIAMENTE
+  // ============================================
+  // DESATIVADO devido a erro 500 no login
+  // Incluir configuração do Sentry ANTES de qualquer outra coisa
+  /*
+  if (file_exists(__DIR__ . '/sentry_config.php')) {
+      require_once __DIR__ . '/sentry_config.php';
+  }
+  */
+  
   if (!(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
     echo "<script>(function() { document.title = 'FACIC INTERATIVA' })()</script>";
   

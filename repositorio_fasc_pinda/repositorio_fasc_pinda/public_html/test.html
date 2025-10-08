@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🤖 Agentes Test - FACIC/FASC</title>
+    <meta charset="UTF-8">
+    <style>
+        body{font-family:Arial,sans-serif;background:#667eea;color:white;padding:40px;text-align:center}
+        .container{background:white;border-radius:20px;padding:40px;max-width:600px;margin:0 auto;color:#333}
+        .emoji{font-size:4rem;margin:20px}
+        .status{background:#e8f5e8;border:2px solid #4caf50;border-radius:10px;padding:15px;margin:20px;color:#2e7d32}
+        .info{background:#f8f9fa;border-radius:10px;padding:15px;margin:10px}
+        .badge{background:#667eea;color:white;padding:5px 15px;border-radius:20px;font-size:0.8rem;margin:5px;display:inline-block}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">🤖</div>
+        <h1>Sistema de Agentes - Teste</h1>
+        <p>EDUCAÇÃO FACIC/FASC</p>
+
+        <div class="status">
+            ✅ AMBIENTE CONECTADO COM SUCESSO!
+        </div>
+
+        <div class="info">
+            <strong>Data/Hora:</strong> <span id="datetime"></span><br>
+            <strong>Versão:</strong> v1.0 Educação<br>
+            <strong>Status:</strong> 🟢 Online
+        </div>
+
+        <div class="info">
+            <strong>Recursos Configurados:</strong><br>
+            ✅ 11 Agentes Educação<br>
+            ✅ Integração Sentry<br>
+            ✅ FTP Deploy<br>
+            ✅ 8 Ambientes<br>
+            ✅ Artifacts Estruturados
+        </div>
+
+        <div>
+            <span class="badge">FACIC</span>
+            <span class="badge">FASC</span>
+            <span class="badge">AVA24 HORAS</span>
+            <span class="badge">INTERATIVA</span>
+        </div>
+
+        <div style="margin-top:30px;font-size:0.9rem;color:#666;">
+            Sistema de Agentes Multidisciplinares - Versão Educação<br>
+            Teste realizado em <span id="year"></span>
+        </div>
+    </div>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('datetime').textContent = now.toLocaleString('pt-BR');
+            document.getElementById('year').textContent = now.getFullYear();
+        }
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+
+        console.log('🤖 Sistema de Agentes - Teste de Conexão');
+        console.log('✅ Configuração educacional FACIC/FASC OK!');
+    </script>
+</body>
+</html>

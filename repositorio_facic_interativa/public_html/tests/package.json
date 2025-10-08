@@ -1,0 +1,22 @@
+{
+  "name": "facic-interativa-tests",
+  "version": "1.0.0",
+  "description": "Testes automatizados do sistema FACIC Interativa com Playwright",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:emails": "playwright test tests/emails/",
+    "test:alunos": "playwright test tests/emails/alunos.spec.js",
+    "test:professores": "playwright test tests/emails/professores.spec.js",
+    "test:admin": "playwright test tests/emails/admin.spec.js",
+    "report": "playwright show-report"
+  },
+  "keywords": ["playwright", "e2e", "testing", "automation"],
+  "author": "FACIC",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}

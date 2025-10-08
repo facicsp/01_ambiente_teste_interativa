@@ -10,12 +10,12 @@
 // ======================================
 
 $SMTP_ACCOUNT = [
-    'email' => 'sistema@facicinterativa.com.br',
-    'password' => '', // ← CONFIGURAR A SENHA AQUI
+    'email' => 'tecnologia@facicsp.com.br',
+    'password' => 'F@cic123@',
     'name' => 'FACIC Interativa',
-    'host' => 'smtp.facicinterativa.com.br', // Ajustar se necessário
-    'port' => 587,
-    'secure' => 'tls', // 'tls' para porta 587 ou 'ssl' para porta 465
+    'host' => 'email-ssl.com.br',
+    'port' => 993,
+    'secure' => 'ssl', // SSL para porta 993
     'timeout' => 30
 ];
 
@@ -24,9 +24,9 @@ $SMTP_ACCOUNT = [
 // ======================================
 
 $SMTP_DEFAULT = [
-    'from_email' => 'sistema@facicinterativa.com.br',
+    'from_email' => 'tecnologia@facicsp.com.br',
     'from_name' => 'FACIC Interativa',
-    'reply_to_email' => 'suporte@facicinterativa.com.br',
+    'reply_to_email' => 'tecnologia@facicsp.com.br',
     'reply_to_name' => 'Suporte FACIC'
 ];
 
